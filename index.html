@@ -3,366 +3,436 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anbarasan P - Unique Portfolio</title>
+    <title>Anbarasan P - iOS Glass Dashboard</title>
     
-    <!-- Modern Sharp Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
+    <!-- iOS Clean Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Sharp Style Theme Variables */
+        /* iOS Glass & Theme Variables */
         :root {
             /* Light Theme */
-            --bg-color: #e5e5f7;
-            --grid-color: #cfd8dc;
-            --surface-color: #ffffff;
-            --text-color: #000000;
-            --border-color: #000000;
-            --accent-color: #ff3b30; /* Sharp Red */
+            --bg-base: #f0f4f8;
+            --orb-1: #ff9a9e;
+            --orb-2: #fecfef;
+            --orb-3: #a1c4fd;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --glass-panel: rgba(255, 255, 255, 0.6);
+            --glass-card: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: rgba(0, 0, 0, 0.05);
+            --accent: #007aff;
         }
 
         [data-theme="dark"] {
             /* Dark Theme (Default) */
-            --bg-color: #0a0a0a;
-            --grid-color: #1a1a1a;
-            --surface-color: #111111;
-            --text-color: #ffffff;
-            --border-color: #444444;
-            --accent-color: #00ffcc; /* Neon Cyan */
+            --bg-base: #000000;
+            --orb-1: #662d8c;
+            --orb-2: #ed1e79;
+            --orb-3: #02aab0;
+            --text-main: #f5f5f7;
+            --text-muted: #a1a1a6;
+            --glass-panel: rgba(25, 25, 30, 0.4);
+            --glass-card: rgba(40, 40, 45, 0.5);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: rgba(0, 0, 0, 0.4);
+            --accent: #0a84ff;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Space Grotesk', sans-serif; /* Sharp, modern font */
-            transition: background-color 0.3s, color 0.3s;
+            font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+            transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            min-height: 100vh;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            /* Sharp Grid Background Pattern */
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-                              linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 40px 40px;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Lock scroll, everything inside dashboard */
         }
 
-        /* Top Information Corner (Sharp & Edge Style) */
+        /* Ambient Background Orbs */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background-color: var(--bg-base);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.7;
+            animation: drift 15s infinite alternate ease-in-out;
+        }
+
+        .orb:nth-child(1) { width: 50vw; height: 50vw; background: var(--orb-1); top: -10%; left: -10%; }
+        .orb:nth-child(2) { width: 40vw; height: 40vw; background: var(--orb-2); bottom: -10%; right: -10%; animation-delay: -5s; }
+        .orb:nth-child(3) { width: 30vw; height: 30vw; background: var(--orb-3); top: 40%; left: 40%; animation-delay: -10s; }
+
+        @keyframes drift {
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* Option A: Main Glass Dashboard Frame */
+        .dashboard-frame {
+            width: 95vw;
+            height: 90vh;
+            max-width: 1400px;
+            background: var(--glass-panel);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px; /* Clean, slightly sharp corners */
+            box-shadow: 0 30px 60px var(--glass-shadow);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top Information Corner & Header */
         header {
-            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 40px;
-            background-color: var(--surface-color);
-            border-bottom: 2px solid var(--border-color);
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-color);
-            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--text-main);
         }
 
         .logo span {
-            color: var(--surface-color);
-            background-color: var(--text-color);
-            padding: 2px 8px;
-            margin-left: 5px;
+            color: var(--accent);
         }
 
-        /* Sharp Buttons */
         .controls {
             display: flex;
             gap: 15px;
         }
 
-        .sharp-btn {
-            background: transparent;
-            color: var(--text-color);
-            border: 2px solid var(--border-color);
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: all 0.2s ease;
-            border-radius: 0; /* No curved edges - Sharp style */
-        }
-
-        .sharp-btn:hover {
-            background: var(--accent-color);
-            color: #000;
-            border-color: var(--accent-color);
-            transform: translate(-3px, -3px);
-            box-shadow: 4px 4px 0px var(--text-color);
-        }
-
-        /* Center Layout for 3 Cards */
-        main {
-            flex: 1;
+        .btn-control {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 6px; /* Sharp iOS style */
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 120px 5% 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
         }
 
-        .three-card-layout {
+        .btn-control:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* 3 Center Card Layout */
+        .dashboard-content {
+            flex: 1;
+            padding: 40px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            max-width: 1300px;
-            width: 100%;
+            gap: 30px;
+            overflow-y: auto;
         }
 
-        /* Card Styling (Sharp & Edgy) */
-        .card {
-            background-color: var(--surface-color);
-            border: 2px solid var(--border-color);
-            padding: 40px;
+        /* Inner Glass Cards */
+        .glass-card {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px; /* Sharp and Clean */
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            position: relative;
-            transition: all 0.3s ease;
-            border-radius: 0; /* Sharp Edges */
+            transition: transform 0.3s ease;
         }
 
-        /* Hover Effect for Cards */
-        .card:hover {
-            transform: translate(-8px, -8px);
-            box-shadow: 12px 12px 0px var(--accent-color);
-            border-color: var(--text-color);
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
         }
 
-        .card-title {
-            font-size: 22px;
-            font-weight: 700;
+        .card-header {
+            font-size: 18px;
+            font-weight: 600;
             margin-bottom: 25px;
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--text-main);
         }
 
-        /* Card 1: Profile & About */
-        .profile-img-container {
-            width: 100%;
-            height: 250px;
-            overflow: hidden;
-            border: 2px solid var(--border-color);
+        /* Card 1: Profile */
+        .profile-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+        }
+
+        .img-ring {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(45deg, var(--accent), var(--orb-2));
             margin-bottom: 20px;
         }
 
         .profile-img {
             width: 100%;
             height: 100%;
+            border-radius: 50%;
             object-fit: cover;
-            filter: grayscale(20%); /* Cool tech look */
-            transition: filter 0.3s;
+            border: 3px solid var(--glass-card);
         }
 
-        .card:hover .profile-img {
-            filter: grayscale(0%);
+        .name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
 
-        .about-text {
-            font-size: 15px;
+        .title {
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .bio {
+            font-size: 14px;
+            color: var(--text-muted);
             line-height: 1.6;
-            margin-bottom: 20px;
         }
 
-        /* Card 2: Projects */
+        /* Card 2: Projects (Clean List) */
         .project-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
         .project-item {
-            border: 1px solid var(--border-color);
             padding: 15px;
-            transition: background 0.2s;
+            border: 1px solid var(--glass-border);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            text-decoration: none;
+            color: var(--text-main);
+            display: block;
         }
 
         .project-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 5px solid var(--accent-color);
+            background: var(--glass-card);
         }
 
-        .project-item h4 {
-            font-size: 18px;
+        .project-title {
+            font-size: 15px;
+            font-weight: 600;
             margin-bottom: 5px;
-            color: var(--accent-color);
+            display: flex;
+            justify-content: space-between;
         }
 
-        .project-item p {
-            font-size: 13px;
-            opacity: 0.8;
+        .project-desc {
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
-        /* Card 3: Contact & Skills */
-        .skills-grid {
+        /* Card 3: Skills & Connect */
+        .skills-wrap {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 40px;
+            gap: 8px;
+            margin-bottom: 30px;
         }
 
-        .skill-tag {
-            border: 1px solid var(--border-color);
-            padding: 8px 15px;
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
+        .skill {
+            font-size: 12px;
+            padding: 6px 12px;
+            border: 1px solid var(--glass-border);
+            border-radius: 4px;
+            background: rgba(255,255,255,0.05);
         }
 
-        .social-links {
+        .connect-links {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
             margin-top: auto;
         }
 
-        .social-link {
+        .connect-btn {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 15px;
-            border: 2px solid var(--border-color);
-            color: var(--text-color);
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            background: var(--accent);
+            color: #fff;
             text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            transition: all 0.2s;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: opacity 0.2s;
         }
 
-        .social-link:hover {
-            background: var(--text-color);
-            color: var(--surface-color);
+        .connect-btn:hover {
+            opacity: 0.9;
         }
 
-        /* Responsive adjustments for Mobile */
+        .social-row {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .social-btn:hover {
+            background: var(--glass-card);
+        }
+
+        /* Scrollbar for dashboard */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+
+        /* Responsive Dashboard */
         @media (max-width: 1024px) {
-            .three-card-layout {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .dashboard-frame { width: 100vw; height: 100vh; border-radius: 0; border: none; }
+            .dashboard-content { grid-template-columns: repeat(2, 1fr); padding: 20px; }
         }
 
         @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-            }
-            .three-card-layout {
-                grid-template-columns: 1fr;
-            }
-            .controls {
-                gap: 10px;
-            }
-            .sharp-btn {
-                padding: 8px 12px;
-                font-size: 14px;
-            }
+            .dashboard-content { grid-template-columns: 1fr; }
+            body { overflow-y: auto; }
+            .dashboard-frame { height: auto; min-height: 100vh; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Sharp Top Information Corner -->
-    <header>
-        <a href="#" class="logo">Anbarasan<span>P</span></a>
-        
-        <div class="controls">
-            <!-- Language Button -->
-            <button id="lang-btn" class="sharp-btn">TA</button>
-            <!-- Theme Toggle Button -->
-            <button id="theme-btn" class="sharp-btn"><i class="fas fa-sun"></i></button>
-        </div>
-    </header>
+    <!-- Animated Ambient Background (Option B iOS blur) -->
+    <div class="ambient-bg">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
 
-    <!-- Center 3-Card Layout -->
-    <main>
-        <div class="three-card-layout">
+    <!-- Option A: Single Massive Glass Dashboard -->
+    <div class="dashboard-frame">
+        
+        <!-- Top Information Corner -->
+        <header>
+            <div class="logo">Anbarasan <span>P</span></div>
+            <div class="controls">
+                <button id="lang-btn" class="btn-control" title="Language">TA</button>
+                <button id="theme-btn" class="btn-control" title="Theme"><i class="fas fa-sun"></i></button>
+            </div>
+        </header>
+
+        <!-- Center 3 Card Layout Inside Dashboard -->
+        <main class="dashboard-content">
             
-            <!-- Card 1: About Me & Photo -->
-            <div class="card card-1">
-                <div class="card-title" data-en="Profile" data-ta="சுயவிவரம்">Profile</div>
-                
-                <div class="profile-img-container">
-                    <!-- Ensure the image 42495.png is in the same folder -->
-                    <img src="42495.png" alt="Anbarasan P" class="profile-img">
+            <!-- Card 1: Identity -->
+            <div class="glass-card">
+                <div class="card-header" data-en="Profile" data-ta="சுயவிவரம்">Profile</div>
+                <div class="profile-wrapper">
+                    <div class="img-ring">
+                        <!-- Profile Photo 42495.png (Circle) -->
+                        <img src="42495.png" alt="Profile" class="profile-img">
+                    </div>
+                    <div class="name">Anbarasan P</div>
+                    <div class="title" data-en="Student & Developer" data-ta="மாணவர் மற்றும் டெவலப்பர்">Student & Developer</div>
+                    <p class="bio" data-en="Passionate about crafting clean, modern web experiences and solving complex problems with code." 
+                       data-ta="நவீன வலைத்தளங்களை வடிவமைப்பதிலும், புதிய தொழில்நுட்பங்களை கற்பதிலும் ஆர்வம் கொண்டவன்.">
+                       Passionate about crafting clean, modern web experiences and solving complex problems with code.
+                    </p>
                 </div>
-                
-                <p class="about-text" data-en="Hi, I'm Anbarasan. A student and developer focused on creating unique, attractive, and highly functional digital experiences." 
-                   data-ta="வணக்கம், நான் அன்பரசன். தனித்துவமான மற்றும் சிறந்த ப்ராஜெக்ட்டுகளை உருவாக்குவதில் ஆர்வம் கொண்ட மாணவர்.">
-                   Hi, I'm Anbarasan. A student and developer focused on creating unique, attractive, and highly functional digital experiences.
-                </p>
             </div>
 
             <!-- Card 2: Projects -->
-            <div class="card card-2">
-                <div class="card-title" data-en="Projects" data-ta="படைப்புகள்">Projects</div>
-                
-                <ul class="project-list">
-                    <li class="project-item">
-                        <h4 data-en="Project 01" data-ta="ப்ராஜெக்ட் 01">Project 01</h4>
-                        <p data-en="Web development project using HTML, CSS & JS." data-ta="HTML, CSS மூலம் உருவாக்கப்பட்ட வலைத்தளம்.">Web development project using HTML, CSS & JS.</p>
-                    </li>
-                    <li class="project-item">
-                        <h4 data-en="Project 02" data-ta="ப்ராஜெக்ட் 02">Project 02</h4>
-                        <p data-en="A Python based application for data processing." data-ta="பைதான் (Python) செயலி.">A Python based application for data processing.</p>
-                    </li>
-                    <li class="project-item">
-                        <h4 data-en="Project 03" data-ta="ப்ராஜெக்ட் 03">Project 03</h4>
-                        <p data-en="UI/UX Design for modern mobile interfaces." data-ta="மொபைல் UI/UX வடிவமைப்பு.">UI/UX Design for modern mobile interfaces.</p>
-                    </li>
-                </ul>
+            <div class="glass-card">
+                <div class="card-header" data-en="Recent Works" data-ta="படைப்புகள்">Recent Works</div>
+                <div class="project-list">
+                    <a href="#" class="project-item">
+                        <div class="project-title"><span data-en="Project One" data-ta="ப்ராஜெக்ட் 1">Project One</span> <i class="fas fa-arrow-right"></i></div>
+                        <div class="project-desc" data-en="Web interface using Glassmorphism." data-ta="க்ளாஸ்மார்பிசம் டிசைன் மூலம் உருவாக்கிய வலைத்தளம்.">Web interface using Glassmorphism.</div>
+                    </a>
+                    <a href="#" class="project-item">
+                        <div class="project-title"><span data-en="Project Two" data-ta="ப்ராஜெக்ட் 2">Project Two</span> <i class="fas fa-arrow-right"></i></div>
+                        <div class="project-desc" data-en="Data processing with Python." data-ta="பைதான் தரவு பகுப்பாய்வு ப்ராஜெக்ட்.">Data processing with Python.</div>
+                    </a>
+                    <a href="#" class="project-item">
+                        <div class="project-title"><span data-en="Project Three" data-ta="ப்ராஜெக்ட் 3">Project Three</span> <i class="fas fa-arrow-right"></i></div>
+                        <div class="project-desc" data-en="Interactive UI/UX mobile app." data-ta="மொபைல் ஆப் UI/UX டிசைன்.">Interactive UI/UX mobile app.</div>
+                    </a>
+                </div>
             </div>
 
             <!-- Card 3: Skills & Contact -->
-            <div class="card card-3">
-                <div class="card-title" data-en="Info & Contact" data-ta="தகவல் & தொடர்பு">Info & Contact</div>
+            <div class="glass-card">
+                <div class="card-header" data-en="Information" data-ta="தகவல்கள்">Information</div>
                 
-                <div class="skills-grid">
-                    <div class="skill-tag">HTML5</div>
-                    <div class="skill-tag">CSS3</div>
-                    <div class="skill-tag">JavaScript</div>
-                    <div class="skill-tag">Python</div>
-                    <div class="skill-tag">GitHub</div>
+                <div class="skills-wrap">
+                    <span class="skill">HTML/CSS</span>
+                    <span class="skill">JavaScript</span>
+                    <span class="skill">Python</span>
+                    <span class="skill">UI/UX</span>
+                    <span class="skill">GitHub</span>
                 </div>
 
-                <div class="social-links">
-                    <a href="mailto:anbarasanp142007@gmail.com" class="social-link">
-                        <span data-en="Email Me" data-ta="மின்னஞ்சல்">Email Me</span>
-                        <i class="fas fa-arrow-right"></i>
+                <div class="connect-links">
+                    <a href="mailto:anbarasanp142007@gmail.com" class="connect-btn">
+                        <i class="fas fa-envelope"></i> <span data-en="Send Email" data-ta="மின்னஞ்சல் அனுப்பு">Send Email</span>
                     </a>
-                    <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="social-link">
-                        <span>GitHub</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="social-link">
-                        <span>LinkedIn</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="social-row">
+                        <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
             </div>
 
-        </div>
-    </main>
+        </main>
+    </div>
 
     <script>
-        // Theme Toggle Script
+        // Theme Toggle (iOS Style)
         const themeBtn = document.getElementById('theme-btn');
         const root = document.documentElement;
         
@@ -378,7 +448,7 @@
             }
         });
 
-        // Language Toggle Script (English / Tamil)
+        // Language Toggle (EN/TA)
         const langBtn = document.getElementById('lang-btn');
         let currentLang = 'en';
 
@@ -393,5 +463,5 @@
         });
     </script>
 </body>
-                                        </html>
-                                        
+                                                       </html>
+                                                       
