@@ -1,65 +1,86 @@
 <!DOCTYPE html>
-<html lang="ta">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anbarasan P - Portfolio</title>
     
-    <!-- iOS Style Font: SF Pro or System UI -->
+    <!-- iOS Style Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+        /* CSS Variables for Light & Dark Mode */
+        :root {
+            /* Light Mode (Default) iOS Colors */
+            --bg-color: #f5f5f7;
+            --text-color: #1d1d1f;
+            --accent-color: #007aff;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: rgba(0, 0, 0, 0.08);
+            --blob-1: #ffb7b2;
+            --blob-2: #a5dff9;
+            --nav-text: #1d1d1f;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode iOS Colors */
+            --bg-color: #000000;
+            --text-color: #f5f5f7;
+            --accent-color: #0a84ff;
+            --glass-bg: rgba(30, 30, 32, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-shadow: rgba(0, 0, 0, 0.3);
+            --blob-1: #ff00cc;
+            --blob-2: #333399;
+            --nav-text: #f5f5f7;
+        }
+
         /* General Reset & Typography */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* Apple like system font */
             font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             scroll-behavior: smooth;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         body {
-            background-color: #0f0c29;
-            color: #ffffff;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
             z-index: 0;
         }
 
-        /* iOS Background Blobs (Colorful Blur Effect) */
-        .bg-blob-1 {
+        /* Background Animated Blobs */
+        .bg-blob-1, .bg-blob-2 {
             position: fixed;
-            top: -10%;
-            left: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: #ff00cc;
-            filter: blur(150px);
-            opacity: 0.35;
+            filter: blur(120px);
             border-radius: 50%;
             z-index: -1;
+            transition: background 0.8s ease;
+        }
+
+        .bg-blob-1 {
+            top: -10%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: var(--blob-1);
+            opacity: 0.6;
             animation: float 10s ease-in-out infinite;
         }
 
         .bg-blob-2 {
-            position: fixed;
-            bottom: -10%;
-            right: -10%;
-            width: 60vw;
-            height: 60vw;
-            background: #333399;
-            filter: blur(150px);
-            opacity: 0.4;
-            border-radius: 50%;
-            z-index: -1;
+            bottom: -10%; right: -10%;
+            width: 60vw; height: 60vw;
+            background: var(--blob-2);
+            opacity: 0.6;
             animation: float 12s ease-in-out infinite reverse;
         }
 
@@ -69,13 +90,13 @@
             100% { transform: translateY(0) scale(1); }
         }
 
-        /* Glassmorphism Common Class */
+        /* Latest iOS Glassmorphism (Heavy Blur + Saturation) */
         .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 var(--glass-shadow);
         }
 
         /* Header & Navigation */
@@ -83,42 +104,72 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 10%;
+            padding: 15px 5%;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            /* Header Glass Effect */
-            background: rgba(25, 25, 35, 0.4);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-color);
             text-decoration: none;
             letter-spacing: 1px;
         }
 
         .logo span {
-            color: #0ea5e9; /* Light Blue highlight */
+            color: var(--accent-color);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
         }
 
         nav a {
-            color: #e2e8f0;
+            color: var(--nav-text);
             text-decoration: none;
-            margin-left: 30px;
             font-weight: 500;
             font-size: 15px;
             transition: color 0.3s ease;
         }
 
         nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Controls: Theme & Language Buttons */
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-left: 10px;
+        }
+
+        .icon-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.1);
+            background: var(--accent-color);
             color: #fff;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            border-color: var(--accent-color);
         }
 
         /* Sections General Styling */
@@ -135,61 +186,82 @@
             margin-bottom: 50px;
             text-align: center;
             font-weight: 700;
-            background: -webkit-linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-color);
         }
 
-        /* Hero Section */
+        /* Hero Section (Split Layout for Photo & Text) */
         .hero {
-            align-items: flex-start;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
         }
 
         .hero h1 {
-            font-size: 55px;
+            font-size: 50px;
             font-weight: 800;
             line-height: 1.2;
             margin-bottom: 10px;
         }
 
         .hero h1 span {
-            background: -webkit-linear-gradient(right, #a18cd1 0%, #fbc2eb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--accent-color);
         }
 
         .hero p {
             font-size: 22px;
             margin: 20px 0 30px;
-            color: #cbd5e1;
-            font-weight: 300;
+            font-weight: 400;
+            color: var(--text-color);
+            opacity: 0.8;
         }
 
-        .hero .typing-text {
-            color: #4facfe;
-            font-weight: 600;
+        /* Profile Photo Container */
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 300px;
+        }
+
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid var(--glass-bg);
+            box-shadow: 0 15px 35px var(--glass-shadow);
+            backdrop-filter: blur(10px);
+            transition: transform 0.4s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05) rotate(2deg);
         }
 
         /* Glassy Button */
         .btn {
             display: inline-block;
             padding: 14px 32px;
+            background: var(--accent-color);
             color: #fff;
             text-decoration: none;
             border-radius: 30px;
             font-weight: 600;
             letter-spacing: 0.5px;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
         }
 
         .btn:hover {
-            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255,255,255,0.1);
+            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.5);
         }
 
         /* About Section */
@@ -198,10 +270,9 @@
             border-radius: 24px;
             text-align: center;
             font-size: 17px;
-            color: #e2e8f0;
         }
 
-        /* Skills Section */
+        /* Skills */
         .skills-container {
             display: flex;
             justify-content: center;
@@ -221,7 +292,8 @@
 
         .skill-tag:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
+            background: var(--accent-color);
+            color: #fff;
         }
 
         /* Works / Projects Section */
@@ -240,17 +312,13 @@
 
         .work-card:hover {
             transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
         }
 
         .work-card i {
             font-size: 45px;
             margin-bottom: 20px;
-            background: -webkit-linear-gradient(45deg, #fbc2eb 0%, #a18cd1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--accent-color);
         }
 
         .work-card h3 {
@@ -260,21 +328,17 @@
         }
 
         .work-card p {
-            color: #cbd5e1;
             margin-bottom: 25px;
             font-size: 14px;
-            font-weight: 300;
+            font-weight: 400;
+            opacity: 0.8;
         }
 
         .work-card a {
-            color: #4facfe;
+            color: var(--accent-color);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 15px;
-        }
-        
-        .work-card a:hover {
-            text-decoration: underline;
         }
 
         /* Contact Section */
@@ -297,7 +361,7 @@
             justify-content: center;
             width: 55px;
             height: 55px;
-            color: #fff;
+            color: var(--text-color);
             text-decoration: none;
             border-radius: 50%;
             font-size: 22px;
@@ -305,102 +369,120 @@
         }
 
         .social-icons a:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--accent-color);
+            color: #fff;
             transform: scale(1.1) translateY(-3px);
-            border-color: rgba(255, 255, 255, 0.4);
+            border-color: transparent;
         }
 
         /* Footer */
         footer {
             text-align: center;
             padding: 25px;
-            color: #94a3b8;
             font-size: 14px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
+            opacity: 0.7;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            header { padding: 15px 5%; flex-direction: column; gap: 15px; }
-            nav a { margin: 0 10px; font-size: 14px; }
+            header { flex-direction: column; gap: 15px; padding: 15px 5%; }
+            nav { flex-wrap: wrap; justify-content: center; }
+            .hero { flex-direction: column-reverse; text-align: center; }
+            .hero-content, .hero-image { flex: unset; width: 100%; }
+            .profile-img { width: 250px; height: 250px; }
             .hero h1 { font-size: 40px; }
-            section { padding: 120px 5% 60px; }
-            .about-content, .contact-content { padding: 30px 20px; }
+            section { padding: 160px 5% 60px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Animated Blobs -->
+    <!-- Animated Gradient Background Blobs -->
     <div class="bg-blob-1"></div>
     <div class="bg-blob-2"></div>
 
-    <!-- Header -->
-    <header>
+    <!-- Header & Navigation with Controls -->
+    <header class="glass">
         <a href="#" class="logo">Anbarasan <span>P</span></a>
+        
         <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#works">Projects</a>
-            <a href="#contact">Contact</a>
+            <a href="#home" data-en="Home" data-ta="முகப்பு">Home</a>
+            <a href="#about" data-en="About" data-ta="பற்றி">About</a>
+            <a href="#works" data-en="Projects" data-ta="படைப்புகள்">Projects</a>
+            <a href="#contact" data-en="Contact" data-ta="தொடர்பு">Contact</a>
+            
+            <div class="controls">
+                <!-- Theme Toggle Button -->
+                <button id="theme-btn" class="icon-btn" title="Toggle Light/Dark Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <!-- Language Toggle Button -->
+                <button id="lang-btn" class="icon-btn" title="Change Language">TA</button>
+            </div>
         </nav>
     </header>
 
-    <!-- Home / Hero Section -->
+    <!-- Hero Section -->
     <section id="home" class="hero">
-        <h1 data-aos="fade-down">Hi, I'm <br><span>Anbarasan P</span></h1>
-        <p data-aos="fade-right" data-aos-delay="100">And I'm a <span class="typing-text"></span></p>
-        <div data-aos="fade-up" data-aos-delay="200">
-            <a href="#works" class="btn">View My Works</a>
+        <div class="hero-content">
+            <h1 data-aos="fade-down"><span data-en="Hi, I'm" data-ta="வணக்கம், நான்">Hi, I'm</span> <br><span>Anbarasan P</span></h1>
+            <p data-aos="fade-right" data-aos-delay="100"><span data-en="And I'm a" data-ta="நான் ஒரு">And I'm a</span> <span style="color: var(--accent-color); font-weight: 600;" data-en="Student & Developer" data-ta="மாணவர் மற்றும் டெவலப்பர்">Student & Developer</span></p>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <a href="#works" class="btn" data-en="View My Works" data-ta="படைப்புகளைக் காண">View My Works</a>
+            </div>
+        </div>
+        
+        <!-- Circular Profile Image -->
+        <div class="hero-image" data-aos="zoom-in">
+            <!-- REFERENCING THE SPECIFIED IMAGE -->
+            <img src="42495.png" alt="Anbarasan P" class="profile-img">
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about">
-        <h2 data-aos="fade-up">About Me</h2>
+        <h2 data-aos="fade-up" data-en="About Me" data-ta="என்னை பற்றி">About Me</h2>
         <div class="about-content glass" data-aos="zoom-in">
-            <p>வணக்கம்! என் பெயர் அன்பரசன். நான் ஒரு மாணவர் (Student). புதிய விஷயங்களைக் கற்றுக்கொள்வதிலும், புதுமையான ப்ராஜெக்ட்டுகளை உருவாக்குவதிலும் ஆர்வம் கொண்டவன். இந்த இணையதளத்தில் எனது முக்கியப் படைப்புகள் மற்றும் அனுபவங்களை வெளியிட்டு வருகிறேன்.</p>
+            <p data-en="Hello! My name is Anbarasan. I am a student passionate about learning new technologies and building innovative projects. I use this portfolio to showcase my work and journey." 
+               data-ta="வணக்கம்! என் பெயர் அன்பரசன். நான் ஒரு மாணவர். புதிய விஷயங்களைக் கற்றுக்கொள்வதிலும், புதுமையான ப்ராஜெக்ட்டுகளை உருவாக்குவதிலும் ஆர்வம் கொண்டவன். இந்த இணையதளத்தில் எனது முக்கியப் படைப்புகள் மற்றும் அனுபவங்களை வெளியிட்டு வருகிறேன்.">
+                Hello! My name is Anbarasan. I am a student passionate about learning new technologies and building innovative projects. I use this portfolio to showcase my work and journey.
+            </p>
             
-            <h3 style="margin-top: 40px; font-weight: 500;">My Skills</h3>
+            <h3 style="margin-top: 40px; font-weight: 600;" data-en="My Skills" data-ta="எனது திறன்கள்">My Skills</h3>
             <div class="skills-container">
-                <div class="skill-tag glass"><i class="fab fa-html5" style="color:#ff6b6b;"></i> HTML</div>
-                <div class="skill-tag glass"><i class="fab fa-css3-alt" style="color:#4facfe;"></i> CSS</div>
-                <div class="skill-tag glass"><i class="fab fa-js" style="color:#f1c40f;"></i> JavaScript</div>
-                <div class="skill-tag glass"><i class="fab fa-python" style="color:#2ecc71;"></i> Python</div>
-                <div class="skill-tag glass"><i class="fab fa-github" style="color:#ecf0f1;"></i> GitHub</div>
+                <div class="skill-tag glass"><i class="fab fa-html5" style="color:#ff3b30;"></i> HTML</div>
+                <div class="skill-tag glass"><i class="fab fa-css3-alt" style="color:#007aff;"></i> CSS</div>
+                <div class="skill-tag glass"><i class="fab fa-js" style="color:#ffcc00;"></i> JavaScript</div>
+                <div class="skill-tag glass"><i class="fab fa-python" style="color:#34c759;"></i> Python</div>
+                <div class="skill-tag glass"><i class="fab fa-github" style="color:#8e8e93;"></i> GitHub</div>
             </div>
         </div>
     </section>
 
     <!-- Works Section -->
     <section id="works">
-        <h2 data-aos="fade-up">My Works</h2>
+        <h2 data-aos="fade-up" data-en="My Works" data-ta="எனது படைப்புகள்">My Works</h2>
         <div class="works-grid">
             
-            <!-- Project 1 -->
             <div class="work-card glass" data-aos="fade-up" data-aos-delay="100">
                 <i class="fas fa-laptop-code"></i>
-                <h3>Project 1</h3>
-                <p>A description of your first project. Explain what you built and the technologies used.</p>
-                <a href="#">View Details →</a>
+                <h3 data-en="Project 1" data-ta="ப்ராஜெக்ட் 1">Project 1</h3>
+                <p data-en="A description of your first project explaining what you built." data-ta="நீங்கள் உருவாக்கிய முதல் ப்ராஜெக்ட் பற்றிய சிறு விளக்கம்.">A description of your first project explaining what you built.</p>
+                <a href="#" data-en="View Details →" data-ta="விவரங்கள் காண்க →">View Details →</a>
             </div>
 
-            <!-- Project 2 -->
             <div class="work-card glass" data-aos="fade-up" data-aos-delay="200">
                 <i class="fas fa-mobile-alt"></i>
-                <h3>Project 2</h3>
-                <p>A description of your second project. Explain what you built and the technologies used.</p>
-                <a href="#">View Details →</a>
+                <h3 data-en="Project 2" data-ta="ப்ராஜெக்ட் 2">Project 2</h3>
+                <p data-en="A description of your second project explaining what you built." data-ta="நீங்கள் உருவாக்கிய இரண்டாவது ப்ராஜெக்ட் பற்றிய சிறு விளக்கம்.">A description of your second project explaining what you built.</p>
+                <a href="#" data-en="View Details →" data-ta="விவரங்கள் காண்க →">View Details →</a>
             </div>
 
-            <!-- Project 3 -->
             <div class="work-card glass" data-aos="fade-up" data-aos-delay="300">
                 <i class="fas fa-database"></i>
-                <h3>Project 3</h3>
-                <p>A description of your third project. Explain what you built and the technologies used.</p>
-                <a href="#">View Details →</a>
+                <h3 data-en="Project 3" data-ta="ப்ராஜெக்ட் 3">Project 3</h3>
+                <p data-en="A description of your third project explaining what you built." data-ta="நீங்கள் உருவாக்கிய மூன்றாவது ப்ராஜெக்ட் பற்றிய சிறு விளக்கம்.">A description of your third project explaining what you built.</p>
+                <a href="#" data-en="View Details →" data-ta="விவரங்கள் காண்க →">View Details →</a>
             </div>
 
         </div>
@@ -408,47 +490,71 @@
 
     <!-- Contact Section -->
     <section id="contact">
-        <h2 data-aos="fade-up">Get In Touch</h2>
+        <h2 data-aos="fade-up" data-en="Get In Touch" data-ta="தொடர்பு கொள்ள">Get In Touch</h2>
         <div class="contact-content glass" data-aos="fade-up">
-            <p>நீங்கள் என்னைத் தொடர்பு கொள்ள அல்லது எனது படைப்புகள் குறித்துப் பேச விரும்பினால் கீழே உள்ள வழிகளில் தொடர்பு கொள்ளலாம்.</p>
+            <p data-en="If you want to contact me or discuss my work, feel free to reach out via the options below." 
+               data-ta="நீங்கள் என்னைத் தொடர்பு கொள்ள அல்லது எனது படைப்புகள் குறித்துப் பேச விரும்பினால் கீழே உள்ள வழிகளில் தொடர்பு கொள்ளலாம்.">
+               If you want to contact me or discuss my work, feel free to reach out via the options below.
+            </p>
             
             <div class="social-icons">
-                <!-- Email Icon -->
                 <a href="mailto:anbarasanp142007@gmail.com" class="glass" title="Email"><i class="fas fa-envelope"></i></a>
-                <!-- GitHub Icon -->
                 <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="glass" title="GitHub"><i class="fab fa-github"></i></a>
-                <!-- LinkedIn Icon Updated Here -->
                 <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="glass" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             </div>
 
-            <a href="mailto:anbarasanp142007@gmail.com" class="btn">Send Message</a>
+            <a href="mailto:anbarasanp142007@gmail.com" class="btn" data-en="Send Message" data-ta="செய்தி அனுப்பு">Send Message</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 Anbarasan P. All rights reserved. | Crafted with Glassmorphism UI</p>
+        <p>© 2026 Anbarasan P. <span data-en="All rights reserved." data-ta="அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.">All rights reserved.</span></p>
     </footer>
 
-    <!-- Scripts for Animations -->
-    <!-- Typed.js -->
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <!-- AOS Animation -->
+    <!-- AOS Animation Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        // Initialize Typing Animation
-        var typed = new Typed('.typing-text', {
-            strings: ['Student', 'Web Developer', 'Tech Enthusiast', 'Coder'],
-            typeSpeed: 80,
-            backSpeed: 50,
-            loop: true
-        });
-
         // Initialize Scroll Animation
         AOS.init({
-            duration: 1200,
+            duration: 1000,
             once: true 
+        });
+
+        // 1. Theme Toggle Logic (Light / Dark)
+        const themeBtn = document.getElementById('theme-btn');
+        const root = document.documentElement;
+        
+        themeBtn.addEventListener('click', () => {
+            const isDark = root.getAttribute('data-theme') === 'dark';
+            
+            if (isDark) {
+                root.removeAttribute('data-theme');
+                themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                root.setAttribute('data-theme', 'dark');
+                themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+
+        // 2. Language Toggle Logic (English / Tamil)
+        const langBtn = document.getElementById('lang-btn');
+        let currentLang = 'en'; // Default language
+
+        langBtn.addEventListener('click', () => {
+            // Toggle language state
+            currentLang = (currentLang === 'en') ? 'ta' : 'en';
+            
+            // Update Button Text
+            langBtn.innerText = (currentLang === 'en') ? 'TA' : 'EN';
+            
+            // Update all dual-language elements
+            const translatableElements = document.querySelectorAll('[data-en][data-ta]');
+            
+            translatableElements.forEach(el => {
+                el.innerText = el.getAttribute(`data-${currentLang}`);
+            });
         });
     </script>
 </body>
