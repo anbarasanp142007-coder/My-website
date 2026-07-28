@@ -1,204 +1,145 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anbarasan P - iOS Glass Dashboard</title>
+    <title>Anbarasan P - Liquid Glass Portfolio</title>
     
-    <!-- iOS Clean Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Modern Soft Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* iOS Glass & Theme Variables */
+        /* Liquid Glass Theme Variables */
         :root {
-            /* Light Theme */
-            --bg-base: #f0f4f8;
-            --orb-1: #ff9a9e;
-            --orb-2: #fecfef;
-            --orb-3: #a1c4fd;
-            --text-main: #1d1d1f;
-            --text-muted: #86868b;
-            --glass-panel: rgba(255, 255, 255, 0.6);
-            --glass-card: rgba(255, 255, 255, 0.8);
-            --glass-border: rgba(255, 255, 255, 0.5);
-            --glass-shadow: rgba(0, 0, 0, 0.05);
-            --accent: #007aff;
+            /* Requested Colors */
+            --pure-white: #ffffff;
+            --sky-blue: #70c4ff;
+            --yellow: #ffd54f;
+            --light-green: #81c784;
+            
+            /* UI Colors */
+            --bg-color: #f8f9fa;
+            --text-main: #1c1c1e;
+            --text-muted: #8e8e93;
+            
+            /* Liquid Glass Effect */
+            --liquid-bg: rgba(255, 255, 255, 0.4);
+            --liquid-border: rgba(255, 255, 255, 0.8);
+            --liquid-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            --liquid-highlight: inset 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
         [data-theme="dark"] {
-            /* Dark Theme (Default) */
-            --bg-base: #000000;
-            --orb-1: #662d8c;
-            --orb-2: #ed1e79;
-            --orb-3: #02aab0;
-            --text-main: #f5f5f7;
-            --text-muted: #a1a1a6;
-            --glass-panel: rgba(25, 25, 30, 0.4);
-            --glass-card: rgba(40, 40, 45, 0.5);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-shadow: rgba(0, 0, 0, 0.4);
-            --accent: #0a84ff;
+            --bg-color: #000000;
+            --text-main: #ffffff;
+            --text-muted: #ebebf5;
+            --liquid-bg: rgba(30, 30, 30, 0.4);
+            --liquid-border: rgba(255, 255, 255, 0.15);
+            --liquid-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --liquid-highlight: inset 0 0 20px rgba(255, 255, 255, 0.05);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-            transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         body {
-            background-color: var(--bg-base);
+            background-color: var(--pure-white);
             color: var(--text-main);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden; /* Lock scroll, everything inside dashboard */
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 120px;
         }
 
-        /* Ambient Background Orbs */
-        .ambient-bg {
+        /* Ambient Liquid Background */
+        .liquid-bg {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1;
             overflow: hidden;
-            background-color: var(--bg-base);
+            background: var(--bg-color);
         }
 
-        .orb {
+        .blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.7;
-            animation: drift 15s infinite alternate ease-in-out;
+            filter: blur(90px);
+            opacity: 0.8;
+            animation: liquidFlow 15s infinite alternate ease-in-out;
         }
 
-        .orb:nth-child(1) { width: 50vw; height: 50vw; background: var(--orb-1); top: -10%; left: -10%; }
-        .orb:nth-child(2) { width: 40vw; height: 40vw; background: var(--orb-2); bottom: -10%; right: -10%; animation-delay: -5s; }
-        .orb:nth-child(3) { width: 30vw; height: 30vw; background: var(--orb-3); top: 40%; left: 40%; animation-delay: -10s; }
+        .blob-1 { width: 50vw; height: 50vw; background: var(--sky-blue); top: -10%; left: -10%; }
+        .blob-2 { width: 45vw; height: 45vw; background: var(--yellow); bottom: -10%; right: -10%; animation-delay: -5s; }
+        .blob-3 { width: 40vw; height: 40vw; background: var(--light-green); top: 30%; left: 30%; animation-delay: -10s; }
 
-        @keyframes drift {
-            100% { transform: translate(30px, 50px) scale(1.1); }
+        @keyframes liquidFlow {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            100% { transform: translate(50px, 80px) scale(1.2) rotate(20deg); }
         }
 
-        /* Option A: Main Glass Dashboard Frame */
-        .dashboard-frame {
-            width: 95vw;
-            height: 90vh;
-            max-width: 1400px;
-            background: var(--glass-panel);
-            backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px; /* Clean, slightly sharp corners */
-            box-shadow: 0 30px 60px var(--glass-shadow);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
+        /* Core Liquid Glass Class */
+        .liquid-glass {
+            background: var(--liquid-bg);
+            backdrop-filter: blur(35px) saturate(200%);
+            -webkit-backdrop-filter: blur(35px) saturate(200%);
+            border: 1px solid var(--liquid-border);
+            box-shadow: var(--liquid-shadow), var(--liquid-highlight);
+            border-radius: 40px;
         }
 
-        /* Top Information Corner & Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .logo {
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: var(--text-main);
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .controls {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn-control {
-            background: var(--glass-card);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            width: 36px;
-            height: 36px;
-            border-radius: 6px; /* Sharp iOS style */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .btn-control:hover {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-        }
-
-        /* 3 Center Card Layout */
-        .dashboard-content {
-            flex: 1;
-            padding: 40px;
+        /* 3 Card Layout Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            overflow-y: auto;
         }
 
-        /* Inner Glass Cards */
-        .glass-card {
-            background: var(--glass-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px; /* Sharp and Clean */
-            padding: 30px;
+        /* Individual Cards */
+        .card {
+            padding: 35px;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
+        .card:hover {
+            transform: translateY(-10px);
         }
 
-        .card-header {
-            font-size: 18px;
-            font-weight: 600;
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
             margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--glass-border);
-            color: var(--text-main);
-        }
-
-        /* Card 1: Profile */
-        .profile-wrapper {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            text-align: center;
-            flex: 1;
+            gap: 10px;
         }
 
-        .img-ring {
-            width: 140px;
-            height: 140px;
+        .card-title i {
+            color: var(--sky-blue);
+            background: var(--pure-white);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Profile Card Styles */
+        .profile-img-wrap {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
             border-radius: 50%;
-            padding: 4px;
-            background: linear-gradient(45deg, var(--accent), var(--orb-2));
-            margin-bottom: 20px;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--sky-blue), var(--light-green));
         }
 
         .profile-img {
@@ -206,249 +147,190 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--glass-card);
+            border: 4px solid var(--pure-white);
         }
 
-        .name {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
+        .profile-name { text-align: center; font-size: 24px; font-weight: 800; }
+        .profile-role { text-align: center; color: var(--text-muted); font-weight: 500; margin-bottom: 15px; }
 
-        .title {
-            color: var(--accent);
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
-
-        .bio {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* Card 2: Projects (Clean List) */
-        .project-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
+        /* Projects Card Styles */
         .project-item {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid var(--liquid-border);
             padding: 15px;
-            border: 1px solid var(--glass-border);
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            margin-bottom: 15px;
             text-decoration: none;
             color: var(--text-main);
             display: block;
+            transition: all 0.3s;
         }
 
         .project-item:hover {
-            background: var(--glass-card);
+            background: var(--pure-white);
+            transform: scale(1.02);
         }
 
-        .project-title {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 5px;
-            display: flex;
-            justify-content: space-between;
-        }
+        .project-item h4 { font-size: 16px; margin-bottom: 5px; }
+        .project-item p { font-size: 13px; color: var(--text-muted); }
 
-        .project-desc {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* Card 3: Skills & Connect */
-        .skills-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 30px;
-        }
-
-        .skill {
-            font-size: 12px;
-            padding: 6px 12px;
-            border: 1px solid var(--glass-border);
-            border-radius: 4px;
-            background: rgba(255,255,255,0.05);
-        }
-
-        .connect-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: auto;
-        }
-
-        .connect-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 12px;
-            background: var(--accent);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 6px;
+        /* Form Styles */
+        .liquid-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid var(--liquid-border);
+            padding: 15px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            color: var(--text-main);
             font-size: 14px;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-
-        .connect-btn:hover {
-            opacity: 0.9;
-        }
-
-        .social-row {
-            display: flex;
-            gap: 10px;
+            outline: none;
+            transition: all 0.3s;
         }
         
-        .social-btn {
-            flex: 1;
+        .liquid-input:focus {
+            background: var(--pure-white);
+            border-color: var(--sky-blue);
+        }
+
+        textarea.liquid-input { height: 100px; resize: none; }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--text-main);
+            color: var(--bg-color);
+            border: none;
+            padding: 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn:hover { transform: scale(0.98); }
+
+        /* Floating Bottom Dock */
+        .bottom-dock {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            border-radius: 100px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .dock-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
             color: var(--text-main);
             text-decoration: none;
-            border-radius: 6px;
-            transition: background 0.2s;
+            font-size: 20px;
+            transition: all 0.3s;
+            background: transparent;
+            border: none;
+            cursor: pointer;
         }
 
-        .social-btn:hover {
-            background: var(--glass-card);
+        .dock-item:hover, .dock-item.active {
+            background: var(--pure-white);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            color: var(--sky-blue);
+            transform: translateY(-5px);
         }
 
-        /* Scrollbar for dashboard */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
-
-        /* Responsive Dashboard */
+        /* Responsive */
         @media (max-width: 1024px) {
-            .dashboard-frame { width: 100vw; height: 100vh; border-radius: 0; border: none; }
-            .dashboard-content { grid-template-columns: repeat(2, 1fr); padding: 20px; }
+            .main-container { grid-template-columns: repeat(2, 1fr); }
         }
-
         @media (max-width: 768px) {
-            .dashboard-content { grid-template-columns: 1fr; }
-            body { overflow-y: auto; }
-            .dashboard-frame { height: auto; min-height: 100vh; }
+            .main-container { grid-template-columns: 1fr; padding-bottom: 100px; }
+            .bottom-dock { width: 90%; justify-content: space-around; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Animated Ambient Background (Option B iOS blur) -->
-    <div class="ambient-bg">
-        <div class="orb"></div>
-        <div class="orb"></div>
-        <div class="orb"></div>
+    <!-- Liquid Animated Background -->
+    <div class="liquid-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
     </div>
 
-    <!-- Option A: Single Massive Glass Dashboard -->
-    <div class="dashboard-frame">
+    <!-- 3 Center Cards -->
+    <div class="main-container">
         
-        <!-- Top Information Corner -->
-        <header>
-            <div class="logo">Anbarasan <span>P</span></div>
-            <div class="controls">
-                <button id="lang-btn" class="btn-control" title="Language">TA</button>
-                <button id="theme-btn" class="btn-control" title="Theme"><i class="fas fa-sun"></i></button>
+        <!-- Card 1: Profile -->
+        <div class="card liquid-glass">
+            <div class="card-title"><i class="fas fa-user"></i> <span data-en="Profile" data-ta="சுயவிவரம்">Profile</span></div>
+            <div class="profile-img-wrap">
+                <!-- UPDATED PROFILE IMAGE HERE -->
+                <img src="42495_2.png" alt="Anbarasan" class="profile-img">
             </div>
-        </header>
+            <div class="profile-name">Anbarasan P</div>
+            <div class="profile-role" data-en="Student & Developer" data-ta="மாணவர் & டெவலப்பர்">Student & Developer</div>
+            <p style="text-align: center; color: var(--text-muted); font-size: 14px;" 
+               data-en="Designing pure, liquid web experiences." 
+               data-ta="சிறந்த வலைத்தளங்களை வடிவமைப்பதில் ஆர்வம் கொண்டவன்.">
+               Designing pure, liquid web experiences.
+            </p>
+        </div>
 
-        <!-- Center 3 Card Layout Inside Dashboard -->
-        <main class="dashboard-content">
+        <!-- Card 2: Projects -->
+        <div class="card liquid-glass">
+            <div class="card-title"><i class="fas fa-layer-group"></i> <span data-en="Projects" data-ta="படைப்புகள்">Projects</span></div>
             
-            <!-- Card 1: Identity -->
-            <div class="glass-card">
-                <div class="card-header" data-en="Profile" data-ta="சுயவிவரம்">Profile</div>
-                <div class="profile-wrapper">
-                    <div class="img-ring">
-                        <!-- Profile Photo 42495.png (Circle) -->
-                        <img src="42495.png" alt="Profile" class="profile-img">
-                    </div>
-                    <div class="name">Anbarasan P</div>
-                    <div class="title" data-en="Student & Developer" data-ta="மாணவர் மற்றும் டெவலப்பர்">Student & Developer</div>
-                    <p class="bio" data-en="Passionate about crafting clean, modern web experiences and solving complex problems with code." 
-                       data-ta="நவீன வலைத்தளங்களை வடிவமைப்பதிலும், புதிய தொழில்நுட்பங்களை கற்பதிலும் ஆர்வம் கொண்டவன்.">
-                       Passionate about crafting clean, modern web experiences and solving complex problems with code.
-                    </p>
-                </div>
-            </div>
+            <a href="#" class="project-item">
+                <h4 data-en="Liquid Glass UI" data-ta="திரவக் கண்ணாடி UI">Liquid Glass UI</h4>
+                <p data-en="iOS 26 Concept Design" data-ta="iOS 26 கான்செப்ட் டிசைன்">iOS 26 Concept Design</p>
+            </a>
+            
+            <a href="#" class="project-item">
+                <h4 data-en="Web App Development" data-ta="வெப் ஆப் உருவாக்கம்">Web App Development</h4>
+                <p data-en="HTML, CSS, JavaScript" data-ta="HTML, CSS, JavaScript">HTML, CSS, JavaScript</p>
+            </a>
 
-            <!-- Card 2: Projects -->
-            <div class="glass-card">
-                <div class="card-header" data-en="Recent Works" data-ta="படைப்புகள்">Recent Works</div>
-                <div class="project-list">
-                    <a href="#" class="project-item">
-                        <div class="project-title"><span data-en="Project One" data-ta="ப்ராஜெக்ட் 1">Project One</span> <i class="fas fa-arrow-right"></i></div>
-                        <div class="project-desc" data-en="Web interface using Glassmorphism." data-ta="க்ளாஸ்மார்பிசம் டிசைன் மூலம் உருவாக்கிய வலைத்தளம்.">Web interface using Glassmorphism.</div>
-                    </a>
-                    <a href="#" class="project-item">
-                        <div class="project-title"><span data-en="Project Two" data-ta="ப்ராஜெக்ட் 2">Project Two</span> <i class="fas fa-arrow-right"></i></div>
-                        <div class="project-desc" data-en="Data processing with Python." data-ta="பைதான் தரவு பகுப்பாய்வு ப்ராஜெக்ட்.">Data processing with Python.</div>
-                    </a>
-                    <a href="#" class="project-item">
-                        <div class="project-title"><span data-en="Project Three" data-ta="ப்ராஜெக்ட் 3">Project Three</span> <i class="fas fa-arrow-right"></i></div>
-                        <div class="project-desc" data-en="Interactive UI/UX mobile app." data-ta="மொபைல் ஆப் UI/UX டிசைன்.">Interactive UI/UX mobile app.</div>
-                    </a>
-                </div>
-            </div>
+            <a href="#" class="project-item">
+                <h4 data-en="Python Automation" data-ta="பைதான் ஆட்டோமேஷன்">Python Automation</h4>
+                <p data-en="Data processing scripts" data-ta="தரவு பகுப்பாய்வு">Data processing scripts</p>
+            </a>
+        </div>
 
-            <!-- Card 3: Skills & Contact -->
-            <div class="glass-card">
-                <div class="card-header" data-en="Information" data-ta="தகவல்கள்">Information</div>
-                
-                <div class="skills-wrap">
-                    <span class="skill">HTML/CSS</span>
-                    <span class="skill">JavaScript</span>
-                    <span class="skill">Python</span>
-                    <span class="skill">UI/UX</span>
-                    <span class="skill">GitHub</span>
-                </div>
+        <!-- Card 3: Contact Form -->
+        <div class="card liquid-glass">
+            <div class="card-title"><i class="fas fa-paper-plane"></i> <span data-en="Connect" data-ta="தொடர்புக்கு">Connect</span></div>
+            
+            <form action="YOUR_FORMSPREE_LINK_HERE" method="POST" style="flex: 1; display: flex; flex-direction: column;">
+                <input type="text" name="name" placeholder="Name" required class="liquid-input">
+                <input type="email" name="email" placeholder="Email" required class="liquid-input">
+                <textarea name="message" placeholder="Message..." required class="liquid-input"></textarea>
+                <button type="submit" class="submit-btn" data-en="Send Message" data-ta="அனுப்பு">Send Message</button>
+            </form>
+        </div>
 
-                <div class="connect-links">
-                    <a href="mailto:anbarasanp142007@gmail.com" class="connect-btn">
-                        <i class="fas fa-envelope"></i> <span data-en="Send Email" data-ta="மின்னஞ்சல் அனுப்பு">Send Email</span>
-                    </a>
-                    <div class="social-row">
-                        <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
+    </div>
 
-        </main>
+    <!-- Floating Bottom Dock -->
+    <div class="bottom-dock liquid-glass">
+        <a href="#" class="dock-item active" title="Home"><i class="fas fa-home"></i></a>
+        <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="dock-item" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="dock-item" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        
+        <!-- Controls in Dock -->
+        <button id="lang-btn" class="dock-item" style="font-weight: 800; font-size: 16px;">TA</button>
+        <button id="theme-btn" class="dock-item"><i class="fas fa-moon"></i></button>
     </div>
 
     <script>
-        // Theme Toggle (iOS Style)
-        const themeBtn = document.getElementById('theme-btn');
-        const root = document.documentElement;
-        
-        themeBtn.addEventListener('click', () => {
-            const isDark = root.getAttribute('data-theme') === 'dark';
-            
-            if (isDark) {
-                root.removeAttribute('data-theme');
-                themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
-            } else {
-                root.setAttribute('data-theme', 'dark');
-                themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
-            }
-        });
-
-        // Language Toggle (EN/TA)
+        // Language Toggle
         const langBtn = document.getElementById('lang-btn');
         let currentLang = 'en';
 
@@ -456,12 +338,26 @@
             currentLang = (currentLang === 'en') ? 'ta' : 'en';
             langBtn.innerText = (currentLang === 'en') ? 'TA' : 'EN';
             
-            const translatableElements = document.querySelectorAll('[data-en][data-ta]');
-            translatableElements.forEach(el => {
+            document.querySelectorAll('[data-en][data-ta]').forEach(el => {
                 el.innerText = el.getAttribute(`data-${currentLang}`);
             });
         });
+
+        // Theme Toggle
+        const themeBtn = document.getElementById('theme-btn');
+        const root = document.documentElement;
+        
+        themeBtn.addEventListener('click', () => {
+            const isLight = root.getAttribute('data-theme') === 'light';
+            if (isLight) {
+                root.setAttribute('data-theme', 'dark');
+                themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                root.setAttribute('data-theme', 'light');
+                themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
     </script>
 </body>
-                                                       </html>
-                                                       
+                    </html>
+                    
