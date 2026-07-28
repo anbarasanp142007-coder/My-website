@@ -1,53 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anbarasan P - Portfolio</title>
+    <title>Anbarasan P - 3D Glassmorphism Portfolio</title>
     
-    <!-- iOS Style Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Modern iOS Style Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* CSS Variables for Light & Dark Mode */
+        /* Modern 3D Glassmorphism Variables */
         :root {
-            /* Light Mode (Default) iOS Colors */
-            --bg-color: #f5f5f7;
-            --text-color: #1d1d1f;
-            --accent-color: #007aff;
-            --glass-bg: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.8);
-            --glass-shadow: rgba(0, 0, 0, 0.08);
-            --blob-1: #ffb7b2;
-            --blob-2: #a5dff9;
-            --nav-text: #1d1d1f;
+            /* Light Mode Variables */
+            --bg-color: #e2e8f0;
+            --text-color: #1e293b;
+            --nav-text: #334155;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border-top: rgba(255, 255, 255, 0.8);
+            --glass-border-right: rgba(255, 255, 255, 0.4);
+            --glass-shadow: rgba(31, 38, 135, 0.15);
+            --accent-text: #2563eb;
+            --btn-bg: rgba(255, 255, 255, 0.6);
         }
 
         [data-theme="dark"] {
-            /* Dark Mode iOS Colors */
-            --bg-color: #000000;
-            --text-color: #f5f5f7;
-            --accent-color: #0a84ff;
-            --glass-bg: rgba(30, 30, 32, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --glass-shadow: rgba(0, 0, 0, 0.3);
-            --blob-1: #ff00cc;
-            --blob-2: #333399;
-            --nav-text: #f5f5f7;
+            /* Dark Mode Variables (Matches your reference images) */
+            --bg-color: #0f111a;
+            --text-color: #ffffff;
+            --nav-text: #e2e8f0;
+            --glass-bg: rgba(17, 25, 40, 0.45);
+            --glass-border-top: rgba(255, 255, 255, 0.25);
+            --glass-border-right: rgba(255, 255, 255, 0.05);
+            --glass-shadow: rgba(0, 0, 0, 0.5);
+            --accent-text: #38bdf8;
+            --btn-bg: rgba(255, 255, 255, 0.1);
         }
 
-        /* General Reset & Typography */
+        /* General Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
-            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         body {
@@ -56,71 +55,119 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
-            z-index: 0;
+            transition: background-color 0.5s ease;
         }
 
-        /* Background Animated Blobs */
-        .bg-blob-1, .bg-blob-2 {
+        /* --- 3D Background Shapes (Crucial for the Look) --- */
+        .shape-container {
             position: fixed;
-            filter: blur(120px);
-            border-radius: 50%;
+            top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1;
-            transition: background 0.8s ease;
+            overflow: hidden;
+            pointer-events: none;
         }
 
-        .bg-blob-1 {
-            top: -10%; left: -10%;
-            width: 50vw; height: 50vw;
-            background: var(--blob-1);
-            opacity: 0.6;
-            animation: float 10s ease-in-out infinite;
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            /* 3D sphere illusion using inset shadow and radial gradients */
+            box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5), 
+                        10px 10px 20px rgba(0,0,0,0.4);
         }
 
-        .bg-blob-2 {
-            bottom: -10%; right: -10%;
-            width: 60vw; height: 60vw;
-            background: var(--blob-2);
-            opacity: 0.6;
-            animation: float 12s ease-in-out infinite reverse;
+        /* Large Blue Sphere */
+        .shape-1 {
+            width: 300px; height: 300px;
+            background: radial-gradient(circle at 30% 30%, #00f2fe, #4facfe, #005bea);
+            top: 15%; left: 10%;
+            animation: floatShape 8s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-30px) scale(1.05); }
-            100% { transform: translateY(0) scale(1); }
+        /* Orange/Pink Sphere */
+        .shape-2 {
+            width: 250px; height: 250px;
+            background: radial-gradient(circle at 30% 30%, #ff0844, #ffb199);
+            bottom: 20%; right: 10%;
+            animation: floatShape 10s ease-in-out infinite reverse;
         }
 
-        /* Latest iOS Glassmorphism (Heavy Blur + Saturation) */
-        .glass {
+        /* Small Purple Sphere */
+        .shape-3 {
+            width: 150px; height: 150px;
+            background: radial-gradient(circle at 30% 30%, #b224ef, #7579ff);
+            top: 60%; left: 20%;
+            animation: floatShape 7s ease-in-out infinite 1s;
+        }
+
+        /* Yellow/Green Sphere */
+        .shape-4 {
+            width: 200px; height: 200px;
+            background: radial-gradient(circle at 30% 30%, #f6d365, #fda085);
+            top: 10%; right: 25%;
+            animation: floatShape 9s ease-in-out infinite 2s;
+        }
+
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* --- Premium Frosted Glass Effect --- */
+        .glass-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px 0 var(--glass-shadow);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border-radius: 24px;
+            border-top: 1px solid var(--glass-border-top);
+            border-left: 1px solid var(--glass-border-top);
+            border-right: 1px solid var(--glass-border-right);
+            border-bottom: 1px solid var(--glass-border-right);
+            box-shadow: 0 20px 40px var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
         }
 
-        /* Header & Navigation */
+        /* Add a subtle shine reflection inside the glass */
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+        .glass-panel:hover::before {
+            left: 200%;
+        }
+
+        /* Header & Nav */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 5%;
             position: fixed;
-            width: 100%;
-            top: 0;
+            width: 90%;
+            top: 20px;
+            left: 5%;
             z-index: 1000;
+            border-radius: 20px;
         }
 
         .logo {
             font-size: 22px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--text-color);
             text-decoration: none;
             letter-spacing: 1px;
         }
 
         .logo span {
-            color: var(--accent-color);
+            color: var(--accent-text);
         }
 
         nav {
@@ -138,22 +185,21 @@
         }
 
         nav a:hover {
-            color: var(--accent-color);
+            color: var(--accent-text);
         }
 
-        /* Controls: Theme & Language Buttons */
         .controls {
             display: flex;
-            gap: 15px;
-            margin-left: 10px;
+            gap: 12px;
+            margin-left: 15px;
         }
 
         .icon-btn {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            background: var(--btn-bg);
+            border: 1px solid var(--glass-border-top);
             color: var(--text-color);
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -167,29 +213,31 @@
 
         .icon-btn:hover {
             transform: scale(1.1);
-            background: var(--accent-color);
+            background: var(--accent-text);
             color: #fff;
-            border-color: var(--accent-color);
+            border-color: transparent;
         }
 
-        /* Sections General Styling */
+        /* Sections */
         section {
-            padding: 120px 10% 80px;
+            padding: 150px 10% 80px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
+            z-index: 1;
         }
 
         h2 {
-            font-size: 36px;
+            font-size: 40px;
             margin-bottom: 50px;
             text-align: center;
-            font-weight: 700;
-            color: var(--text-color);
+            font-weight: 800;
+            letter-spacing: 1px;
         }
 
-        /* Hero Section (Split Layout for Photo & Text) */
+        /* Hero Section */
         .hero {
             flex-direction: row;
             align-items: center;
@@ -201,78 +249,90 @@
         .hero-content {
             flex: 1;
             min-width: 300px;
+            padding: 40px;
         }
 
         .hero h1 {
-            font-size: 50px;
+            font-size: 55px;
             font-weight: 800;
             line-height: 1.2;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .hero h1 span {
-            color: var(--accent-color);
+            background: -webkit-linear-gradient(45deg, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: 22px;
+            font-size: 20px;
             margin: 20px 0 30px;
             font-weight: 400;
-            color: var(--text-color);
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
-        /* Profile Photo Container */
+        /* Profile Photo with 3D Ring Effect */
         .hero-image {
             flex: 1;
             display: flex;
             justify-content: center;
             min-width: 300px;
+            position: relative;
+        }
+
+        .profile-container {
+            position: relative;
+            padding: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border-top);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px var(--glass-shadow);
         }
 
         .profile-img {
-            width: 300px;
-            height: 300px;
+            width: 280px;
+            height: 280px;
             border-radius: 50%;
             object-fit: cover;
-            border: 8px solid var(--glass-bg);
-            box-shadow: 0 15px 35px var(--glass-shadow);
-            backdrop-filter: blur(10px);
-            transition: transform 0.4s ease;
+            border: 4px solid rgba(255,255,255,0.2);
+            transition: transform 0.5s ease;
         }
 
-        .profile-img:hover {
-            transform: scale(1.05) rotate(2deg);
+        .profile-container:hover .profile-img {
+            transform: scale(1.05) rotate(3deg);
         }
 
         /* Glassy Button */
         .btn {
             display: inline-block;
-            padding: 14px 32px;
-            background: var(--accent-color);
-            color: #fff;
+            padding: 14px 35px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
             text-decoration: none;
             border-radius: 30px;
             font-weight: 600;
             letter-spacing: 0.5px;
+            border: 1px solid var(--glass-border-top);
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.5);
+            background: var(--text-color);
+            color: var(--bg-color);
+            transform: translateY(-5px);
         }
 
-        /* About Section */
+        /* Cards Grid (About, Works) */
         .about-content {
             padding: 50px;
-            border-radius: 24px;
             text-align: center;
-            font-size: 17px;
+            font-size: 18px;
         }
 
-        /* Skills */
         .skills-container {
             display: flex;
             justify-content: center;
@@ -282,69 +342,80 @@
         }
 
         .skill-tag {
-            padding: 10px 22px;
+            padding: 12px 25px;
             border-radius: 12px;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 14px;
-            transition: transform 0.3s ease;
-            cursor: default;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border-top);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .skill-tag:hover {
             transform: translateY(-5px);
-            background: var(--accent-color);
-            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 20px var(--glass-shadow);
         }
 
-        /* Works / Projects Section */
         .works-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
         }
 
         .work-card {
-            padding: 35px 25px;
-            border-radius: 24px;
-            transition: all 0.4s ease;
+            padding: 40px 30px;
             text-align: center;
         }
 
         .work-card:hover {
             transform: translateY(-10px);
-            border-color: var(--accent-color);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
         .work-card i {
-            font-size: 45px;
-            margin-bottom: 20px;
-            color: var(--accent-color);
+            font-size: 50px;
+            margin-bottom: 25px;
+            background: -webkit-linear-gradient(45deg, #f6d365, #fda085);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .work-card h3 {
             margin-bottom: 15px;
-            font-size: 22px;
-            font-weight: 600;
+            font-size: 24px;
+            font-weight: 700;
         }
 
         .work-card p {
             margin-bottom: 25px;
-            font-size: 14px;
-            font-weight: 400;
+            font-size: 15px;
             opacity: 0.8;
         }
 
         .work-card a {
-            color: var(--accent-color);
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid var(--accent-text);
+            color: var(--text-color);
+            border-radius: 20px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .work-card a:hover {
+            background: var(--accent-text);
+            color: #000;
         }
 
         /* Contact Section */
         .contact-content {
             padding: 50px;
-            border-radius: 24px;
             text-align: center;
         }
 
@@ -352,57 +423,63 @@
             margin: 40px 0;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
         }
 
         .social-icons a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             color: var(--text-color);
             text-decoration: none;
             border-radius: 50%;
-            font-size: 22px;
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border-top);
             transition: all 0.3s ease;
         }
 
         .social-icons a:hover {
-            background: var(--accent-color);
-            color: #fff;
-            transform: scale(1.1) translateY(-3px);
-            border-color: transparent;
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 10px 25px var(--glass-shadow);
         }
 
-        /* Footer */
         footer {
             text-align: center;
-            padding: 25px;
+            padding: 30px;
             font-size: 14px;
-            opacity: 0.7;
+            opacity: 0.6;
+            margin-top: 50px;
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
-            header { flex-direction: column; gap: 15px; padding: 15px 5%; }
+        @media (max-width: 900px) {
+            header { width: 100%; top: 0; left: 0; border-radius: 0; padding: 15px 5%; flex-direction: column; gap: 15px; }
             nav { flex-wrap: wrap; justify-content: center; }
             .hero { flex-direction: column-reverse; text-align: center; }
-            .hero-content, .hero-image { flex: unset; width: 100%; }
-            .profile-img { width: 250px; height: 250px; }
-            .hero h1 { font-size: 40px; }
-            section { padding: 160px 5% 60px; }
+            .hero-content { padding: 20px; }
+            .hero h1 { font-size: 45px; }
+            .shape-1 { width: 200px; height: 200px; }
+            .shape-2 { width: 150px; height: 150px; }
+            section { padding: 180px 5% 60px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Animated Gradient Background Blobs -->
-    <div class="bg-blob-1"></div>
-    <div class="bg-blob-2"></div>
+    <!-- 3D Floating Orbs Background -->
+    <div class="shape-container">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
 
-    <!-- Header & Navigation with Controls -->
-    <header class="glass">
+    <!-- Header / Navigation (Frosted Glass) -->
+    <header class="glass-panel">
         <a href="#" class="logo">Anbarasan <span>P</span></a>
         
         <nav>
@@ -414,7 +491,7 @@
             <div class="controls">
                 <!-- Theme Toggle Button -->
                 <button id="theme-btn" class="icon-btn" title="Toggle Light/Dark Theme">
-                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
                 </button>
                 <!-- Language Toggle Button -->
                 <button id="lang-btn" class="icon-btn" title="Change Language">TA</button>
@@ -424,37 +501,37 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 data-aos="fade-down"><span data-en="Hi, I'm" data-ta="வணக்கம், நான்">Hi, I'm</span> <br><span>Anbarasan P</span></h1>
-            <p data-aos="fade-right" data-aos-delay="100"><span data-en="And I'm a" data-ta="நான் ஒரு">And I'm a</span> <span style="color: var(--accent-color); font-weight: 600;" data-en="Student & Developer" data-ta="மாணவர் மற்றும் டெவலப்பர்">Student & Developer</span></p>
-            <div data-aos="fade-up" data-aos-delay="200">
-                <a href="#works" class="btn" data-en="View My Works" data-ta="படைப்புகளைக் காண">View My Works</a>
-            </div>
+        <div class="hero-content glass-panel" data-aos="fade-right">
+            <h1><span data-en="Hi, I'm" data-ta="வணக்கம், நான்">Hi, I'm</span> <br>Anbarasan P</h1>
+            <p><span data-en="And I'm a" data-ta="நான் ஒரு">And I'm a</span> <strong style="color: var(--accent-text);" data-en="Student & Developer" data-ta="மாணவர் மற்றும் டெவலப்பர்">Student & Developer</strong></p>
+            <a href="#works" class="btn" data-en="View My Works" data-ta="படைப்புகளைக் காண">View My Works</a>
         </div>
         
         <!-- Circular Profile Image -->
-        <div class="hero-image" data-aos="zoom-in">
-            <!-- REFERENCING THE SPECIFIED IMAGE -->
-            <img src="42495.png" alt="Anbarasan P" class="profile-img">
+        <div class="hero-image" data-aos="fade-left">
+            <div class="profile-container">
+                <!-- REFERENCING THE SPECIFIED IMAGE -->
+                <img src="42495.png" alt="Anbarasan P" class="profile-img">
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about">
         <h2 data-aos="fade-up" data-en="About Me" data-ta="என்னை பற்றி">About Me</h2>
-        <div class="about-content glass" data-aos="zoom-in">
+        <div class="about-content glass-panel" data-aos="zoom-in">
             <p data-en="Hello! My name is Anbarasan. I am a student passionate about learning new technologies and building innovative projects. I use this portfolio to showcase my work and journey." 
                data-ta="வணக்கம்! என் பெயர் அன்பரசன். நான் ஒரு மாணவர். புதிய விஷயங்களைக் கற்றுக்கொள்வதிலும், புதுமையான ப்ராஜெக்ட்டுகளை உருவாக்குவதிலும் ஆர்வம் கொண்டவன். இந்த இணையதளத்தில் எனது முக்கியப் படைப்புகள் மற்றும் அனுபவங்களை வெளியிட்டு வருகிறேன்.">
                 Hello! My name is Anbarasan. I am a student passionate about learning new technologies and building innovative projects. I use this portfolio to showcase my work and journey.
             </p>
             
-            <h3 style="margin-top: 40px; font-weight: 600;" data-en="My Skills" data-ta="எனது திறன்கள்">My Skills</h3>
+            <h3 style="margin-top: 40px; font-weight: 700;" data-en="My Skills" data-ta="எனது திறன்கள்">My Skills</h3>
             <div class="skills-container">
-                <div class="skill-tag glass"><i class="fab fa-html5" style="color:#ff3b30;"></i> HTML</div>
-                <div class="skill-tag glass"><i class="fab fa-css3-alt" style="color:#007aff;"></i> CSS</div>
-                <div class="skill-tag glass"><i class="fab fa-js" style="color:#ffcc00;"></i> JavaScript</div>
-                <div class="skill-tag glass"><i class="fab fa-python" style="color:#34c759;"></i> Python</div>
-                <div class="skill-tag glass"><i class="fab fa-github" style="color:#8e8e93;"></i> GitHub</div>
+                <div class="skill-tag"><i class="fab fa-html5" style="color:#ff3b30;"></i> HTML</div>
+                <div class="skill-tag"><i class="fab fa-css3-alt" style="color:#007aff;"></i> CSS</div>
+                <div class="skill-tag"><i class="fab fa-js" style="color:#ffcc00;"></i> JavaScript</div>
+                <div class="skill-tag"><i class="fab fa-python" style="color:#34c759;"></i> Python</div>
+                <div class="skill-tag"><i class="fab fa-github" style="color:#e2e8f0;"></i> GitHub</div>
             </div>
         </div>
     </section>
@@ -464,21 +541,21 @@
         <h2 data-aos="fade-up" data-en="My Works" data-ta="எனது படைப்புகள்">My Works</h2>
         <div class="works-grid">
             
-            <div class="work-card glass" data-aos="fade-up" data-aos-delay="100">
+            <div class="work-card glass-panel" data-aos="fade-up" data-aos-delay="100">
                 <i class="fas fa-laptop-code"></i>
                 <h3 data-en="Project 1" data-ta="ப்ராஜெக்ட் 1">Project 1</h3>
                 <p data-en="A description of your first project explaining what you built." data-ta="நீங்கள் உருவாக்கிய முதல் ப்ராஜெக்ட் பற்றிய சிறு விளக்கம்.">A description of your first project explaining what you built.</p>
                 <a href="#" data-en="View Details →" data-ta="விவரங்கள் காண்க →">View Details →</a>
             </div>
 
-            <div class="work-card glass" data-aos="fade-up" data-aos-delay="200">
+            <div class="work-card glass-panel" data-aos="fade-up" data-aos-delay="200">
                 <i class="fas fa-mobile-alt"></i>
                 <h3 data-en="Project 2" data-ta="ப்ராஜெக்ட் 2">Project 2</h3>
                 <p data-en="A description of your second project explaining what you built." data-ta="நீங்கள் உருவாக்கிய இரண்டாவது ப்ராஜெக்ட் பற்றிய சிறு விளக்கம்.">A description of your second project explaining what you built.</p>
                 <a href="#" data-en="View Details →" data-ta="விவரங்கள் காண்க →">View Details →</a>
             </div>
 
-            <div class="work-card glass" data-aos="fade-up" data-aos-delay="300">
+            <div class="work-card glass-panel" data-aos="fade-up" data-aos-delay="300">
                 <i class="fas fa-database"></i>
                 <h3 data-en="Project 3" data-ta="ப்ராஜெக்ட் 3">Project 3</h3>
                 <p data-en="A description of your third project explaining what you built." data-ta="நீங்கள் உருவாக்கிய மூன்றாவது ப்ராஜெக்ட் பற்றிய சிறு விளக்கம்.">A description of your third project explaining what you built.</p>
@@ -491,72 +568,6 @@
     <!-- Contact Section -->
     <section id="contact">
         <h2 data-aos="fade-up" data-en="Get In Touch" data-ta="தொடர்பு கொள்ள">Get In Touch</h2>
-        <div class="contact-content glass" data-aos="fade-up">
+        <div class="contact-content glass-panel" data-aos="fade-up">
             <p data-en="If you want to contact me or discuss my work, feel free to reach out via the options below." 
-               data-ta="நீங்கள் என்னைத் தொடர்பு கொள்ள அல்லது எனது படைப்புகள் குறித்துப் பேச விரும்பினால் கீழே உள்ள வழிகளில் தொடர்பு கொள்ளலாம்.">
-               If you want to contact me or discuss my work, feel free to reach out via the options below.
-            </p>
-            
-            <div class="social-icons">
-                <a href="mailto:anbarasanp142007@gmail.com" class="glass" title="Email"><i class="fas fa-envelope"></i></a>
-                <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="glass" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="glass" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-
-            <a href="mailto:anbarasanp142007@gmail.com" class="btn" data-en="Send Message" data-ta="செய்தி அனுப்பு">Send Message</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>© 2026 Anbarasan P. <span data-en="All rights reserved." data-ta="அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.">All rights reserved.</span></p>
-    </footer>
-
-    <!-- AOS Animation Script -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script>
-        // Initialize Scroll Animation
-        AOS.init({
-            duration: 1000,
-            once: true 
-        });
-
-        // 1. Theme Toggle Logic (Light / Dark)
-        const themeBtn = document.getElementById('theme-btn');
-        const root = document.documentElement;
-        
-        themeBtn.addEventListener('click', () => {
-            const isDark = root.getAttribute('data-theme') === 'dark';
-            
-            if (isDark) {
-                root.removeAttribute('data-theme');
-                themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
-            } else {
-                root.setAttribute('data-theme', 'dark');
-                themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
-            }
-        });
-
-        // 2. Language Toggle Logic (English / Tamil)
-        const langBtn = document.getElementById('lang-btn');
-        let currentLang = 'en'; // Default language
-
-        langBtn.addEventListener('click', () => {
-            // Toggle language state
-            currentLang = (currentLang === 'en') ? 'ta' : 'en';
-            
-            // Update Button Text
-            langBtn.innerText = (currentLang === 'en') ? 'TA' : 'EN';
-            
-            // Update all dual-language elements
-            const translatableElements = document.querySelectorAll('[data-en][data-ta]');
-            
-            translatableElements.forEach(el => {
-                el.innerText = el.getAttribute(`data-${currentLang}`);
-            });
-        });
-    </script>
-</body>
-    </html>
-    
+               data-ta="நீங்கள் என்னைத் தொடர்பு கொள்ள அல்லத
