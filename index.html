@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ta" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anbarasan P | CS Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ================= THEME VARIABLES ================= */
+        :root {
+            --bg-overlay: rgba(10, 15, 30, 0.85); 
+            --card-bg: rgba(255, 255, 255, 0.05); /* 95% Transparent */
+            --card-border: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+            
+            /* Section Colors */
+            --c-blue: #0ea5e9;
+            --c-purple: #a855f7;
+            --c-orange: #f97316;
+            --c-green: #10b981;
+            --c-red: #ef4444;
+        }
+
+        [data-theme="light"] {
+            --bg-overlay: rgba(240, 244, 250, 0.85);
+            --card-bg: rgba(0, 0, 0, 0.03);
+            --card-border: rgba(0, 0, 0, 0.1);
+            --text-main: #111827;
+            --text-muted: #4b5563;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+
+        body {
+            background-color: #0f172a;
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: color 0.3s;
+            padding: 20px;
+            padding-bottom: 150px; /* Secure space for floating bottom bar */
+        }
+
+        /* ================= BACKGROUND & OVERLAY ================= */
+        .cs-background {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center; background-attachment: fixed;
+        }
+        .bg-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+            background: var(--bg-overlay); transition: background 0.3s;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+
+        /* ================= ANIMATIONS ================= */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes floatingBar {
+            0% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+            100% { transform: translateX(-50%) translateY(0px); }
+        }
+
+        /* Apply animation to cards */
+        .glass-card {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0; /* Starts hidden, animation reveals it */
+            
+            background: var(--card-bg);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px; padding: 30px; box-shadow: var(--shadow-lg);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        
+        /* Staggered animation delays for a smooth load effect */
+        .glass-card:nth-child(1) { animation-delay: 0.1s; }
+        .glass-card:nth-child(2) { animation-delay: 0.3s; }
+        .glass-card:nth-child(3) { animation-delay: 0.5s; }
+        .glass-card:nth-child(4) { animation-delay: 0.7s; }
+        .glass-card:nth-child(5) { animation-delay: 0.9s; }
+
+        .card-header { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+        .card-header i { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; border: 1px solid var(--card-border); background: var(--card-bg); }
+
+        /* Hover Effects matching specific colors */
+        .sec-home:hover { border-color: var(--c-blue); }
+        .sec-home .card-header i { color: var(--c-blue); border-color: var(--c-blue); }
+        .sec-about:hover { border-color: var(--c-purple); }
+        .sec-about .card-header i { color: var(--c-purple); border-color: var(--c-purple); }
+        .sec-skills:hover { border-color: var(--c-orange); }
+        .sec-skills .card-header i { color: var(--c-orange); border-color: var(--c-orange); }
+        .sec-projects:hover { border-color: var(--c-green); }
+        .sec-projects .card-header i { color: var(--c-green); border-color: var(--c-green); }
+        .sec-contact:hover { border-color: var(--c-red); }
+        .sec-contact .card-header i { color: var(--c-red); border-color: var(--c-red); }
+
+        /* ================= COMPONENTS ================= */
+        .profile-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .avatar-a {
+            width: 120px; height: 120px; border-radius: 50%;
+            background: rgba(14, 165, 233, 0.2); border: 3px solid var(--c-blue);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 60px; font-weight: 800; color: var(--text-main);
+            margin-bottom: 20px; box-shadow: 0 0 25px rgba(14, 165, 233, 0.5); text-shadow: 0 0 10px var(--c-blue);
+        }
+        .profile-name { font-size: 26px; font-weight: 700; margin-bottom: 5px; }
+        .pill-btn-group { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
+        .pill-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 10px 22px; border-radius: 30px; font-size: 13px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s; cursor: pointer; }
+        .pill-btn:hover { background: var(--c-blue); color: #fff; border-color: var(--c-blue); box-shadow: 0 0 15px rgba(14,165,233,0.5); }
+
+        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .skill-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: 0.3s; }
+        .skill-item:hover { border-color: var(--c-orange); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(249,115,22,0.3); }
+        .skill-item i { font-size: 35px; }
+        
+        .project-list { display: flex; flex-direction: column; gap: 20px; }
+        .project-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; transition: 0.3s; }
+        .project-item:hover { border-color: var(--c-green); transform: scale(1.02); box-shadow: 0 5px 15px rgba(16,185,129,0.3); }
+        .project-links { display: flex; gap: 20px; margin-top: 15px; }
+        .project-links a { font-size: 13px; font-weight: 600; text-decoration: none; color: var(--c-green); display: flex; align-items: center; gap: 6px; }
+
+        .contact-form { display: flex; flex-direction: column; gap: 15px; }
+        .form-input { width: 100%; background: var(--card-bg); border: 1px solid var(--card-border); padding: 16px; border-radius: 12px; color: var(--text-main); font-size: 14px; outline: none; transition: 0.3s; }
+        .form-input:focus { border-color: var(--c-red); box-shadow: 0 0 10px rgba(239,68,68,0.3); }
+        .submit-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .submit-btn:hover { background: var(--c-red); color: #fff; border-color: var(--c-red); box-shadow: 0 0 15px rgba(239,68,68,0.5); }
+
+        /* ================= ANIMATED FLOATING BOTTOM BAR ================= */
+        .bottom-bar {
+            position: fixed !important;
+            bottom: 30px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            background: rgba(15, 23, 42, 0.95) !important;
+            border: 2px solid var(--c-blue) !important;
+            border-radius: 50px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 20px !important;
+            padding: 10px 25px !important;
+            z-index: 2147483647 !important;
+            width: max-content !important;
+            /* Glowing Shadow + Floating Animation */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(14, 165, 233, 0.4) !important;
+            animation: floatingBar 4s ease-in-out infinite !important;
+        }
+
+        [data-theme="light"] .bottom-bar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 0 15px rgba(14, 165, 233, 0.3) !important;
+        }
+
+        .bar-icon {
+            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; color: var(--text-main); font-size: 20px; text-decoration: none; border: none; background: transparent; cursor: pointer; transition: 0.3s; font-weight: 700;
+        }
+        [data-theme="light"] .bar-icon { color: #111827; }
+        .bar-icon:hover, .bar-icon.active { background: var(--c-blue); color: #fff !important; transform: scale(1.1); }
+
+        /* ================= FLOATING AI CHATBOT ================= */
+        .ai-chatbot-btn {
+            position: fixed !important;
+            bottom: 120px !important; /* Kept safely above the bottom bar */
+            right: 25px !important;
+            width: 65px; height: 65px; border-radius: 50%;
+            background: rgba(15, 23, 42, 0.95); border: 2px solid var(--c-purple);
+            color: var(--c-purple); font-size: 30px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6); 
+            cursor: pointer; z-index: 2147483646 !important; transition: 0.3s;
+        }
+        [data-theme="light"] .ai-chatbot-btn { background: #fff; }
+        .ai-chatbot-btn:hover { background: var(--c-purple); color: #fff; transform: scale(1.1) rotate(10deg); }
+
+        /* Modals */
+        .modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 2147483647; backdrop-filter: blur(8px); }
+        .modal-content { width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; text-align: left; position: relative; padding: 30px; background: var(--bg-overlay); border: 1px solid var(--card-border); border-radius: 20px; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        .close-modal { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--text-main); font-size: 24px; cursor: pointer; transition: 0.2s; }
+        .close-modal:hover { color: var(--c-red); transform: scale(1.2); }
+
+        /* Chat UI */
+        .chat-container { display: flex; flex-direction: column; height: 350px; margin-top: 10px; }
+        .chat-log { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-bottom: 20px; }
+        .chat-msg { max-width: 85%; padding: 12px 16px; border-radius: 15px; font-size: 14px; line-height: 1.5; }
+        .bot-msg { background: rgba(168, 85, 247, 0.2); border: 1px solid var(--c-purple); align-self: flex-start; border-bottom-left-radius: 0; }
+        .user-msg { background: rgba(14, 165, 233, 0.2); border: 1px solid var(--c-blue); align-self: flex-end; border-bottom-right-radius: 0; }
+        .chat-input-area { display: flex; gap: 10px; border-top: 1px solid var(--card-border); padding-top: 15px; }
+        .chat-input { flex: 1; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 12px; border-radius: 10px; outline: none; }
+        .chat-send { background: var(--c-purple); color: #fff; border: none; padding: 0 20px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+
+        /* Resume Content */
+        .resume-section { margin-bottom: 20px; }
+        .resume-section h3 { font-size: 18px; margin-bottom: 10px; border-left: 4px solid var(--c-blue); padding-left: 10px; color: var(--c-blue); }
+        .resume-section ul { padding-left: 20px; font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+
+        @media (max-width: 500px) {
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .bottom-bar { gap: 12px !important; padding: 10px 15px !important; }
+            .bar-icon { width: 38px; height: 38px; font-size: 18px; }
+            .ai-chatbot-btn { bottom: 100px !important; right: 15px !important; width: 55px; height: 55px; font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Backgrounds -->
+    <div class="cs-background"></div>
+    <div class="bg-overlay"></div>
+
+    <div class="container" id="home">
+        
+        <!-- 1. PROFILE SECTION (BLUE) -->
+        <div class="glass-card sec-home">
+            <div class="card-header">
+                <i class="fas fa-user-astronaut"></i> <span data-en="Profile" data-ta="சுயவிவரம்">சுயவிவரம்</span>
+            </div>
+            <div class="profile-content">
+                <div class="avatar-a">A</div>
+                <h1 class="profile-name" data-en="Anbarasan P" data-ta="அன்பரசன் P">அன்பரசன் P</h1>
+                <p style="font-weight:600; font-size:16px; color: var(--c-blue); margin-bottom: 15px;" data-en="Computer Science Student | Software Engineer" data-ta="கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்">கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்</p>
+                <p class="profile-desc" data-en="Passionate developer building next-gen web experiences, algorithms, and exploring AI technologies seamlessly." data-ta="நவீன வலைத்தளங்களை உருவாக்குவதிலும், AI தொழில்நுட்பங்களைக் கற்பதிலும் ஆர்வமுள்ள டெவலப்பர்.">
+                    நவீன வலைத்தளங்களை உருவாக்குவதிலும், AI தொழில்நுட்பங்களைக் கற்பதிலும் ஆர்வமுள்ள டெவலப்பர்.
+                </p>
+                
+                <div class="pill-btn-group">
+                    <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="pill-btn"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="pill-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                    <button class="pill-btn" id="open-resume-btn"><i class="fas fa-file-pdf"></i> <span data-en="Resume" data-ta="ரெஸ்யூம்">ரெஸ்யூம்</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. ABOUT ME (PURPLE) -->
+        <div class="glass-card sec-about" id="about">
+            <div class="card-header">
+                <i class="fas fa-address-card"></i> <span data-en="About Me" data-ta="என்னைப்பற்றி">என்னைப்பற்றி</span>
+            </div>
+            <p style="font-size: 14px; line-height: 1.8; color: var(--text-muted); text-align: center;" data-en="I am a Computer Science student passionate about Web Development, AI, and building modern, responsive websites. I enjoy learning new technologies and creating user-friendly web applications."
+               data-ta="நான் வலைத்தள மேம்பாடு, AI மற்றும் நவீன வலைத்தளங்களை உருவாக்குவதில் ஆர்வமுள்ள ஒரு கணினி அறிவியல் மாணவன். புதிய தொழில்நுட்பங்களைக் கற்றுக்கொள்வதிலும், சிறந்த வலைத்தளங்களை வடிவமைப்பதிலும் எனக்கு அதிக ஆர்வம் உள்ளது.">
+                நான் வலைத்தள மேம்பாடு, AI மற்றும் நவீன வலைத்தளங்களை உருவாக்குவதில் ஆர்வமுள்ள ஒரு கணினி அறிவியல் மாணவன். புதிய தொழில்நுட்பங்களைக் கற்றுக்கொள்வதிலும், சிறந்த வலைத்தளங்களை வடிவமைப்பதிலும் எனக்கு அதிக ஆர்வம் உள்ளது.
+            </p>
+        </div>
+
+        <!-- 3. SKILLS SECTION (ORANGE) -->
+        <div class="glass-card sec-skills" id="skills">
+            <div class="card-header">
+                <i class="fas fa-code"></i> <span data-en="Technical Skills" data-ta="தொழில்நுட்ப திறன்கள்">தொழில்நுட்ப திறன்கள்</span>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item"><i class="fas fa-file-code" style="color: #00599C;"></i><span>C++ & C</span></div>
+                <div class="skill-item"><i class="fab fa-java" style="color: #f89820;"></i><span>Java</span></div>
+                <div class="skill-item"><i class="fab fa-python" style="color: #3776AB;"></i><span>Python</span></div>
+                <div class="skill-item"><i class="fab fa-html5" style="color: #E34F26;"></i><span>HTML/CSS</span></div>
+                <div class="skill-item"><i class="fab fa-js" style="color: #F7DF1E;"></i><span>JavaScript</span></div>
+                <div class="skill-item"><i class="fab fa-git-alt" style="color: #F05032;"></i><span>Git</span></div>
+            </div>
+        </div>
+
+        <!-- 4. PROJECTS SECTION (GREEN) -->
+        <div class="glass-card sec-projects" id="projects">
+            <div class="card-header">
+                <i class="fas fa-layer-group"></i> <span data-en="Projects" data-ta="படைப்புகள்">படைப்புகள்</span>
+            </div>
+            <div class="project-list">
+                
+                <div class="project-item">
+                    <div style="font-size: 18px; font-weight: 700; margin-bottom: 10px; display: flex; justify-content: space-between;"><span data-en="CS Transparent Portfolio" data-ta="நவீன போர்ட்ஃபோலியோ">நவீன போர்ட்ஃபோலியோ</span> <i class="fab fa-html5" style="color:#E34F26"></i></div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;" data-en="95% transparent colorful UI design matching CS roadmap aesthetics." data-ta="95% வெளிப்படையான வண்ணமயமான போர்ட்ஃபோலியோ தளம்.">95% வெளிப்படையான வண்ணமயமான போர்ட்ஃபோலியோ தளம்.</div>
+                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
+                </div>
+
+                <div class="project-item">
+                    <div style="font-size: 18px; font-weight: 700; margin-bottom: 10px; display: flex; justify-content: space-between;"><span data-en="Python Automation" data-ta="பைதான் ஆட்டோமேஷன்">பைதான் ஆட்டோமேஷன்</span> <i class="fab fa-python" style="color:#3776AB"></i></div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;" data-en="Data processing and system management applications." data-ta="தரவு பகுப்பாய்வு மற்றும் கணினி மேலாண்மை.">தரவு பகுப்பாய்வு மற்றும் கணினி மேலாண்மை.</div>
+                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
+                </div>
+
+                <div class="project-item">
+                    <div style="font-size: 18px; font-weight: 700; margin-bottom: 10px; display: flex; justify-content: space-between;"><span data-en="Weather Dashboard" data-ta="வானிலை செயலி">வானிலை செயலி</span> <i class="fas fa-cloud-sun" style="color:#f89820"></i></div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;" data-en="Real-time weather app fetching data via API." data-ta="API மூலம் தகவல்களைப் பெறும் நிகழ்நேர வானிலை செயலி.">API மூலம் தகவல்களைப் பெறும் நிகழ்நேர வானிலை செயலி.</div>
+                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
+                </div>
+                
+                <div class="project-item">
+                    <div style="font-size: 18px; font-weight: 700; margin-bottom: 10px; display: flex; justify-content: space-between;"><span data-en="AI Chat Interface" data-ta="AI சாட் செயலி">AI சாட் செயலி</span> <i class="fas fa-robot" style="color:#8e2de2"></i></div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;" data-en="Conversational UI simulating AI responses." data-ta="AI மூலம் இயங்கும் உரையாடல் இடைமுகம்.">AI மூலம் இயங்கும் உரையாடல் இடைமுகம்.</div>
+                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 5. CONTACT SECTION (RED) - Web3Forms Configured -->
+        <div class="glass-card sec-contact" id="contact">
+            <div class="card-header">
+                <i class="fas fa-paper-plane"></i> <span data-en="Get in Touch" data-ta="தொடர்பு கொள்க">தொடர்பு கொள்க</span>
+            </div>
+            
+            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+                <!-- User's Actual Web3Forms API Key Added -->
+                <input type="hidden" name="access_key" value="A50ebd2c-0b10-471d-a517-0818082252a0">
+                <input type="text" name="name" data-en-placeholder="Your Name" data-ta-placeholder="உங்கள் பெயர்" placeholder="உங்கள் பெயர்" required class="form-input">
+                <input type="email" name="email" data-en-placeholder="Your Email" data-ta-placeholder="உங்கள் மின்னஞ்சல்" placeholder="உங்கள் மின்னஞ்சல்" required class="form-input">
+                <textarea name="message" data-en-placeholder="Your Message..." data-ta-placeholder="உங்கள் செய்தி..." placeholder="உங்கள் செய்தி..." required class="form-input"></textarea>
+                <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> <span data-en="Send Message" data-ta="செய்தி அனுப்பு">செய்தி அனுப்பு</span></button>
+            </form>
+        </div>
+
+        <footer style="text-align: center; color: var(--text-muted); font-size: 13px; margin-top: -10px;">
+            <p>© 2026 Anbarasan P. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- ================= ANIMATED FLOATING BOTTOM BAR ================= -->
+    <nav class="bottom-bar">
+        <a href="#home" class="bar-icon active" title="Home"><i class="fas fa-home"></i></a>
+        <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="bar-icon" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="bar-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <button id="theme-btn" class="bar-icon" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+        <button id="lang-btn" class="bar-icon" title="Switch Language" style="font-size: 14px;"><span id="lang-text" data-en="TA" data-ta="EN">EN</span></button>
+    </nav>
+
+    <!-- ================= FLOATING AI CHATBOT BUTTON ================= -->
+    <button class="ai-chatbot-btn" id="open-ai-btn" title="AI Assistant">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <!-- ================= RESUME MODAL ================= -->
+    <div id="resume-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-resume-btn"><i class="fas fa-times"></i></button>
+            
+            <div style="text-align: center; border-bottom: 2px solid var(--card-border); padding-bottom: 20px; margin-bottom: 20px;">
+                <h1 style="color: var(--c-blue); font-size: 28px;">Anbarasan P</h1>
+                <p style="font-weight: 600;">Computer Science Student | Front-End Developer</p>
+                <p style="font-size: 13px; margin-top: 8px; color: var(--text-muted);"><i class="fas fa-envelope"></i> anbarasanp142007@gmail.com</p>
+            </div>
+            
+            <div class="resume-section">
+                <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                <ul><li><b>Bachelor of Computer Science</b> <br> Focusing on software engineering and web technologies.</li></ul>
+            </div>
+
+            <div class="resume-section">
+                <h3><i class="fas fa-laptop-code"></i> Technical Skills</h3>
+                <ul><li>Languages: C, C++, Java, Python <br> Web: HTML, CSS, JavaScript <br> Tools: Git, GitHub</li></ul>
+            </div>
+
+            <div class="resume-section">
+                <h3><i class="fas fa-project-diagram"></i> Key Projects</h3>
+                <ul>
+                    <li><b>Transparent CS Portfolio:</b> Built a 95% transparent UI with dynamic JS routing.</li>
+                    <li><b>Python Automation Suite:</b> Created scripts for automating data processing tasks.</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="window.print()" style="padding: 10px 20px; background: var(--c-blue); color: #fff; border: none; border-radius: 20px; cursor: pointer; font-weight: 600;"><i class="fas fa-print"></i> Print / Save PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FUNCTIONAL AI CHATBOT MODAL ================= -->
+    <div id="ai-modal" class="modal">
+        <div class="modal-content" style="max-width: 400px; padding: 20px;">
+            <button class="close-modal" id="close-ai-btn"><i class="fas fa-times"></i></button>
+            <h3 style="margin-bottom: 10px; color: var(--c-purple);"><i class="fas fa-robot"></i> <span data-en="AI Assistant" data-ta="AI உதவியாளர்">AI உதவியாளர்</span></h3>
+            
+            <div class="chat-container">
+                <div class="chat-log" id="chat-log">
+                    <div class="chat-msg bot-msg">
+                        <span data-en="Hi! I am Anbarasan's AI. Ask me about his 'skills', 'projects', or 'contact'." data-ta="வணக்கம்! நான் அன்பரசனின் AI. 'skills', 'projects', அல்லது 'contact' என்று டைப் செய்து விபரங்களை அறியலாம்.">
+                            வணக்கம்! நான் அன்பரசனின் AI. 'skills', 'projects', அல்லது 'contact' என்று டைப் செய்து விபரங்களை அறியலாம்.
+                        </span>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" class="chat-input" placeholder="Type here..." autocomplete="off">
+                    <button id="chat-send" class="chat-send"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Bottom Bar Active State
+            document.querySelectorAll('.bottom-bar a[href^="#"]').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.bar-icon').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // 2. Theme Toggle
+            const themeBtn = document.getElementById('theme-btn');
+            const root = document.documentElement;
+            themeBtn.addEventListener('click', () => {
+                if (root.getAttribute('data-theme') === 'dark') {
+                    root.setAttribute('data-theme', 'light');
+                    themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                } else {
+                    root.setAttribute('data-theme', 'dark');
+                    themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            });
+
+            // 3. Language Toggle (Safely updates text without breaking spans)
+            const langBtn = document.getElementById('lang-btn');
+            const langTextSpan = document.getElementById('lang-text');
+            let currentLang = 'ta'; 
+            
+            langBtn.addEventListener('click', () => {
+                currentLang = (currentLang === 'ta') ? 'en' : 'ta';
+                
+                if (langTextSpan) {
+                    langTextSpan.innerText = (currentLang === 'ta') ? 'EN' : 'TA';
+                }
+                
+                document.querySelectorAll('[data-en][data-ta]').forEach(el => {
+                    el.innerText = el.getAttribute(`data-${currentLang}`);
+                });
+                document.querySelectorAll('[data-en-placeholder][data-ta-placeholder]').forEach(el => {
+                    el.placeholder = el.getAttribute(`data-${currentLang}-placeholder`);
+                });
+            });
+
+            // 4. Modal Triggers
+            const resumeModal = document.getElementById('resume-modal');
+            const aiModal = document.getElementById('ai-modal');
+            
+            document.getElementById('open-resume-btn').addEventListener('click', () => resumeModal.style.display = 'flex');
+            document.getElementById('close-resume-btn').addEventListener('click', () => resumeModal.style.display = 'none');
+            
+            document.getElementById('open-ai-btn').addEventListener('click', () => aiModal.style.display = 'flex');
+            document.getElementById('close-ai-btn').addEventListener('click', () => aiModal.style.display = 'none');
+
+            window.addEventListener('click', (e) => {
+                if (e.target === resumeModal) resumeModal.style.display = 'none';
+                if (e.target === aiModal) aiModal.style.display = 'none';
+            });
+
+            // 5. Working AI Chatbot Logic
+            const chatLog = document.getElementById('chat-log');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+
+            const botKnowledge = {
+                "hello": "Hello there! How can I assist you today?",
+                "hi": "Hi! Ask me about Anbarasan's skills or projects.",
+                "skills": "Anbarasan is skilled in C++, Java, Python, HTML, CSS, and JavaScript. He is also exploring AI!",
+                "projects": "He has built this Transparent Portfolio, a Python Automation Suite, a Weather App, and an AI Chat interface! Check the Projects section.",
+                "contact": "You can reach him at anbarasanp142007@gmail.com or via his LinkedIn profile.",
+                "resume": "You can view his resume by clicking the 'Resume' button in the Profile section.",
+                "who are you": "I am Anbarasan's personal AI Assistant built with JavaScript.",
+                "default": "I'm not sure about that! Try asking about his 'skills', 'projects', or 'contact'."
+            };
+
+            function addChatMessage(msg, isUser) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `chat-msg ${isUser ? 'user-msg' : 'bot-msg'}`;
+                msgDiv.innerText = msg;
+                chatLog.appendChild(msgDiv);
+                chatLog.scrollTop = chatLog.scrollHeight;
+            }
+
+            function handleChat() {
+                const userText = chatInput.value.trim().toLowerCase();
+                if (!userText) return;
+                
+                addChatMessage(chatInput.value, true);
+                chatInput.value = '';
+
+                setTimeout(() => {
+                    let botReply = botKnowledge["default"];
+                    for (let key in botKnowledge) {
+                        if (userText.includes(key) && key !== "default") {
+                            botReply = botKnowledge[key];
+                            break;
+                        }
+                    }
+                    addChatMessage(botReply, false);
+                }, 600);
+            }
+
+            chatSend.addEventListener('click', handleChat);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleChat();
+            });
+        });
+    </script>
+</body>
+</html>
