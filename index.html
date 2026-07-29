@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO Meta Tags -->
     <meta name="description" content="Anbarasan P - Professional Software Engineer & Web Developer Portfolio">
-    <meta name="keywords" content="Anbarasan P, Portfolio, Web Developer, Software Engineer, Glassmorphism, AI">
     <title>Anbarasan P | Portfolio</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         /* ================= THEME VARIABLES ================= */
@@ -67,6 +64,15 @@
         }
         @keyframes moveParticles { 100% { background-position: 50px 50px; } }
 
+        /* Custom Fade-in Animation (Replaces AOS) */
+        .fade-in {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         /* ================= 100% TRANSPARENT GLASS CLASS ================= */
         .glass-card {
             background: var(--glass-bg);
@@ -74,7 +80,7 @@
             border-radius: 20px;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
-            /* Explicitly removed backdrop-filter: blur for 100% transparency */
+            /* 100% Transparent - No Backdrop Filter Blur */
         }
         .glass-card:hover { border-color: var(--accent); background: var(--glass-hover); transform: translateY(-5px); }
 
@@ -187,8 +193,8 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-links { display: none; } /* Hide top links on mobile */
-            .bottom-bar { display: flex; } /* Show bottom bar */
+            .nav-links { display: none; } 
+            .bottom-bar { display: flex; } 
             .hero { flex-direction: column-reverse; text-align: center; }
             .contact-grid { grid-template-columns: 1fr; }
             .chatbot-btn { bottom: 90px; right: 20px; width: 50px; height: 50px; font-size: 20px; }
@@ -202,7 +208,7 @@
 
     <!-- Top Bar -->
     <header class="glass-card">
-        <a href="#" class="logo">Anbarasan<span>.P</span></a>
+        <a href="#" class="logo">Student <span>Portfolio</span></a>
         
         <nav class="nav-links">
             <a href="#about" class="water-btn"><span data-en="About" data-ta="பற்றி">About</span></a>
@@ -219,10 +225,10 @@
     </header>
 
     <!-- Main Container -->
-    <div class="container">
+    <div class="container fade-in">
         
-        <!-- 1. Hero Section -->
-        <section class="hero" id="home" data-aos="fade-up">
+        <!-- 1. HERO SECTION -->
+        <section class="hero" id="home">
             <div class="hero-content">
                 <h1 data-en="Hi, I'm Anbarasan P" data-ta="வணக்கம், நான் அன்பரசன் P">Hi, I'm Anbarasan P</h1>
                 <p class="hero-tagline" data-en="Computer Science Student & Software Engineer" data-ta="கணினி அறிவியல் மாணவர் & மென்பொருள் பொறியாளர்">Computer Science Student & Software Engineer</p>
@@ -242,8 +248,8 @@
             </div>
         </section>
 
-        <!-- 2. About Section -->
-        <section id="about" data-aos="fade-up">
+        <!-- 2. ABOUT SECTION -->
+        <section id="about">
             <h2 class="section-title"><span data-en="About" data-ta="என்னைப்">About</span> <span style="color:var(--text-main)" data-en="Me" data-ta="பற்றி">Me</span></h2>
             <div class="glass-card about-text">
                 <p data-en="I am an ambitious tech enthusiast focused on mastering modern programming languages and frameworks. I specialize in crafting 100% transparent glassmorphism UIs, robust backend scripts in Python, and optimized algorithms in C++/Java. My goal is to build software that solves real-world problems flawlessly."
@@ -253,8 +259,8 @@
             </div>
         </section>
 
-        <!-- 3. Skills Section -->
-        <section id="skills" data-aos="fade-up">
+        <!-- 3. SKILLS SECTION -->
+        <section id="skills">
             <h2 class="section-title"><span data-en="Technical" data-ta="தொழில்நுட்ப">Technical</span> <span style="color:var(--text-main)" data-en="Skills" data-ta="திறன்கள்">Skills</span></h2>
             <div class="skills-grid">
                 <div class="glass-card skill-box"><i class="fas fa-file-code"></i><span>C++ & C</span></div>
@@ -266,8 +272,8 @@
             </div>
         </section>
 
-        <!-- 4. Projects Section -->
-        <section id="projects" data-aos="fade-up">
+        <!-- 4. PROJECTS SECTION -->
+        <section id="projects">
             <h2 class="section-title"><span data-en="Featured" data-ta="சிறந்த">Featured</span> <span style="color:var(--text-main)" data-en="Projects" data-ta="படைப்புகள்">Projects</span></h2>
             <div class="projects-grid">
                 
@@ -295,8 +301,8 @@
             </div>
         </section>
 
-        <!-- 5. Contact Section -->
-        <section id="contact" data-aos="fade-up">
+        <!-- 5. CONTACT SECTION -->
+        <section id="contact">
             <h2 class="section-title"><span data-en="Get In" data-ta="தொடர்பு">Get In</span> <span style="color:var(--text-main)" data-en="Touch" data-ta="கொள்க">Touch</span></h2>
             <div class="glass-card contact-grid">
                 
@@ -310,4 +316,6 @@
                         <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank"><i class="fab fa-linkedin-in"></i> linkedin.com/in/anbarasanp14978</a>
                         <a href="mailto:anbarasanp142007@gmail.com"><i class="fas fa-envelope"></i> anbarasanp142007@gmail.com</a>
                     </div>
-                
+                </div>
+
+                <form action="YOUR_FORMSPREE_LINK_HERE" method=
