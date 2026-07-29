@@ -11,14 +11,18 @@
     <style>
         /* ================= THEME VARIABLES (95% Transparent) ================= */
         :root {
-            --bg-overlay: rgba(5, 8, 15, 0.85); /* Dark overlay for readability */
+            --bg-overlay: rgba(5, 8, 15, 0.85);
             --card-bg: rgba(255, 255, 255, 0.05); /* 95% Transparent */
             --card-border: rgba(255, 255, 255, 0.15);
             --text-main: #ffffff;
             --text-muted: #a0aec0;
             --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
             
-            /* Section Specific Colors */
+            /* Bottom Bar Specific (More Opaque for Visibility) */
+            --bar-bg: rgba(15, 23, 42, 0.95);
+            --bar-border: rgba(255, 255, 255, 0.2);
+            
+            /* Section Colors */
             --c-blue: #0ea5e9;
             --c-purple: #a855f7;
             --c-orange: #f97316;
@@ -28,34 +32,36 @@
 
         [data-theme="light"] {
             --bg-overlay: rgba(240, 244, 248, 0.85);
-            --card-bg: rgba(0, 0, 0, 0.03); /* 95% Transparent */
+            --card-bg: rgba(0, 0, 0, 0.03);
             --card-border: rgba(0, 0, 0, 0.1);
             --text-main: #111827;
             --text-muted: #4b5563;
             --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+            
+            --bar-bg: rgba(255, 255, 255, 0.95);
+            --bar-border: rgba(0, 0, 0, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
 
-        /* Computer Science Roadmap Background */
         body {
             background-color: #0f172a;
             color: var(--text-main);
             overflow-x: hidden;
             transition: color 0.3s;
             padding: 20px;
-            padding-bottom: 120px;
+            padding-bottom: 120px; /* Space for Bottom Bar */
         }
 
+        /* Computer Science Roadmap Background */
         .cs-background {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
-            background-image: url('[attachment_0](attachment)');
+            background-image: url('http://googleusercontent.com/image_collection/image_retrieval/13833106642661866991_0');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
         
-        /* Dark/Light Overlay for readability */
         .bg-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
             background: var(--bg-overlay);
@@ -79,37 +85,28 @@
         .card-header { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; margin-bottom: 24px; }
         .card-header i { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; border: 1px solid var(--card-border); background: var(--card-bg); }
 
-        /* ================= SECTION SPECIFIC COLORS ================= */
-        /* 1. Home/Profile (Blue) */
+        /* Section Colors Hover Effect */
         .sec-home:hover { border-color: var(--c-blue); }
         .sec-home .card-header i { color: var(--c-blue); border-color: var(--c-blue); }
-        .sec-home .accent-text { color: var(--c-blue); }
         .sec-home .pill-btn:hover { background: var(--c-blue); color: #fff; border-color: var(--c-blue); }
 
-        /* 2. About (Purple) */
         .sec-about:hover { border-color: var(--c-purple); }
         .sec-about .card-header i { color: var(--c-purple); border-color: var(--c-purple); }
-        .sec-about .accent-text { color: var(--c-purple); }
 
-        /* 3. Skills (Orange) */
         .sec-skills:hover { border-color: var(--c-orange); }
         .sec-skills .card-header i { color: var(--c-orange); border-color: var(--c-orange); }
         .sec-skills .skill-item:hover { border-color: var(--c-orange); transform: translateY(-5px); }
         
-        /* 4. Projects (Green) */
         .sec-projects:hover { border-color: var(--c-green); }
         .sec-projects .card-header i { color: var(--c-green); border-color: var(--c-green); }
         .sec-projects .project-item:hover { border-color: var(--c-green); transform: scale(1.02); }
-        .sec-projects .proj-link { color: var(--c-green); }
 
-        /* 5. Contact (Red) */
         .sec-contact:hover { border-color: var(--c-red); }
         .sec-contact .card-header i { color: var(--c-red); border-color: var(--c-red); }
-        .sec-contact .submit-btn { background: var(--card-bg); border: 1px solid var(--c-red); color: var(--text-main); }
-        .sec-contact .submit-btn:hover { background: var(--c-red); color: #fff; }
+        .sec-contact .submit-btn:hover { background: var(--c-red); color: #fff; border-color: var(--c-red); }
         .sec-contact .form-input:focus { border-color: var(--c-red); }
 
-        /* ================= PROFILE & AVATAR ================= */
+        /* Profile & Avatar */
         .profile-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
         .avatar-a {
             width: 130px; height: 130px; border-radius: 50%;
@@ -130,7 +127,7 @@
             display: flex; align-items: center; gap: 8px; transition: 0.3s; cursor: pointer;
         }
 
-        /* ================= SKILLS GRID ================= */
+        /* Skills Grid */
         .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
         .skill-item {
             background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px;
@@ -138,53 +135,65 @@
         }
         .skill-item i { font-size: 35px; }
         .skill-item span { font-size: 13px; font-weight: 600; }
-        @media (max-width: 500px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
 
-        /* ================= PROJECTS GRID ================= */
+        /* Projects Grid */
         .project-list { display: flex; flex-direction: column; gap: 20px; }
         .project-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; transition: 0.3s; }
         .project-title { font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .project-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px; }
         .project-links { display: flex; gap: 20px; }
-        .project-links a { font-size: 13px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
-        .project-links a:hover { opacity: 0.7; }
+        .project-links a { font-size: 13px; font-weight: 600; text-decoration: none; color: var(--c-green); display: flex; align-items: center; gap: 6px; transition: 0.2s; }
 
-        /* ================= CONTACT FORM ================= */
+        /* Contact Form */
         .contact-form { display: flex; flex-direction: column; gap: 15px; }
         .form-input {
             width: 100%; background: var(--card-bg); border: 1px solid var(--card-border);
             padding: 16px; border-radius: 12px; color: var(--text-main); font-size: 14px; outline: none; transition: 0.3s;
         }
         textarea.form-input { height: 120px; resize: none; }
-        .submit-btn { padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .submit-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; }
 
-        /* ================= BOTTOM BAR ================= */
+        /* ================= HIGHLY VISIBLE BOTTOM BAR ================= */
         .bottom-bar {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            background: var(--card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--card-border); border-radius: 40px;
-            display: flex; align-items: center; gap: 20px; padding: 10px 25px; box-shadow: var(--shadow-lg); z-index: 1000;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bar-bg); /* Solid/Opaque fallback to ensure visibility */
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--bar-border);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 12px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            z-index: 9999; /* Max Z-Index so it NEVER hides */
+            width: max-content;
         }
         .bar-icon {
             width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
             border-radius: 50%; color: var(--text-main); font-size: 20px; text-decoration: none; border: none; background: transparent; cursor: pointer; transition: 0.3s; font-weight: 700;
         }
-        .bar-icon:hover { background: var(--c-blue); color: #fff; }
+        .bar-icon:hover, .bar-icon.active { background: var(--c-blue); color: #fff; }
 
-        /* ================= WORKING AI CHATBOT ================= */
+        /* ================= AI CHATBOT BUTTON ================= */
         .ai-chatbot-btn {
-            position: fixed; bottom: 25px; right: 25px; /* ALIGNED WITH BOTTOM BAR */
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
             width: 65px; height: 65px; border-radius: 50%;
-            background: var(--card-bg); border: 2px solid var(--c-purple);
+            background: var(--bar-bg); border: 2px solid var(--c-purple);
             color: var(--c-purple); font-size: 30px;
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); backdrop-filter: blur(10px);
-            cursor: pointer; z-index: 1000; transition: 0.3s;
+            cursor: pointer; z-index: 9998; transition: 0.3s;
         }
         .ai-chatbot-btn:hover { background: var(--c-purple); color: #fff; transform: scale(1.1); }
 
         /* Modals */
-        .modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(5px); }
+        .modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 10000; backdrop-filter: blur(5px); }
         .modal-content { width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; text-align: left; position: relative; padding: 30px; }
         .close-modal { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--text-main); font-size: 24px; cursor: pointer; }
 
@@ -202,9 +211,15 @@
         .resume-section { margin-bottom: 20px; }
         .resume-section h3 { font-size: 18px; margin-bottom: 10px; border-left: 4px solid var(--c-blue); padding-left: 10px; color: var(--c-blue); }
         .resume-section ul { padding-left: 20px; font-size: 14px; color: var(--text-muted); line-height: 1.8; }
-        
+
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .ai-chatbot-btn { bottom: 100px; right: 20px; width: 55px; height: 55px; font-size: 24px; }
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            /* Secure Bottom Bar & Chatbot layout for mobile */
+            .bottom-bar { width: 90%; justify-content: space-between; padding: 10px 20px; gap: 10px; bottom: 15px; }
+            .bar-icon { width: 40px; height: 40px; font-size: 18px; }
+            /* Chatbot pushed up to prevent overlapping the bottom bar on mobile */
+            .ai-chatbot-btn { bottom: 85px; right: 15px; width: 55px; height: 55px; font-size: 24px; }
         }
     </style>
 </head>
@@ -224,7 +239,7 @@
             <div class="profile-content">
                 <div class="avatar-a">A</div>
                 <h1 class="profile-name" data-en="Anbarasan P" data-ta="அன்பரசன் P">அன்பரசன் P</h1>
-                <p class="profile-desc accent-text" style="font-weight:600; font-size:16px;" data-en="Computer Science Student | Software Engineer" data-ta="கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்">கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்</p>
+                <p class="profile-desc" style="font-weight:600; font-size:16px; color: var(--c-blue);" data-en="Computer Science Student | Software Engineer" data-ta="கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்">கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்</p>
                 <p class="profile-desc" data-en="Passionate developer building next-gen web experiences, algorithms, and exploring AI technologies seamlessly." data-ta="நவீன வலைத்தளங்களை உருவாக்குவதிலும், AI தொழில்நுட்பங்களைக் கற்பதிலும் ஆர்வமுள்ள டெவலப்பர்.">
                     நவீன வலைத்தளங்களை உருவாக்குவதிலும், AI தொழில்நுட்பங்களைக் கற்பதிலும் ஆர்வமுள்ள டெவலப்பர்.
                 </p>
@@ -232,7 +247,6 @@
                 <div class="pill-btn-group">
                     <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="pill-btn"><i class="fab fa-github"></i> GitHub</a>
                     <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="pill-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-                    <!-- FIXED: Added correct ID for Modal Event -->
                     <button class="pill-btn" id="open-resume-btn"><i class="fas fa-file-pdf"></i> <span data-en="Resume" data-ta="ரெஸ்யூம்">ரெஸ்யூம்</span></button>
                 </div>
             </div>
@@ -274,25 +288,25 @@
                 <div class="project-item">
                     <div class="project-title"><span data-en="CS Transparent Portfolio" data-ta="நவீன போர்ட்ஃபோலியோ">நவீன போர்ட்ஃபோலியோ</span> <i class="fab fa-html5" style="color:#E34F26"></i></div>
                     <div class="project-desc" data-en="95% transparent colorful UI design matching CS roadmap aesthetics." data-ta="95% வெளிப்படையான வண்ணமயமான போர்ட்ஃபோலியோ தளம்.">95% வெளிப்படையான வண்ணமயமான போர்ட்ஃபோலியோ தளம்.</div>
-                    <div class="project-links"><a href="#" target="_blank" class="proj-link"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
+                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
                 </div>
 
                 <div class="project-item">
                     <div class="project-title"><span data-en="Python Automation" data-ta="பைதான் ஆட்டோமேஷன்">பைதான் ஆட்டோமேஷன்</span> <i class="fab fa-python" style="color:#3776AB"></i></div>
                     <div class="project-desc" data-en="Data processing and system management applications." data-ta="தரவு பகுப்பாய்வு மற்றும் கணினி மேலாண்மை.">தரவு பகுப்பாய்வு மற்றும் கணினி மேலாண்மை.</div>
-                    <div class="project-links"><a href="#" target="_blank" class="proj-link"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
+                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
                 </div>
 
                 <div class="project-item">
                     <div class="project-title"><span data-en="Weather Dashboard" data-ta="வானிலை செயலி">வானிலை செயலி</span> <i class="fas fa-cloud-sun" style="color:#f89820"></i></div>
                     <div class="project-desc" data-en="Real-time weather app fetching data via API." data-ta="API மூலம் தகவல்களைப் பெறும் நிகழ்நேர வானிலை செயலி.">API மூலம் தகவல்களைப் பெறும் நிகழ்நேர வானிலை செயலி.</div>
-                    <div class="project-links"><a href="#" target="_blank" class="proj-link"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
+                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
                 </div>
                 
                 <div class="project-item">
                     <div class="project-title"><span data-en="AI Chat Interface" data-ta="AI சாட் செயலி">AI சாட் செயலி</span> <i class="fas fa-robot" style="color:#8e2de2"></i></div>
                     <div class="project-desc" data-en="Conversational UI simulating AI responses." data-ta="AI மூலம் இயங்கும் உரையாடல் இடைமுகம்.">AI மூலம் இயங்கும் உரையாடல் இடைமுகம்.</div>
-                    <div class="project-links"><a href="#" target="_blank" class="proj-link"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
+                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
                 </div>
 
             </div>
@@ -307,5 +321,4 @@
             <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
                 <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
                 <input type="text" name="name" data-en-placeholder="Your Name" data-ta-placeholder="உங்கள் பெயர்" placeholder="உங்கள் பெயர்" required class="form-input">
-                <input type="email" name="email" data-en-placeholder="Your Email" data-ta-placeholder="உங்கள் மின்னஞ்சல்" placeholder="உங்கள் மின்னஞ்சல்" required class="form-input">
-                <te
+      
