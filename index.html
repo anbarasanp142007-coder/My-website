@@ -32,7 +32,6 @@
             --card-border: rgba(0, 0, 0, 0.1);
             --text-main: #111827;
             --text-muted: #4b5563;
-            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
@@ -43,10 +42,11 @@
             overflow-x: hidden;
             transition: color 0.3s;
             padding: 20px;
-            padding-bottom: 150px; /* Space for Bottom Bar */
+            /* Extra padding to prevent content from hiding behind the new bottom bar */
+            padding-bottom: 100px; 
         }
 
-        /* Background */
+        /* CS Network Background */
         .cs-background {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
             background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80');
@@ -71,7 +71,7 @@
         .card-header { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; margin-bottom: 24px; }
         .card-header i { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; border: 1px solid var(--card-border); background: var(--card-bg); }
 
-        /* Section Colors Hover */
+        /* Color Hovers */
         .sec-home:hover { border-color: var(--c-blue); }
         .sec-home .card-header i { color: var(--c-blue); border-color: var(--c-blue); }
         .sec-about:hover { border-color: var(--c-purple); }
@@ -83,7 +83,7 @@
         .sec-contact:hover { border-color: var(--c-red); }
         .sec-contact .card-header i { color: var(--c-red); border-color: var(--c-red); }
 
-        /* Profile Elements */
+        /* Profile */
         .profile-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
         .avatar-a {
             width: 120px; height: 120px; border-radius: 50%;
@@ -121,58 +121,63 @@
         .submit-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .submit-btn:hover { background: var(--c-red); color: #fff; border-color: var(--c-red); }
 
-        /* ================= BULLETPROOF BOTTOM BAR (Fixed Centering Method) ================= */
-        .bottom-bar {
+        /* ================= 100% BULLETPROOF NATIVE APP DOCK ================= */
+        /* This method guarantees the bar stays at the bottom and is never invisible */
+        .app-dock {
             position: fixed;
-            bottom: 30px;
-            /* Safest centering method without transform */
+            bottom: 0;
             left: 0;
-            right: 0;
-            margin: 0 auto; 
-            width: 90%;
-            max-width: 450px;
-            /* Solid background to prevent invisibility */
-            background: #111827; 
-            border: 2px solid #0ea5e9; /* Clear Blue Border */
-            border-radius: 50px;
+            width: 100%;
+            background-color: #0f172a; /* Solid color ensures visibility */
+            border-top: 2px solid var(--c-blue);
             display: flex;
-            justify-content: space-around;
+            justify-content: space-evenly; /* Spreads the 6 icons perfectly */
             align-items: center;
-            padding: 12px 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
-            z-index: 999999;
+            /* Env variables protect against iPhone home indicator overlapping */
+            padding: 15px 10px calc(15px + env(safe-area-inset-bottom)); 
+            z-index: 2147483647; /* Maximum possible CSS z-index */
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.8);
         }
 
-        [data-theme="light"] .bottom-bar {
-            background: #ffffff;
-            border-color: #0ea5e9;
+        [data-theme="light"] .app-dock {
+            background-color: #ffffff;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .bar-icon {
-            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; color: var(--text-main); font-size: 20px; text-decoration: none; border: none; background: transparent; cursor: pointer; transition: 0.3s; font-weight: 700;
-        }
-        [data-theme="light"] .bar-icon { color: #111827; }
-        .bar-icon:hover, .bar-icon.active { background: var(--c-blue); color: #fff; }
-
-        /* ================= AI CHATBOT BUTTON (Safely positioned) ================= */
-        .ai-chatbot-btn {
-            position: fixed;
-            bottom: 100px; /* Safely above the bottom bar */
-            right: 20px;
-            width: 60px; height: 60px; border-radius: 50%;
-            background: #111827; border: 2px solid var(--c-purple);
-            color: var(--c-purple); font-size: 28px;
+        .dock-icon {
+            width: 45px; height: 45px;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); 
-            cursor: pointer; z-index: 999998; transition: 0.3s;
+            border-radius: 50%;
+            color: var(--text-main);
+            font-size: 20px;
+            text-decoration: none;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 700;
         }
-        [data-theme="light"] .ai-chatbot-btn { background: #fff; }
-        .ai-chatbot-btn:hover { background: var(--c-purple); color: #fff; transform: scale(1.1); }
+
+        [data-theme="light"] .dock-icon { color: #111827; }
+        
+        .dock-icon:hover, .dock-icon.active {
+            background-color: var(--c-blue);
+            color: #ffffff !important;
+        }
+
+        /* Highlight Chatbot Button within Dock */
+        .dock-chatbot {
+            color: var(--c-purple);
+            border: 2px solid var(--c-purple);
+        }
+        .dock-chatbot:hover {
+            background-color: var(--c-purple);
+            color: #ffffff !important;
+        }
 
         /* Modals */
-        .modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 9999999; backdrop-filter: blur(5px); }
-        .modal-content { width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; text-align: left; position: relative; padding: 30px; background: var(--bg-overlay); border: 1px solid var(--card-border); border-radius: 20px; }
+        .modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2147483647; backdrop-filter: blur(5px); }
+        .modal-content { width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; text-align: left; position: relative; padding: 30px; background: var(--bg-overlay); border: 1px solid var(--card-border); border-radius: 20px; }
         .close-modal { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--text-main); font-size: 24px; cursor: pointer; }
 
         /* Chat UI */
@@ -192,7 +197,8 @@
 
         @media (max-width: 500px) {
             .skills-grid { grid-template-columns: repeat(2, 1fr); }
-            .bar-icon { width: 35px; height: 35px; font-size: 18px; }
+            .dock-icon { width: 38px; height: 38px; font-size: 18px; }
+            .app-dock { padding: 10px 5px calc(10px + env(safe-area-inset-bottom)); }
         }
     </style>
 </head>
@@ -297,4 +303,193 @@
                 <input type="text" name="name" data-en-placeholder="Your Name" data-ta-placeholder="உங்கள் பெயர்" placeholder="உங்கள் பெயர்" required class="form-input">
                 <input type="email" name="email" data-en-placeholder="Your Email" data-ta-placeholder="உங்கள் மின்னஞ்சல்" placeholder="உங்கள் மின்னஞ்சல்" required class="form-input">
                 <textarea name="message" data-en-placeholder="Your Message..." data-ta-placeholder="உங்கள் செய்தி..." placeholder="உங்கள் செய்தி..." required class="form-input"></textarea>
-                <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> <span data-en="Send Message" data-ta="
+                <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> <span data-en="Send Message" data-ta="செய்தி அனுப்பு">செய்தி அனுப்பு</span></button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- ================= BULLETPROOF APP DOCK (All 6 Icons) ================= -->
+    <nav class="app-dock">
+        <!-- 1. Home -->
+        <a href="#home" class="dock-icon active" title="Home"><i class="fas fa-home"></i></a>
+        <!-- 2. GitHub -->
+        <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="dock-icon" title="GitHub"><i class="fab fa-github"></i></a>
+        <!-- 3. LinkedIn -->
+        <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="dock-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <!-- 4. Theme Toggle -->
+        <button id="theme-btn" class="dock-icon" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+        <!-- 5. Language Toggle -->
+        <button id="lang-btn" class="dock-icon" title="Switch Language" style="font-size: 14px;"><span id="lang-text" data-en="TA" data-ta="EN">EN</span></button>
+        <!-- 6. AI Chatbot -->
+        <button id="open-ai-btn" class="dock-icon dock-chatbot" title="AI Assistant"><i class="fas fa-comment-dots"></i></button>
+    </nav>
+
+    <!-- ================= RESUME MODAL ================= -->
+    <div id="resume-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-resume-btn"><i class="fas fa-times"></i></button>
+            
+            <div style="text-align: center; border-bottom: 2px solid var(--card-border); padding-bottom: 20px; margin-bottom: 20px;">
+                <h1 style="color: var(--c-blue); font-size: 28px;">Anbarasan P</h1>
+                <p style="font-weight: 600;">Computer Science Student | Front-End Developer</p>
+                <p style="font-size: 13px; margin-top: 8px; color: var(--text-muted);"><i class="fas fa-envelope"></i> anbarasanp142007@gmail.com</p>
+            </div>
+            
+            <div class="resume-section">
+                <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                <ul><li><b>Bachelor of Computer Science</b> <br> Focusing on software engineering and web technologies.</li></ul>
+            </div>
+
+            <div class="resume-section">
+                <h3><i class="fas fa-laptop-code"></i> Technical Skills</h3>
+                <ul><li>Languages: C, C++, Java, Python <br> Web: HTML, CSS, JavaScript <br> Tools: Git, GitHub</li></ul>
+            </div>
+
+            <div class="resume-section">
+                <h3><i class="fas fa-project-diagram"></i> Key Projects</h3>
+                <ul>
+                    <li><b>Transparent CS Portfolio:</b> Built a 95% transparent UI with dynamic JS routing.</li>
+                    <li><b>Python Automation Suite:</b> Created scripts for automating data processing tasks.</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="window.print()" style="padding: 10px 20px; background: var(--c-blue); color: #fff; border: none; border-radius: 20px; cursor: pointer; font-weight: 600;"><i class="fas fa-print"></i> Print / Save PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FUNCTIONAL AI CHATBOT MODAL ================= -->
+    <div id="ai-modal" class="modal">
+        <div class="modal-content" style="max-width: 400px; padding: 20px;">
+            <button class="close-modal" id="close-ai-btn"><i class="fas fa-times"></i></button>
+            <h3 style="margin-bottom: 10px; color: var(--c-purple);"><i class="fas fa-robot"></i> <span data-en="AI Assistant" data-ta="AI உதவியாளர்">AI உதவியாளர்</span></h3>
+            
+            <div class="chat-container">
+                <div class="chat-log" id="chat-log">
+                    <div class="chat-msg bot-msg">
+                        <span data-en="Hi! I am Anbarasan's AI. Ask me about his 'skills', 'projects', or 'contact'." data-ta="வணக்கம்! நான் அன்பரசனின் AI. 'skills', 'projects', அல்லது 'contact' என்று டைப் செய்து விபரங்களை அறியலாம்.">
+                            வணக்கம்! நான் அன்பரசனின் AI. 'skills', 'projects', அல்லது 'contact' என்று டைப் செய்து விபரங்களை அறியலாம்.
+                        </span>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" class="chat-input" placeholder="Type here..." autocomplete="off">
+                    <button id="chat-send" class="chat-send"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Bottom Dock Active State
+            document.querySelectorAll('.app-dock a[href^="#"]').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.dock-icon').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // 2. Theme Toggle
+            const themeBtn = document.getElementById('theme-btn');
+            const root = document.documentElement;
+            themeBtn.addEventListener('click', () => {
+                if (root.getAttribute('data-theme') === 'dark') {
+                    root.setAttribute('data-theme', 'light');
+                    themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                } else {
+                    root.setAttribute('data-theme', 'dark');
+                    themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            });
+
+            // 3. Language Toggle
+            const langBtn = document.getElementById('lang-btn');
+            const langTextSpan = document.getElementById('lang-text');
+            let currentLang = 'ta'; 
+            
+            langBtn.addEventListener('click', () => {
+                currentLang = (currentLang === 'ta') ? 'en' : 'ta';
+                
+                if (langTextSpan) {
+                    langTextSpan.innerText = (currentLang === 'ta') ? 'EN' : 'TA';
+                }
+                
+                document.querySelectorAll('[data-en][data-ta]').forEach(el => {
+                    el.innerText = el.getAttribute(`data-${currentLang}`);
+                });
+                document.querySelectorAll('[data-en-placeholder][data-ta-placeholder]').forEach(el => {
+                    el.placeholder = el.getAttribute(`data-${currentLang}-placeholder`);
+                });
+            });
+
+            // 4. Modal Triggers
+            const resumeModal = document.getElementById('resume-modal');
+            const aiModal = document.getElementById('ai-modal');
+            
+            document.getElementById('open-resume-btn').addEventListener('click', () => resumeModal.style.display = 'flex');
+            document.getElementById('close-resume-btn').addEventListener('click', () => resumeModal.style.display = 'none');
+            
+            document.getElementById('open-ai-btn').addEventListener('click', () => aiModal.style.display = 'flex');
+            document.getElementById('close-ai-btn').addEventListener('click', () => aiModal.style.display = 'none');
+
+            window.addEventListener('click', (e) => {
+                if (e.target === resumeModal) resumeModal.style.display = 'none';
+                if (e.target === aiModal) aiModal.style.display = 'none';
+            });
+
+            // 5. Working AI Chatbot Logic
+            const chatLog = document.getElementById('chat-log');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+
+            const botKnowledge = {
+                "hello": "Hello there! How can I assist you today?",
+                "hi": "Hi! Ask me about Anbarasan's skills or projects.",
+                "skills": "Anbarasan is skilled in C++, Java, Python, HTML, CSS, and JavaScript. He is also exploring AI!",
+                "projects": "He has built this Transparent Portfolio, a Python Automation Suite, a Weather App, and an AI Chat interface! Check the Projects section.",
+                "contact": "You can reach him at anbarasanp142007@gmail.com or via his LinkedIn profile.",
+                "resume": "You can view his resume by clicking the 'Resume' button in the Profile section.",
+                "who are you": "I am Anbarasan's personal AI Assistant built with JavaScript.",
+                "default": "I'm not sure about that! Try asking about his 'skills', 'projects', or 'contact'."
+            };
+
+            function addChatMessage(msg, isUser) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `chat-msg ${isUser ? 'user-msg' : 'bot-msg'}`;
+                msgDiv.innerText = msg;
+                chatLog.appendChild(msgDiv);
+                chatLog.scrollTop = chatLog.scrollHeight;
+            }
+
+            function handleChat() {
+                const userText = chatInput.value.trim().toLowerCase();
+                if (!userText) return;
+                
+                addChatMessage(chatInput.value, true);
+                chatInput.value = '';
+
+                setTimeout(() => {
+                    let botReply = botKnowledge["default"];
+                    for (let key in botKnowledge) {
+                        if (userText.includes(key) && key !== "default") {
+                            botReply = botKnowledge[key];
+                            break;
+                        }
+                    }
+                    addChatMessage(botReply, false);
+                }, 600);
+            }
+
+            chatSend.addEventListener('click', handleChat);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleChat();
+            });
+        });
+    </script>
+</body>
+</html>
