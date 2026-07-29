@@ -3,41 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anbarasan P - Liquid Glass Portfolio</title>
+    <title>Anbarasan P - Computer Science Portfolio</title>
     
     <!-- Modern Soft Font -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Liquid Glass Theme Variables */
+        /* Colorful & Ultra-Transparent Liquid Glass Theme */
         :root {
-            /* Requested Colors */
-            --pure-white: #ffffff;
-            --sky-blue: #70c4ff;
-            --yellow: #ffd54f;
-            --light-green: #81c784;
+            --primary-accent: #007aff;
+            --secondary-accent: #af52de;
+            --cyan-glow: #32c5ff;
+            --yellow-glow: #ffcc00;
             
-            /* UI Colors */
-            --bg-color: #f8f9fa;
-            --text-main: #1c1c1e;
-            --text-muted: #8e8e93;
+            --bg-color: #f4f6f9;
+            --text-main: #111827;
+            --text-muted: #4b5563; /* Darker for high readability */
             
-            /* Liquid Glass Effect */
-            --liquid-bg: rgba(255, 255, 255, 0.4);
-            --liquid-border: rgba(255, 255, 255, 0.8);
-            --liquid-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-            --liquid-highlight: inset 0 0 20px rgba(255, 255, 255, 0.5);
+            /* Ultra Transparent Glass */
+            --liquid-bg: rgba(255, 255, 255, 0.12); 
+            --liquid-border: rgba(255, 255, 255, 0.35);
+            --liquid-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+            --liquid-highlight: inset 0 0 20px rgba(255, 255, 255, 0.15);
         }
 
         [data-theme="dark"] {
-            --bg-color: #000000;
+            --bg-color: #05070b;
             --text-main: #ffffff;
-            --text-muted: #ebebf5;
-            --liquid-bg: rgba(30, 30, 30, 0.4);
-            --liquid-border: rgba(255, 255, 255, 0.15);
-            --liquid-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            --liquid-highlight: inset 0 0 20px rgba(255, 255, 255, 0.05);
+            --text-muted: #d1d5db;
+            
+            --liquid-bg: rgba(15, 23, 42, 0.22);
+            --liquid-border: rgba(255, 255, 255, 0.08);
+            --liquid-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            --liquid-highlight: inset 0 0 20px rgba(255, 255, 255, 0.02);
         }
 
         * {
@@ -49,97 +48,105 @@
         }
 
         body {
-            background-color: var(--pure-white);
+            background-color: var(--bg-color);
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            padding-bottom: 120px;
+            padding-bottom: 140px;
         }
 
-        /* Ambient Liquid Background */
+        /* Computer Science Tech Vibe & Colorful Liquid Background */
         .liquid-bg {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1;
             overflow: hidden;
-            background: var(--bg-color);
+            /* Subtle Tech Grid Pattern */
+            background-image: radial-gradient(rgba(0, 122, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
         .blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.8;
-            animation: liquidFlow 15s infinite alternate ease-in-out;
+            filter: blur(110px);
+            opacity: 0.6;
+            animation: liquidFlow 18s infinite alternate ease-in-out;
         }
 
-        .blob-1 { width: 50vw; height: 50vw; background: var(--sky-blue); top: -10%; left: -10%; }
-        .blob-2 { width: 45vw; height: 45vw; background: var(--yellow); bottom: -10%; right: -10%; animation-delay: -5s; }
-        .blob-3 { width: 40vw; height: 40vw; background: var(--light-green); top: 30%; left: 30%; animation-delay: -10s; }
+        .blob-1 { width: 55vw; height: 55vw; background: var(--cyan-glow); top: -15%; left: -10%; }
+        .blob-2 { width: 50vw; height: 50vw; background: var(--secondary-accent); bottom: -15%; right: -10%; animation-delay: -4s; }
+        .blob-3 { width: 45vw; height: 45vw; background: var(--yellow-glow); top: 35%; left: 25%; animation-delay: -8s; opacity: 0.4; }
 
         @keyframes liquidFlow {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            100% { transform: translate(50px, 80px) scale(1.2) rotate(20deg); }
+            100% { transform: translate(50px, 70px) scale(1.2) rotate(25deg); }
         }
 
-        /* Core Liquid Glass Class */
+        /* Core Ultra-Transparent Glass Class */
         .liquid-glass {
             background: var(--liquid-bg);
-            backdrop-filter: blur(35px) saturate(200%);
-            -webkit-backdrop-filter: blur(35px) saturate(200%);
+            backdrop-filter: blur(50px) saturate(200%);
+            -webkit-backdrop-filter: blur(50px) saturate(200%);
             border: 1px solid var(--liquid-border);
             box-shadow: var(--liquid-shadow), var(--liquid-highlight);
-            border-radius: 40px;
+            border-radius: 35px;
         }
 
-        /* 3 Card Layout Container */
+        /* Grid Layout (4 Cards) */
         .main-container {
-            max-width: 1200px;
-            margin: 50px auto;
+            max-width: 1300px;
+            margin: 40px auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
         }
 
-        /* Individual Cards */
         .card {
-            padding: 35px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
         }
 
         .card-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--text-main);
         }
 
         .card-title i {
-            color: var(--sky-blue);
-            background: var(--pure-white);
-            padding: 10px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            color: var(--cyan-glow);
+            background: var(--liquid-bg);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--liquid-border);
         }
 
-        /* Profile Card Styles */
+        /* Profile Card */
+        .profile-flex {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         .profile-img-wrap {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            padding: 5px;
-            background: linear-gradient(135deg, var(--sky-blue), var(--light-green));
+            padding: 4px;
+            background: linear-gradient(135deg, var(--cyan-glow), var(--secondary-accent));
+            flex-shrink: 0;
         }
 
         .profile-img {
@@ -147,19 +154,70 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid var(--pure-white);
+            border: 3px solid var(--bg-color);
         }
 
-        .profile-name { text-align: center; font-size: 24px; font-weight: 800; }
-        .profile-role { text-align: center; color: var(--text-muted); font-weight: 500; margin-bottom: 15px; }
+        .profile-name { font-size: 22px; font-weight: 800; color: var(--text-main); }
+        .profile-role { color: var(--cyan-glow); font-weight: 700; font-size: 13px; margin-bottom: 5px; }
+        .profile-bio { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-top: 5px; }
 
-        /* Projects Card Styles */
-        .project-item {
-            background: rgba(255, 255, 255, 0.3);
+        .profile-socials {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .social-chip {
+            background: rgba(255, 255, 255, 0.15);
             border: 1px solid var(--liquid-border);
-            padding: 15px;
+            padding: 6px 14px;
             border-radius: 20px;
-            margin-bottom: 15px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.3s;
+        }
+
+        .social-chip:hover {
+            background: var(--cyan-glow);
+            color: #000;
+        }
+
+        /* Skills Box */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .skill-badge {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--liquid-border);
+            padding: 12px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .skill-badge i { font-size: 20px; color: var(--cyan-glow); }
+
+        /* Projects */
+        .project-item {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--liquid-border);
+            padding: 12px 15px;
+            border-radius: 16px;
+            margin-bottom: 10px;
             text-decoration: none;
             color: var(--text-main);
             display: block;
@@ -167,55 +225,60 @@
         }
 
         .project-item:hover {
-            background: var(--pure-white);
-            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.01);
         }
 
-        .project-item h4 { font-size: 16px; margin-bottom: 5px; }
-        .project-item p { font-size: 13px; color: var(--text-muted); }
+        .project-item h4 { font-size: 15px; margin-bottom: 3px; font-weight: 700; }
+        .project-item p { font-size: 12px; color: var(--text-muted); }
 
-        /* Form Styles */
+        /* Contact Box Styles */
         .liquid-input {
             width: 100%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid var(--liquid-border);
-            padding: 15px;
-            border-radius: 20px;
-            margin-bottom: 15px;
+            padding: 12px 15px;
+            border-radius: 16px;
+            margin-bottom: 12px;
             color: var(--text-main);
             font-size: 14px;
             outline: none;
             transition: all 0.3s;
         }
-        
-        .liquid-input:focus {
-            background: var(--pure-white);
-            border-color: var(--sky-blue);
+
+        .liquid-input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.9;
         }
 
-        textarea.liquid-input { height: 100px; resize: none; }
+        .liquid-input:focus {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--cyan-glow);
+        }
+
+        textarea.liquid-input { height: 75px; resize: none; }
 
         .submit-btn {
             width: 100%;
-            background: var(--text-main);
-            color: var(--bg-color);
+            background: var(--cyan-glow);
+            color: #000;
             border: none;
-            padding: 15px;
-            border-radius: 20px;
-            font-weight: 600;
+            padding: 12px;
+            border-radius: 16px;
+            font-weight: 700;
             cursor: pointer;
             transition: transform 0.2s;
         }
 
-        .submit-btn:hover { transform: scale(0.98); }
+        .submit-btn:hover { transform: scale(0.98); opacity: 0.9; }
 
         /* Floating Bottom Dock */
         .bottom-dock {
             position: fixed;
-            bottom: 30px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 10px 20px;
+            padding: 10px 25px;
             border-radius: 100px;
             display: flex;
             gap: 20px;
@@ -224,15 +287,15 @@
         }
 
         .dock-item {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 20px;
+            font-size: 18px;
             transition: all 0.3s;
             background: transparent;
             border: none;
@@ -240,79 +303,123 @@
         }
 
         .dock-item:hover, .dock-item.active {
-            background: var(--pure-white);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            color: var(--sky-blue);
-            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.25);
+            color: var(--cyan-glow);
+            transform: translateY(-3px);
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .main-container { grid-template-columns: repeat(2, 1fr); }
+        /* Help Modal Popup (Fixed text visibility bug in Light Mode) */
+        .help-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(15px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
         }
-        @media (max-width: 768px) {
-            .main-container { grid-template-columns: 1fr; padding-bottom: 100px; }
-            .bottom-dock { width: 90%; justify-content: space-around; }
+
+        .help-content {
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 30px;
+            color: var(--text-main); /* Forces text color properly */
+        }
+
+        .close-help {
+            margin-top: 20px;
+            background: var(--cyan-glow);
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 900px) {
+            .main-container { grid-template-columns: 1fr; }
+            .profile-flex { flex-direction: column; text-align: center; }
+            .profile-socials { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Liquid Animated Background -->
+    <!-- Liquid Background Elements with Tech Vibe -->
     <div class="liquid-bg">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
     </div>
 
-    <!-- 3 Center Cards -->
+    <!-- Main 4-Card Grid Layout -->
     <div class="main-container">
         
-        <!-- Card 1: Profile -->
+        <!-- Card 1: Profile & 3D Vibe -->
         <div class="card liquid-glass">
-            <div class="card-title"><i class="fas fa-user"></i> <span data-en="Profile" data-ta="சுயவிவரம்">Profile</span></div>
-            <div class="profile-img-wrap">
-                <!-- UPDATED PROFILE IMAGE HERE -->
-                <img src="42495_2.png" alt="Anbarasan" class="profile-img">
+            <div class="card-title"><i class="fas fa-user-astronaut"></i> <span data-en="Profile" data-ta="சுயவிவரம்">Profile</span></div>
+            <div class="profile-flex">
+                <div class="profile-img-wrap">
+                    <img src="42495_2.png" alt="Anbarasan P" class="profile-img">
+                </div>
+                <div>
+                    <div class="profile-name">Anbarasan P</div>
+                    <div class="profile-role" data-en="Computer Science Student | Software Engineer" data-ta="கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்">Computer Science Student | Software Engineer</div>
+                    <p class="profile-bio" data-en="Passionate developer building next-gen web experiences." data-ta="நவீன தொழில்நுட்பங்களுடன் புதிய செயலிகளை உருவாக்கும் ஆர்வம் கொண்டவன்.">
+                        Passionate developer building next-gen web experiences.
+                    </p>
+                    
+                    <div class="profile-socials">
+                        <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="social-chip">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="social-chip">
+                            <i class="fab fa-linkedin-in"></i> LinkedIn
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="profile-name">Anbarasan P</div>
-            <div class="profile-role" data-en="Student & Developer" data-ta="மாணவர் & டெவலப்பர்">Student & Developer</div>
-            <p style="text-align: center; color: var(--text-muted); font-size: 14px;" 
-               data-en="Designing pure, liquid web experiences." 
-               data-ta="சிறந்த வலைத்தளங்களை வடிவமைப்பதில் ஆர்வம் கொண்டவன்.">
-               Designing pure, liquid web experiences.
-            </p>
         </div>
 
-        <!-- Card 2: Projects -->
+        <!-- Card 2: Skills Box -->
+        <div class="card liquid-glass">
+            <div class="card-title"><i class="fas fa-code"></i> <span data-en="Technical Skills" data-ta="தொழில்நுட்ப திறன்கள்">Technical Skills</span></div>
+            <div class="skills-grid">
+                <div class="skill-badge"><i class="fas fa-file-code"></i> C++</div>
+                <div class="skill-badge"><i class="fas fa-copyright"></i> C</div>
+                <div class="skill-badge"><i class="fab fa-java"></i> Java</div>
+                <div class="skill-badge"><i class="fab fa-python"></i> Python</div>
+                <div class="skill-badge"><i class="fab fa-html5"></i> HTML</div>
+                <div class="skill-badge"><i class="fas fa-terminal"></i> Git</div>
+            </div>
+        </div>
+
+        <!-- Card 3: Projects -->
         <div class="card liquid-glass">
             <div class="card-title"><i class="fas fa-layer-group"></i> <span data-en="Projects" data-ta="படைப்புகள்">Projects</span></div>
-            
             <a href="#" class="project-item">
-                <h4 data-en="Liquid Glass UI" data-ta="திரவக் கண்ணாடி UI">Liquid Glass UI</h4>
-                <p data-en="iOS 26 Concept Design" data-ta="iOS 26 கான்செப்ட் டிசைன்">iOS 26 Concept Design</p>
+                <h4 data-en="Liquid Glass Portfolio" data-ta="திரவக் கண்ணாடி போர்ட்ஃபோலியோ">Liquid Glass Portfolio</h4>
+                <p data-en="iOS 26 Concept UI Design" data-ta="iOS 26 கான்செப்ட் டிசைன்">iOS 26 Concept UI Design</p>
             </a>
-            
             <a href="#" class="project-item">
-                <h4 data-en="Web App Development" data-ta="வெப் ஆப் உருவாக்கம்">Web App Development</h4>
-                <p data-en="HTML, CSS, JavaScript" data-ta="HTML, CSS, JavaScript">HTML, CSS, JavaScript</p>
-            </a>
-
-            <a href="#" class="project-item">
-                <h4 data-en="Python Automation" data-ta="பைதான் ஆட்டோமேஷன்">Python Automation</h4>
-                <p data-en="Data processing scripts" data-ta="தரவு பகுப்பாய்வு">Data processing scripts</p>
+                <h4 data-en="Python Automation Tools" data-ta="பைதான் ஆட்டோமேஷன் கருவிகள்">Python Automation Tools</h4>
+                <p data-en="Data processing applications" data-ta="தரவு செயலாக்க செயலிகள்">Data processing applications</p>
             </a>
         </div>
 
-        <!-- Card 3: Contact Form -->
+        <!-- Card 4: Dedicated Contact Box -->
         <div class="card liquid-glass">
-            <div class="card-title"><i class="fas fa-paper-plane"></i> <span data-en="Connect" data-ta="தொடர்புக்கு">Connect</span></div>
-            
-            <form action="YOUR_FORMSPREE_LINK_HERE" method="POST" style="flex: 1; display: flex; flex-direction: column;">
-                <input type="text" name="name" placeholder="Name" required class="liquid-input">
-                <input type="email" name="email" placeholder="Email" required class="liquid-input">
-                <textarea name="message" placeholder="Message..." required class="liquid-input"></textarea>
-                <button type="submit" class="submit-btn" data-en="Send Message" data-ta="அனுப்பு">Send Message</button>
+            <div class="card-title"><i class="fas fa-paper-plane"></i> <span data-en="Get in Touch" data-ta="தொடர்புகொள்ள">Get in Touch</span></div>
+            <form action="YOUR_FORMSPREE_LINK_HERE" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required class="liquid-input">
+                <input type="email" name="email" placeholder="Your Email" required class="liquid-input">
+                <textarea name="message" placeholder="Your Message..." required class="liquid-input"></textarea>
+                <button type="submit" class="submit-btn" data-en="Send Message" data-ta="செய்தி அனுப்பு">Send Message</button>
             </form>
         </div>
 
@@ -320,13 +427,25 @@
 
     <!-- Floating Bottom Dock -->
     <div class="bottom-dock liquid-glass">
-        <a href="#" class="dock-item active" title="Home"><i class="fas fa-home"></i></a>
+        <a href="#top" class="dock-item active" title="Home"><i class="fas fa-home"></i></a>
         <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="dock-item" title="GitHub"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="dock-item" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        
-        <!-- Controls in Dock -->
-        <button id="lang-btn" class="dock-item" style="font-weight: 800; font-size: 16px;">TA</button>
-        <button id="theme-btn" class="dock-item"><i class="fas fa-moon"></i></button>
+        <button id="theme-btn" class="dock-item" title="Theme"><i class="fas fa-moon"></i></button>
+        <button id="lang-btn" class="dock-item" style="font-weight: 800; font-size: 15px;" title="Language">TA</button>
+        <button id="help-btn" class="dock-item" title="Help"><i class="fas fa-question-circle"></i></button>
+    </div>
+
+    <!-- Help Modal Popup -->
+    <div id="help-modal" class="help-modal">
+        <div class="help-content liquid-glass">
+            <h3 style="margin-bottom: 15px; font-weight: 800;" data-en="Need Help?" data-ta="உதவி தேவையா?">Need Help?</h3>
+            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; font-weight: 500;" 
+               data-en="You can explore my projects, check my technical skills, or send a message directly using the contact form!" 
+               data-ta="எனது ப்ராஜெக்ட்களைப் பார்க்கலாம், தொழில்நுட்ப திறன்களைத் தெரிந்து கொள்ளலாம் அல்லது தொடர்பு படி மூலம் எனக்குச் செய்தி அனுப்பலாம்!">
+               You can explore my projects, check my technical skills, or send a message directly using the contact form!
+            </p>
+            <button class="close-help" id="close-help" data-en="Close" data-ta="மூடு">Close</button>
+        </div>
     </div>
 
     <script>
@@ -357,7 +476,26 @@
                 themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
             }
         });
+
+        // Help Modal Logic
+        const helpBtn = document.getElementById('help-btn');
+        const helpModal = document.getElementById('help-modal');
+        const closeHelp = document.getElementById('close-help');
+
+        helpBtn.addEventListener('click', () => {
+            helpModal.style.display = 'flex';
+        });
+
+        closeHelp.addEventListener('click', () => {
+            helpModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === helpModal) {
+                helpModal.style.display = 'none';
+            }
+        });
     </script>
 </body>
-                    </html>
-                    
+                                             </html>
+    
