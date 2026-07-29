@@ -1,122 +1,197 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anbarasan P - Computer Science Portfolio</title>
+    <title>Student Portfolio — Anbarasan P</title>
     
-    <!-- Modern Soft Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* Colorful & Ultra-Transparent Liquid Glass Theme */
+        /* Water Glassy Toon Theme Variables */
         :root {
-            --primary-accent: #007aff;
-            --secondary-accent: #af52de;
-            --cyan-glow: #32c5ff;
-            --yellow-glow: #ffcc00;
+            --bg-color: #060b14;
+            --text-main: #ffffff;
+            --text-muted: #d0d7de;
+            --primary-accent: #00f0ff;
+            --primary-hover: #00acc1;
             
-            --bg-color: #f4f6f9;
-            --text-main: #111827;
-            --text-muted: #4b5563; /* Darker for high readability */
-            
-            /* Ultra Transparent Glass */
-            --liquid-bg: rgba(255, 255, 255, 0.12); 
-            --liquid-border: rgba(255, 255, 255, 0.35);
-            --liquid-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
-            --liquid-highlight: inset 0 0 20px rgba(255, 255, 255, 0.15);
+            /* Crystal Clear Glass Transparency */
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            --input-bg: rgba(0, 0, 0, 0.4);
         }
 
-        [data-theme="dark"] {
-            --bg-color: #05070b;
-            --text-main: #ffffff;
-            --text-muted: #d1d5db;
+        [data-theme="light"] {
+            --bg-color: #f0f7ff;
+            --text-main: #0c1b33;
+            --text-muted: #334e68;
+            --primary-accent: #0284c7;
+            --primary-hover: #0369a1;
             
-            --liquid-bg: rgba(15, 23, 42, 0.22);
-            --liquid-border: rgba(255, 255, 255, 0.08);
-            --liquid-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            --liquid-highlight: inset 0 0 20px rgba(255, 255, 255, 0.02);
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(2, 132, 199, 0.25);
+            --glass-shadow: 0 8px 32px 0 rgba(2, 132, 199, 0.1);
+            --input-bg: rgba(255, 255, 255, 0.85);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: background-color 0.4s ease, color 0.4s ease;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            min-height: 100vh;
+            line-height: 1.6;
             overflow-x: hidden;
             position: relative;
-            padding-bottom: 140px;
         }
 
-        /* Computer Science Tech Vibe & Colorful Liquid Background */
-        .liquid-bg {
+        /* Water Glassy Toon Animated Background */
+        .water-bg {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1;
             overflow: hidden;
-            /* Subtle Tech Grid Pattern */
-            background-image: radial-gradient(rgba(0, 122, 255, 0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-color: var(--bg-color);
         }
 
-        .blob {
+        .bubble {
             position: absolute;
             border-radius: 50%;
-            filter: blur(110px);
+            filter: blur(50px); /* Clean, transparent glow without heavy blur */
             opacity: 0.6;
-            animation: liquidFlow 18s infinite alternate ease-in-out;
+            animation: waterFlow 12s infinite alternate ease-in-out;
         }
 
-        .blob-1 { width: 55vw; height: 55vw; background: var(--cyan-glow); top: -15%; left: -10%; }
-        .blob-2 { width: 50vw; height: 50vw; background: var(--secondary-accent); bottom: -15%; right: -10%; animation-delay: -4s; }
-        .blob-3 { width: 45vw; height: 45vw; background: var(--yellow-glow); top: 35%; left: 25%; animation-delay: -8s; opacity: 0.4; }
+        .bubble-1 { width: 50vw; height: 50vw; background: #00f0ff; top: -10%; left: -10%; }
+        .bubble-2 { width: 45vw; height: 45vw; background: #7000ff; bottom: -10%; right: -10%; animation-delay: -4s; }
+        .bubble-3 { width: 40vw; height: 40vw; background: #ff007f; top: 30%; left: 30%; animation-delay: -8s; }
 
-        @keyframes liquidFlow {
+        @keyframes waterFlow {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            100% { transform: translate(50px, 70px) scale(1.2) rotate(25deg); }
+            100% { transform: translate(50px, 70px) scale(1.1) rotate(15deg); }
         }
 
-        /* Core Ultra-Transparent Glass Class */
-        .liquid-glass {
-            background: var(--liquid-bg);
-            backdrop-filter: blur(50px) saturate(200%);
-            -webkit-backdrop-filter: blur(50px) saturate(200%);
-            border: 1px solid var(--liquid-border);
-            box-shadow: var(--liquid-shadow), var(--liquid-highlight);
-            border-radius: 35px;
+        /* Glass Panel with crystal clear visibility */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px); /* Optimized for maximum text readability */
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 20px;
         }
 
-        /* Grid Layout (4 Cards) */
-        .main-container {
-            max-width: 1300px;
-            margin: 40px auto;
+        /* Top Bar & Navigation */
+        header {
+            position: fixed;
+            top: 20px; left: 5%; width: 90%;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--primary-accent);
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Water Bubble Effect on Tabs */
+        nav a, .ctrl-btn {
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after, .ctrl-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 5px; height: 5px;
+            background: var(--primary-accent);
+            opacity: 0;
+            border-radius: 50%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        nav a:hover::after, .ctrl-btn:hover::after {
+            animation: waterBubble 0.5s ease-out;
+        }
+
+        @keyframes waterBubble {
+            0% { transform: scale(0, 0); opacity: 0.8; }
+            100% { transform: scale(25, 25); opacity: 0; }
+        }
+
+        nav a:hover, .ctrl-btn:hover {
+            color: var(--primary-accent);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .ctrl-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            width: 38px; height: 38px;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        /* Main Container Layout */
+        .container {
+            max-width: 1100px;
+            margin: 130px auto 60px;
             padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
-
-        .card {
-            padding: 30px;
             display: flex;
             flex-direction: column;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            gap: 40px;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-title {
-            font-size: 18px;
+        .section-title {
+            font-size: 26px;
             font-weight: 700;
             margin-bottom: 20px;
             display: flex;
@@ -125,377 +200,315 @@
             color: var(--text-main);
         }
 
-        .card-title i {
-            color: var(--cyan-glow);
-            background: var(--liquid-bg);
-            padding: 8px;
-            border-radius: 12px;
-            border: 1px solid var(--liquid-border);
+        .section-title i {
+            color: var(--primary-accent);
         }
 
-        /* Profile Card */
-        .profile-flex {
+        /* 1. Hero Section */
+        .hero-panel {
+            padding: 50px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content { flex: 1; min-width: 280px; }
+        .hero-content h1 { font-size: 40px; font-weight: 800; margin-bottom: 10px; }
+        .hero-content h1 span { color: var(--primary-accent); }
+        .hero-tagline { font-size: 17px; color: var(--text-muted); margin-bottom: 25px; font-weight: 600; }
+
+        .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-primary { background: var(--primary-accent); color: #000; }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        .btn-secondary { background: var(--glass-bg); color: var(--text-main); border-color: var(--glass-border); }
+        .btn-secondary:hover { border-color: var(--primary-accent); transform: translateY(-2px); }
+
+        .hero-image { flex: 1; display: flex; justify-content: center; min-width: 250px; }
+        .profile-img {
+            width: 240px; height: 240px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* 2. About Me */
+        .about-panel {
+            padding: 40px;
+            text-align: center;
+            font-size: 16px;
+            color: var(--text-main);
+            font-weight: 500;
+            line-height: 1.8;
+        }
+
+        /* 3. Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-card {
+            padding: 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .skill-card:hover { transform: translateY(-4px); border-color: var(--primary-accent); }
+        .skill-card i { font-size: 24px; color: var(--primary-accent); }
+        .skill-card span { font-weight: 600; font-size: 14px; color: var(--text-main); }
+
+        /* 4. Grid Sections (Services, Projects, Certificates) */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
 
-        .profile-img-wrap {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            padding: 4px;
-            background: linear-gradient(135deg, var(--cyan-glow), var(--secondary-accent));
-            flex-shrink: 0;
-        }
-
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--bg-color);
-        }
-
-        .profile-name { font-size: 22px; font-weight: 800; color: var(--text-main); }
-        .profile-role { color: var(--cyan-glow); font-weight: 700; font-size: 13px; margin-bottom: 5px; }
-        .profile-bio { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-top: 5px; }
-
-        .profile-socials {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .social-chip {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid var(--liquid-border);
-            padding: 6px 14px;
-            border-radius: 20px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: background 0.3s;
-        }
-
-        .social-chip:hover {
-            background: var(--cyan-glow);
-            color: #000;
-        }
-
-        /* Skills Box */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .skill-badge {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--liquid-border);
-            padding: 12px;
-            border-radius: 16px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text-main);
+        .card-item {
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 5px;
+            transition: transform 0.2s, border-color 0.2s;
         }
 
-        .skill-badge i { font-size: 20px; color: var(--cyan-glow); }
+        .card-item:hover { transform: translateY(-5px); border-color: var(--primary-accent); }
+        .card-item h3 { font-size: 18px; margin-bottom: 10px; color: var(--text-main); }
+        .card-item p { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; flex: 1; font-weight: 500; }
 
-        /* Projects */
-        .project-item {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--liquid-border);
-            padding: 12px 15px;
-            border-radius: 16px;
-            margin-bottom: 10px;
-            text-decoration: none;
-            color: var(--text-main);
-            display: block;
-            transition: all 0.3s;
+        .card-links { display: flex; gap: 15px; }
+        .card-links a { font-size: 13px; font-weight: 600; text-decoration: none; color: var(--primary-accent); }
+        .card-links a:hover { text-decoration: underline; }
+
+        /* 5. Contact Section */
+        .contact-panel {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
         }
 
-        .project-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.01);
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .project-item h4 { font-size: 15px; margin-bottom: 3px; font-weight: 700; }
-        .project-item p { font-size: 12px; color: var(--text-muted); }
-
-        /* Contact Box Styles */
-        .liquid-input {
+        .form-input {
             width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--liquid-border);
-            padding: 12px 15px;
-            border-radius: 16px;
-            margin-bottom: 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--glass-border);
+            padding: 14px 16px;
+            border-radius: 12px;
             color: var(--text-main);
             font-size: 14px;
             outline: none;
-            transition: all 0.3s;
         }
 
-        .liquid-input::placeholder {
-            color: var(--text-muted);
-            opacity: 0.9;
-        }
+        .form-input::placeholder { color: var(--text-muted); opacity: 0.8; }
+        .form-input:focus { border-color: var(--primary-accent); }
+        textarea.form-input { height: 110px; resize: none; }
 
-        .liquid-input:focus {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: var(--cyan-glow);
-        }
-
-        textarea.liquid-input { height: 75px; resize: none; }
-
-        .submit-btn {
-            width: 100%;
-            background: var(--cyan-glow);
-            color: #000;
-            border: none;
-            padding: 12px;
-            border-radius: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .submit-btn:hover { transform: scale(0.98); opacity: 0.9; }
-
-        /* Floating Bottom Dock */
-        .bottom-dock {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 25px;
-            border-radius: 100px;
+        .social-row {
             display: flex;
-            gap: 20px;
-            align-items: center;
-            z-index: 1000;
+            gap: 15px;
+            margin-top: 20px;
         }
 
-        .dock-item {
-            width: 45px;
-            height: 45px;
+        .social-btn {
+            width: 42px; height: 42px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 18px;
-            transition: all 0.3s;
-            background: transparent;
-            border: none;
-            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
         }
 
-        .dock-item:hover, .dock-item.active {
-            background: rgba(255, 255, 255, 0.25);
-            color: var(--cyan-glow);
-            transform: translateY(-3px);
-        }
+        .social-btn:hover { background: var(--primary-accent); color: #000; border-color: var(--primary-accent); transform: translateY(-3px); }
 
-        /* Help Modal Popup (Fixed text visibility bug in Light Mode) */
-        .help-modal {
+        /* Floating WhatsApp & Back to Top */
+        .floating-whatsapp {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(15px);
-            display: none;
+            bottom: 30px; right: 30px;
+            background: #25D366;
+            color: white;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2000;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            text-decoration: none;
+            transition: transform 0.2s;
         }
+        .floating-whatsapp:hover { transform: scale(1.1); }
 
-        .help-content {
-            width: 90%;
-            max-width: 400px;
-            padding: 30px;
-            text-align: center;
-            border-radius: 30px;
-            color: var(--text-main); /* Forces text color properly */
-        }
-
-        .close-help {
-            margin-top: 20px;
-            background: var(--cyan-glow);
-            color: #000;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 12px;
-            font-weight: 700;
+        .back-to-top {
+            position: fixed;
+            bottom: 30px; left: 30px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            z-index: 999;
+            box-shadow: var(--glass-shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        .back-to-top.show { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--primary-accent); color: #000; border-color: var(--primary-accent); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 40px;
+            background: var(--glass-bg);
+            font-weight: 500;
         }
 
-        /* Responsive Layout */
-        @media (max-width: 900px) {
-            .main-container { grid-template-columns: 1fr; }
-            .profile-flex { flex-direction: column; text-align: center; }
-            .profile-socials { justify-content: center; }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header { width: 92%; padding: 12px 20px; left: 4%; }
+            nav a { display: none; }
+            .hero-panel { flex-direction: column-reverse; text-align: center; padding: 30px; }
+            .hero-btns { justify-content: center; }
+            .contact-panel { grid-template-columns: 1fr; padding: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Liquid Background Elements with Tech Vibe -->
-    <div class="liquid-bg">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
+    <!-- Water Glassy Background -->
+    <div class="water-bg">
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
     </div>
 
-    <!-- Main 4-Card Grid Layout -->
-    <div class="main-container">
+    <!-- Glass Header -->
+    <header class="glass-panel">
+        <!-- Changed to Student Portfolio as requested -->
+        <a href="#" class="logo">Student <span>Portfolio</span></a>
+        <nav>
+            <a href="#about" data-en="About" data-ta="பற்றி">About</a>
+            <a href="#skills" data-en="Skills" data-ta="திறன்கள்">Skills</a>
+            <a href="#services" data-en="Services" data-ta="சேவைகள்">Services</a>
+            <a href="#projects" data-en="Projects" data-ta="படைப்புகள்">Projects</a>
+            <a href="#contact" data-en="Contact" data-ta="தொடர்பு">Contact</a>
+        </nav>
+        <div class="nav-controls">
+            <button id="lang-btn" class="ctrl-btn" title="Toggle Language">TA</button>
+            <button id="theme-btn" class="ctrl-btn" title="Toggle Theme"><i class="fas fa-sun"></i></button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="container">
         
-        <!-- Card 1: Profile & 3D Vibe -->
-        <div class="card liquid-glass">
-            <div class="card-title"><i class="fas fa-user-astronaut"></i> <span data-en="Profile" data-ta="சுயவிவரம்">Profile</span></div>
-            <div class="profile-flex">
-                <div class="profile-img-wrap">
-                    <img src="42495_2.png" alt="Anbarasan P" class="profile-img">
-                </div>
-                <div>
-                    <div class="profile-name">Anbarasan P</div>
-                    <div class="profile-role" data-en="Computer Science Student | Software Engineer" data-ta="கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்">Computer Science Student | Software Engineer</div>
-                    <p class="profile-bio" data-en="Passionate developer building next-gen web experiences." data-ta="நவீன தொழில்நுட்பங்களுடன் புதிய செயலிகளை உருவாக்கும் ஆர்வம் கொண்டவன்.">
-                        Passionate developer building next-gen web experiences.
-                    </p>
-                    
-                    <div class="profile-socials">
-                        <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="social-chip">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="social-chip">
-                            <i class="fab fa-linkedin-in"></i> LinkedIn
-                        </a>
-                    </div>
+        <!-- 1. Hero Section -->
+        <section class="glass-panel hero-panel" id="home" data-aos="fade-up">
+            <div class="hero-content">
+                <h1 data-en="Hi, I'm Anbarasan P" data-ta="வணக்கம், நான் அன்பரசன் P">Hi, I'm Anbarasan P</h1>
+                <p class="hero-tagline" data-en="Web Developer | Frontend Designer | AI Enthusiast" data-ta="வெப் டெவலப்பர் | பிரன்ட்டெண்ட் டிசைனர் | AI ஆர்வலர்">
+                    Web Developer | Frontend Designer | AI Enthusiast
+                </p>
+                <div class="hero-btns">
+                    <a href="#projects" class="btn btn-primary" data-en="View Projects" data-ta="படைப்புகளைப் பார்">View Projects <i class="fas fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-secondary" data-en="Contact Me" data-ta="தொடர்பு கொள்க">Contact Me</a>
+                    <a href="#" class="btn btn-secondary" onclick="alert('Resume download initiated!');" data-en="Resume" data-ta="ரெஸ்யூம்">Resume <i class="fas fa-download"></i></a>
                 </div>
             </div>
-        </div>
+            <div class="hero-image">
+                <img src="45151.jpg" alt="Anbarasan P" class="profile-img">
+            </div>
+        </section>
 
-        <!-- Card 2: Skills Box -->
-        <div class="card liquid-glass">
-            <div class="card-title"><i class="fas fa-code"></i> <span data-en="Technical Skills" data-ta="தொழில்நுட்ப திறன்கள்">Technical Skills</span></div>
+        <!-- 2. About Me -->
+        <section id="about">
+            <h2 class="section-title" data-en="About Me" data-ta="என்னைப் பற்றி"><i class="fas fa-user-circle"></i> About Me</h2>
+            <div class="glass-panel about-panel" data-aos="fade-up">
+                <p data-en="👋 Hi, I'm Anbarasan. I am a student passionate about Web Development and AI. I love building responsive websites and creating modern user interfaces with clean glassmorphic aesthetics and smooth experiences."
+                   data-ta="👋 வணக்கம்! நான் அன்பரசன். நான் Web Development மற்றும் AI மீது ஆர்வம் கொண்ட மாணவன். நவீன மற்றும் வெளிப்படையான (Glassy) வலைத்தளங்களை உருவாக்குவதில் அதிக ஆர்வம் உள்ளது.">
+                    👋 Hi, I'm Anbarasan. I am a student passionate about Web Development and AI. I love building responsive websites and creating modern user interfaces with clean glassmorphic aesthetics and smooth experiences.
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. Technical Skills -->
+        <section id="skills">
+            <h2 class="section-title" data-en="Technical Skills" data-ta="தொழில்நுட்ப திறன்கள்"><i class="fas fa-code"></i> Technical Skills</h2>
             <div class="skills-grid">
-                <div class="skill-badge"><i class="fas fa-file-code"></i> C++</div>
-                <div class="skill-badge"><i class="fas fa-copyright"></i> C</div>
-                <div class="skill-badge"><i class="fab fa-java"></i> Java</div>
-                <div class="skill-badge"><i class="fab fa-python"></i> Python</div>
-                <div class="skill-badge"><i class="fab fa-html5"></i> HTML</div>
-                <div class="skill-badge"><i class="fas fa-terminal"></i> Git</div>
+                <div class="glass-panel skill-card"><i class="fab fa-html5" style="color: #E34F26;"></i><span>HTML / CSS</span></div>
+                <div class="glass-panel skill-card"><i class="fab fa-js" style="color: #F7DF1E;"></i><span>JavaScript</span></div>
+                <div class="glass-panel skill-card"><i class="fab fa-python" style="color: #3776AB;"></i><span>Python</span></div>
+                <div class="glass-panel skill-card"><i class="fab fa-java" style="color: #f89820;"></i><span>Java & C++</span></div>
+                <div class="glass-panel skill-card"><i class="fab fa-git-alt" style="color: #F05032;"></i><span>Git & GitHub</span></div>
+                <div class="glass-panel skill-card"><i class="fas fa-robot" style="color: #00f0ff;"></i><span>AI Tools</span></div>
             </div>
-        </div>
+        </section>
 
-        <!-- Card 3: Projects -->
-        <div class="card liquid-glass">
-            <div class="card-title"><i class="fas fa-layer-group"></i> <span data-en="Projects" data-ta="படைப்புகள்">Projects</span></div>
-            <a href="#" class="project-item">
-                <h4 data-en="Liquid Glass Portfolio" data-ta="திரவக் கண்ணாடி போர்ட்ஃபோலியோ">Liquid Glass Portfolio</h4>
-                <p data-en="iOS 26 Concept UI Design" data-ta="iOS 26 கான்செப்ட் டிசைன்">iOS 26 Concept UI Design</p>
-            </a>
-            <a href="#" class="project-item">
-                <h4 data-en="Python Automation Tools" data-ta="பைதான் ஆட்டோமேஷன் கருவிகள்">Python Automation Tools</h4>
-                <p data-en="Data processing applications" data-ta="தரவு செயலாக்க செயலிகள்">Data processing applications</p>
-            </a>
-        </div>
+        <!-- 4. Services -->
+        <section id="services">
+            <h2 class="section-title" data-en="Services" data-ta="சேவைகள்"><i class="fas fa-concierge-bell"></i> Services</h2>
+            <div class="grid-3">
+                <div class="glass-panel card-item">
+                    <h3>Portfolio Website</h3>
+                    <p data-en="Custom glassmorphic and professional personal portfolios." data-ta="பிரத்யேகமான மற்றும் நவீன தனிநபர் வலைத்தளங்கள்.">Custom glassmorphic and professional personal portfolios.</p>
+                </div>
+                <div class="glass-panel card-item">
+                    <h3>Landing Page</h3>
+                    <p data-en="High-converting clean landing pages for your concepts." data-ta="வணிகங்கள் மற்றும் புதிய திட்டங்களுக்கான பிரத்யேக பக்கங்கள்.">High-converting clean landing pages for your concepts.</p>
+                </div>
+                <div class="glass-panel card-item">
+                    <h3>UI/UX Layouts</h3>
+                    <p data-en="Modern, transparent, and user-friendly interface designs." data-ta="நவீன மற்றும் நேர்த்தியான பயனர் இடைமுக வடிவமைப்புகள்.">Modern, transparent, and user-friendly interface designs.</p>
+                </div>
+            </div>
+        </section>
 
-        <!-- Card 4: Dedicated Contact Box -->
-        <div class="card liquid-glass">
-            <div class="card-title"><i class="fas fa-paper-plane"></i> <span data-en="Get in Touch" data-ta="தொடர்புகொள்ள">Get in Touch</span></div>
-            <form action="YOUR_FORMSPREE_LINK_HERE" method="POST">
-                <input type="text" name="name" placeholder="Your Name" required class="liquid-input">
-                <input type="email" name="email" placeholder="Your Email" required class="liquid-input">
-                <textarea name="message" placeholder="Your Message..." required class="liquid-input"></textarea>
-                <button type="submit" class="submit-btn" data-en="Send Message" data-ta="செய்தி அனுப்பு">Send Message</button>
-            </form>
-        </div>
-
-    </div>
-
-    <!-- Floating Bottom Dock -->
-    <div class="bottom-dock liquid-glass">
-        <a href="#top" class="dock-item active" title="Home"><i class="fas fa-home"></i></a>
-        <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="dock-item" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="dock-item" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <button id="theme-btn" class="dock-item" title="Theme"><i class="fas fa-moon"></i></button>
-        <button id="lang-btn" class="dock-item" style="font-weight: 800; font-size: 15px;" title="Language">TA</button>
-        <button id="help-btn" class="dock-item" title="Help"><i class="fas fa-question-circle"></i></button>
-    </div>
-
-    <!-- Help Modal Popup -->
-    <div id="help-modal" class="help-modal">
-        <div class="help-content liquid-glass">
-            <h3 style="margin-bottom: 15px; font-weight: 800;" data-en="Need Help?" data-ta="உதவி தேவையா?">Need Help?</h3>
-            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; font-weight: 500;" 
-               data-en="You can explore my projects, check my technical skills, or send a message directly using the contact form!" 
-               data-ta="எனது ப்ராஜெக்ட்களைப் பார்க்கலாம், தொழில்நுட்ப திறன்களைத் தெரிந்து கொள்ளலாம் அல்லது தொடர்பு படி மூலம் எனக்குச் செய்தி அனுப்பலாம்!">
-               You can explore my projects, check my technical skills, or send a message directly using the contact form!
-            </p>
-            <button class="close-help" id="close-help" data-en="Close" data-ta="மூடு">Close</button>
-        </div>
-    </div>
-
-    <script>
-        // Language Toggle
-        const langBtn = document.getElementById('lang-btn');
-        let currentLang = 'en';
-
-        langBtn.addEventListener('click', () => {
-            currentLang = (currentLang === 'en') ? 'ta' : 'en';
-            langBtn.innerText = (currentLang === 'en') ? 'TA' : 'EN';
-            
-            document.querySelectorAll('[data-en][data-ta]').forEach(el => {
-                el.innerText = el.getAttribute(`data-${currentLang}`);
-            });
-        });
-
-        // Theme Toggle
-        const themeBtn = document.getElementById('theme-btn');
-        const root = document.documentElement;
-        
-        themeBtn.addEventListener('click', () => {
-            const isLight = root.getAttribute('data-theme') === 'light';
-            if (isLight) {
-                root.setAttribute('data-theme', 'dark');
-                themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                root.setAttribute('data-theme', 'light');
-                themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-        });
-
-        // Help Modal Logic
-        const helpBtn = document.getElementById('help-btn');
-        const helpModal = document.getElementById('help-modal');
-        const closeHelp = document.getElementById('close-help');
-
-        helpBtn.addEventListener('click', () => {
-            helpModal.style.display = 'flex';
-        });
-
-        closeHelp.addEventListener('click', () => {
-            helpModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === helpModal) {
-                helpModal.style.display = 'none';
-            }
-        });
-    </script>
-</body>
-                                             </html>
-    
+        <!-- 5. Projects -->
+        <section id="projects">
+            <h2 class="section-title" data-en="Featured Projects" data-ta="படைப்புகள்"><i class="fas fa-laptop-code"></i> Featured Projects</h2>
+            <div class="grid-3">
+                
+                <div class="glass-panel card-item">
+                    <h3>Water Glassy Portfolio</h3>
+                    <p data-en="Transparent glassmorphic professional website built with HTML, CSS & JS." data-ta="HTML, CSS மற்றும் JS கொண்டு உருவாக்கப்பட்ட நவீன கிளாஸ்மார்பிசம் தளம்.">Transparent glassmorphic professional website built with HTML, CSS & JS.<
