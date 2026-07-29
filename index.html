@@ -3,512 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Portfolio — Anbarasan P</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Anbarasan P - Professional Software Engineer & Web Developer Portfolio">
+    <meta name="keywords" content="Anbarasan P, Portfolio, Web Developer, Software Engineer, Glassmorphism, AI">
+    <title>Anbarasan P | Portfolio</title>
     
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Animation Library -->
+    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* Water Glassy Toon Theme Variables */
+        /* ================= THEME VARIABLES ================= */
         :root {
-            --bg-color: #060b14;
+            /* Dark Theme (Default) */
+            --bg-grad-1: #0f172a;
+            --bg-grad-2: #1e1b4b;
             --text-main: #ffffff;
-            --text-muted: #d0d7de;
-            --primary-accent: #00f0ff;
-            --primary-hover: #00acc1;
+            --text-muted: #cbd5e1;
+            --accent: #00d2ff;
+            --accent-alt: #3a7bd5;
             
-            /* Crystal Clear Glass Transparency */
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            --input-bg: rgba(0, 0, 0, 0.4);
+            /* 100% Transparent Glass (No Blur) */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-hover: rgba(255, 255, 255, 0.08);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
         [data-theme="light"] {
-            --bg-color: #f0f7ff;
-            --text-main: #0c1b33;
-            --text-muted: #334e68;
-            --primary-accent: #0284c7;
-            --primary-hover: #0369a1;
+            /* Light Theme */
+            --bg-grad-1: #e0eafc;
+            --bg-grad-2: #cfdef3;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent: #2563eb;
+            --accent-alt: #0ea5e9;
             
-            --glass-bg: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(2, 132, 199, 0.25);
-            --glass-shadow: 0 8px 32px 0 rgba(2, 132, 199, 0.1);
-            --input-bg: rgba(255, 255, 255, 0.85);
+            --glass-bg: rgba(255, 255, 255, 0.2);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --glass-hover: rgba(255, 255, 255, 0.4);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
 
         body {
-            background-color: var(--bg-color);
+            background: linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2));
+            background-attachment: fixed;
             color: var(--text-main);
-            line-height: 1.6;
             overflow-x: hidden;
-            position: relative;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
-        /* Water Glassy Toon Animated Background */
-        .water-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            background-color: var(--bg-color);
+        /* Background Animated Particles */
+        .particles {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+            background-image: radial-gradient(var(--accent) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            animation: moveParticles 20s linear infinite;
         }
+        @keyframes moveParticles { 100% { background-position: 50px 50px; } }
 
-        .bubble {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(50px); /* Clean, transparent glow without heavy blur */
-            opacity: 0.6;
-            animation: waterFlow 12s infinite alternate ease-in-out;
-        }
-
-        .bubble-1 { width: 50vw; height: 50vw; background: #00f0ff; top: -10%; left: -10%; }
-        .bubble-2 { width: 45vw; height: 45vw; background: #7000ff; bottom: -10%; right: -10%; animation-delay: -4s; }
-        .bubble-3 { width: 40vw; height: 40vw; background: #ff007f; top: 30%; left: 30%; animation-delay: -8s; }
-
-        @keyframes waterFlow {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            100% { transform: translate(50px, 70px) scale(1.1) rotate(15deg); }
-        }
-
-        /* Glass Panel with crystal clear visibility */
-        .glass-panel {
+        /* ================= 100% TRANSPARENT GLASS CLASS ================= */
+        .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(12px); /* Optimized for maximum text readability */
-            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow);
             border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            /* Explicitly removed backdrop-filter: blur for 100% transparency */
         }
+        .glass-card:hover { border-color: var(--accent); background: var(--glass-hover); transform: translateY(-5px); }
 
-        /* Top Bar & Navigation */
-        header {
-            position: fixed;
-            top: 20px; left: 5%; width: 90%;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 18px;
-            font-weight: 700;
-            text-decoration: none;
-            color: var(--text-main);
-            letter-spacing: 0.5px;
-        }
-
-        .logo span {
-            color: var(--primary-accent);
-        }
-
-        nav {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        /* Water Bubble Effect on Tabs */
-        nav a, .ctrl-btn {
+        /* ================= WATER BUBBLE BUTTON EFFECT ================= */
+        .water-btn {
             position: relative;
             overflow: hidden;
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 14px;
-            font-weight: 500;
-            padding: 8px 14px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        nav a::after, .ctrl-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 5px; height: 5px;
-            background: var(--primary-accent);
-            opacity: 0;
-            border-radius: 50%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-
-        nav a:hover::after, .ctrl-btn:hover::after {
-            animation: waterBubble 0.5s ease-out;
-        }
-
-        @keyframes waterBubble {
-            0% { transform: scale(0, 0); opacity: 0.8; }
-            100% { transform: scale(25, 25); opacity: 0; }
-        }
-
-        nav a:hover, .ctrl-btn:hover {
-            color: var(--primary-accent);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-controls {
-            display: flex;
-            gap: 10px;
-        }
-
-        .ctrl-btn {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            width: 38px; height: 38px;
-            padding: 0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        /* Main Container Layout */
-        .container {
-            max-width: 1100px;
-            margin: 130px auto 60px;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .section-title {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-main);
-        }
-
-        .section-title i {
-            color: var(--primary-accent);
-        }
-
-        /* 1. Hero Section */
-        .hero-panel {
-            padding: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .hero-content { flex: 1; min-width: 280px; }
-        .hero-content h1 { font-size: 40px; font-weight: 800; margin-bottom: 10px; }
-        .hero-content h1 span { color: var(--primary-accent); }
-        .hero-tagline { font-size: 17px; color: var(--text-muted); margin-bottom: 25px; font-weight: 600; }
-
-        .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
+            z-index: 1;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            border: 1px solid var(--glass-border);
+            background: transparent;
+            color: var(--text-main);
             cursor: pointer;
-            border: 1px solid transparent;
-            transition: transform 0.2s, background 0.2s;
+            transition: color 0.3s;
         }
-
-        .btn-primary { background: var(--primary-accent); color: #000; }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        .btn-secondary { background: var(--glass-bg); color: var(--text-main); border-color: var(--glass-border); }
-        .btn-secondary:hover { border-color: var(--primary-accent); transform: translateY(-2px); }
-
-        .hero-image { flex: 1; display: flex; justify-content: center; min-width: 250px; }
-        .profile-img {
-            width: 240px; height: 240px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--primary-accent);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        .water-btn::before {
+            content: ''; position: absolute; bottom: -50%; left: 50%;
+            width: 200%; height: 200%;
+            background: var(--accent);
+            border-radius: 40%;
+            transform: translateX(-50%) translateY(100%) rotate(0deg);
+            transition: all 0.6s ease;
+            z-index: -1;
         }
+        .water-btn:hover::before { transform: translateX(-50%) translateY(0) rotate(360deg); }
+        .water-btn:hover { color: #fff; border-color: var(--accent); }
 
-        /* 2. About Me */
-        .about-panel {
-            padding: 40px;
-            text-align: center;
-            font-size: 16px;
-            color: var(--text-main);
-            font-weight: 500;
-            line-height: 1.8;
+        /* ================= TOP BAR ================= */
+        header {
+            position: fixed; top: 15px; left: 5%; width: 90%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 30px; z-index: 1000;
+            border-radius: 50px;
         }
+        .logo { font-size: 22px; font-weight: 700; text-decoration: none; color: var(--text-main); }
+        .logo span { color: var(--accent); }
+        
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links .water-btn { padding: 8px 18px; border-radius: 25px; font-size: 14px; font-weight: 500; text-decoration: none; }
+        
+        .nav-controls { display: flex; gap: 10px; }
+        .nav-controls .water-btn { width: 40px; height: 40px; border-radius: 50%; font-size: 15px; }
 
-        /* 3. Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
+        /* ================= LAYOUT & SECTIONS ================= */
+        .container { max-width: 1200px; margin: 120px auto 100px; padding: 0 20px; display: flex; flex-direction: column; gap: 60px; }
+        .section-title { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 40px; }
+        .section-title span { color: var(--accent); }
+
+        /* 1. HERO SECTION */
+        .hero { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding: 40px 0; }
+        .hero-content { flex: 1; min-width: 300px; }
+        .hero-content h1 { font-size: 45px; font-weight: 700; line-height: 1.2; margin-bottom: 15px; }
+        .hero-tagline { font-size: 18px; color: var(--accent); font-weight: 500; margin-bottom: 25px; }
+        .hero-desc { color: var(--text-muted); margin-bottom: 30px; font-size: 15px; }
+        
+        .hero-image-box { position: relative; width: 300px; height: 300px; border-radius: 50%; padding: 8px; background: linear-gradient(45deg, var(--accent), var(--accent-alt)); box-shadow: 0 0 30px rgba(0,210,255,0.3); }
+        .hero-image-box img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 5px solid var(--bg-grad-1); }
+
+        /* 2. ABOUT ME */
+        .about-text { text-align: center; padding: 40px; font-size: 16px; color: var(--text-muted); line-height: 1.8; }
+
+        /* 3. SKILLS */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; }
+        .skill-box { padding: 25px 15px; text-align: center; display: flex; flex-direction: column; gap: 10px; }
+        .skill-box i { font-size: 35px; color: var(--accent); }
+        .skill-box span { font-weight: 600; font-size: 14px; }
+
+        /* 4. PROJECTS */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .project-card { padding: 25px; display: flex; flex-direction: column; }
+        .project-img { width: 100%; height: 180px; background: rgba(0,0,0,0.2); border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; color: var(--accent); border: 1px dashed var(--glass-border); }
+        .project-card h3 { font-size: 20px; margin-bottom: 10px; }
+        .project-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 15px; flex: 1; }
+        .tech-stack { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tech-stack span { font-size: 11px; padding: 4px 10px; border: 1px solid var(--glass-border); border-radius: 20px; color: var(--accent); }
+        .project-links { display: flex; gap: 15px; }
+        .project-links a { flex: 1; text-align: center; padding: 8px; border-radius: 8px; font-size: 13px; text-decoration: none; }
+
+        /* 5. CONTACT */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 40px; }
+        .contact-info p { color: var(--text-muted); margin-bottom: 25px; }
+        .social-list { display: flex; flex-direction: column; gap: 15px; }
+        .social-list a { display: flex; align-items: center; gap: 15px; color: var(--text-main); text-decoration: none; font-size: 15px; transition: 0.3s; }
+        .social-list a:hover { color: var(--accent); transform: translateX(10px); }
+        .social-list i { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); border-radius: 50%; color: var(--accent); }
+        
+        .form-input { width: 100%; background: transparent; border: 1px solid var(--glass-border); padding: 15px; border-radius: 12px; color: var(--text-main); margin-bottom: 15px; outline: none; }
+        .form-input:focus { border-color: var(--accent); }
+        textarea.form-input { height: 120px; resize: none; }
+
+        /* ================= FOOTER ================= */
+        footer { border-top: 1px solid var(--glass-border); padding: 30px; text-align: center; margin-top: 50px; }
+        .footer-stats { display: flex; justify-content: center; gap: 30px; margin-bottom: 15px; font-size: 13px; color: var(--accent); }
+
+        /* ================= BOTTOM BAR (MOBILE/TABLET) ================= */
+        .bottom-bar {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            display: none; gap: 15px; padding: 10px 20px; border-radius: 50px; z-index: 1000;
         }
+        .bottom-bar .water-btn { width: 45px; height: 45px; border-radius: 50%; font-size: 18px; }
 
-        .skill-card {
-            padding: 20px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: transform 0.2s, border-color 0.2s;
-        }
+        /* ================= AI CHATBOT & HELP MODALS ================= */
+        .chatbot-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; font-size: 24px; z-index: 999; box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); }
+        
+        .modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000; }
+        .modal-content { width: 90%; max-width: 400px; padding: 30px; text-align: center; position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--text-main); font-size: 20px; cursor: pointer; }
 
-        .skill-card:hover { transform: translateY(-4px); border-color: var(--primary-accent); }
-        .skill-card i { font-size: 24px; color: var(--primary-accent); }
-        .skill-card span { font-weight: 600; font-size: 14px; color: var(--text-main); }
-
-        /* 4. Grid Sections (Services, Projects, Certificates) */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .card-item {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .card-item:hover { transform: translateY(-5px); border-color: var(--primary-accent); }
-        .card-item h3 { font-size: 18px; margin-bottom: 10px; color: var(--text-main); }
-        .card-item p { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; flex: 1; font-weight: 500; }
-
-        .card-links { display: flex; gap: 15px; }
-        .card-links a { font-size: 13px; font-weight: 600; text-decoration: none; color: var(--primary-accent); }
-        .card-links a:hover { text-decoration: underline; }
-
-        /* 5. Contact Section */
-        .contact-panel {
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .form-input {
-            width: 100%;
-            background: var(--input-bg);
-            border: 1px solid var(--glass-border);
-            padding: 14px 16px;
-            border-radius: 12px;
-            color: var(--text-main);
-            font-size: 14px;
-            outline: none;
-        }
-
-        .form-input::placeholder { color: var(--text-muted); opacity: 0.8; }
-        .form-input:focus { border-color: var(--primary-accent); }
-        textarea.form-input { height: 110px; resize: none; }
-
-        .social-row {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-btn {
-            width: 42px; height: 42px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-main);
-            text-decoration: none;
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        .social-btn:hover { background: var(--primary-accent); color: #000; border-color: var(--primary-accent); transform: translateY(-3px); }
-
-        /* Floating WhatsApp & Back to Top */
-        .floating-whatsapp {
-            position: fixed;
-            bottom: 30px; right: 30px;
-            background: #25D366;
-            color: white;
-            width: 50px; height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            z-index: 999;
-            text-decoration: none;
-            transition: transform 0.2s;
-        }
-        .floating-whatsapp:hover { transform: scale(1.1); }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 30px; left: 30px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            width: 45px; height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 999;
-            box-shadow: var(--glass-shadow);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-        }
-        .back-to-top.show { opacity: 1; visibility: visible; }
-        .back-to-top:hover { background: var(--primary-accent); color: #000; border-color: var(--primary-accent); }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 30px;
-            font-size: 13px;
-            color: var(--text-muted);
-            border-top: 1px solid var(--glass-border);
-            margin-top: 40px;
-            background: var(--glass-bg);
-            font-weight: 500;
-        }
-
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
-            header { width: 92%; padding: 12px 20px; left: 4%; }
-            nav a { display: none; }
-            .hero-panel { flex-direction: column-reverse; text-align: center; padding: 30px; }
-            .hero-btns { justify-content: center; }
-            .contact-panel { grid-template-columns: 1fr; padding: 30px; }
+            .nav-links { display: none; } /* Hide top links on mobile */
+            .bottom-bar { display: flex; } /* Show bottom bar */
+            .hero { flex-direction: column-reverse; text-align: center; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .chatbot-btn { bottom: 90px; right: 20px; width: 50px; height: 50px; font-size: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Water Glassy Background -->
-    <div class="water-bg">
-        <div class="bubble bubble-1"></div>
-        <div class="bubble bubble-2"></div>
-        <div class="bubble bubble-3"></div>
-    </div>
+    <!-- Animated Particles Background -->
+    <div class="particles"></div>
 
-    <!-- Glass Header -->
-    <header class="glass-panel">
-        <!-- Changed to Student Portfolio as requested -->
-        <a href="#" class="logo">Student <span>Portfolio</span></a>
-        <nav>
-            <a href="#about" data-en="About" data-ta="பற்றி">About</a>
-            <a href="#skills" data-en="Skills" data-ta="திறன்கள்">Skills</a>
-            <a href="#services" data-en="Services" data-ta="சேவைகள்">Services</a>
-            <a href="#projects" data-en="Projects" data-ta="படைப்புகள்">Projects</a>
-            <a href="#contact" data-en="Contact" data-ta="தொடர்பு">Contact</a>
+    <!-- Top Bar -->
+    <header class="glass-card">
+        <a href="#" class="logo">Anbarasan<span>.P</span></a>
+        
+        <nav class="nav-links">
+            <a href="#about" class="water-btn"><span data-en="About" data-ta="பற்றி">About</span></a>
+            <a href="#skills" class="water-btn"><span data-en="Skills" data-ta="திறன்கள்">Skills</span></a>
+            <a href="#projects" class="water-btn"><span data-en="Projects" data-ta="படைப்புகள்">Projects</span></a>
+            <a href="#contact" class="water-btn"><span data-en="Contact" data-ta="தொடர்பு">Contact</span></a>
         </nav>
+
         <div class="nav-controls">
-            <button id="lang-btn" class="ctrl-btn" title="Toggle Language">TA</button>
-            <button id="theme-btn" class="ctrl-btn" title="Toggle Theme"><i class="fas fa-sun"></i></button>
+            <!-- Theme & Language Toggles (Water Bubble Hover) -->
+            <button id="theme-btn" class="water-btn" title="Toggle Theme"><i class="fas fa-sun"></i></button>
+            <button id="lang-btn" class="water-btn" style="font-weight: 700; font-size: 14px;" title="Switch Language">TA</button>
         </div>
     </header>
 
-    <!-- Main Content Container -->
+    <!-- Main Container -->
     <div class="container">
         
         <!-- 1. Hero Section -->
-        <section class="glass-panel hero-panel" id="home" data-aos="fade-up">
+        <section class="hero" id="home" data-aos="fade-up">
             <div class="hero-content">
                 <h1 data-en="Hi, I'm Anbarasan P" data-ta="வணக்கம், நான் அன்பரசன் P">Hi, I'm Anbarasan P</h1>
-                <p class="hero-tagline" data-en="Web Developer | Frontend Designer | AI Enthusiast" data-ta="வெப் டெவலப்பர் | பிரன்ட்டெண்ட் டிசைனர் | AI ஆர்வலர்">
-                    Web Developer | Frontend Designer | AI Enthusiast
+                <p class="hero-tagline" data-en="Computer Science Student & Software Engineer" data-ta="கணினி அறிவியல் மாணவர் & மென்பொருள் பொறியாளர்">Computer Science Student & Software Engineer</p>
+                <p class="hero-desc" data-en="Passionate developer building next-gen web experiences, exploring AI, and creating flawless digital solutions." data-ta="நவீன வலைத்தளங்களை உருவாக்குவதும், AI தொழில்நுட்பங்களை கற்பதுமே எனது பயணம்.">
+                    Passionate developer building next-gen web experiences, exploring AI, and creating flawless digital solutions.
                 </p>
-                <div class="hero-btns">
-                    <a href="#projects" class="btn btn-primary" data-en="View Projects" data-ta="படைப்புகளைப் பார்">View Projects <i class="fas fa-arrow-right"></i></a>
-                    <a href="#contact" class="btn btn-secondary" data-en="Contact Me" data-ta="தொடர்பு கொள்க">Contact Me</a>
-                    <a href="#" class="btn btn-secondary" onclick="alert('Resume download initiated!');" data-en="Resume" data-ta="ரெஸ்யூம்">Resume <i class="fas fa-download"></i></a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="45151.jpg" alt="Anbarasan P" class="profile-img">
-            </div>
-        </section>
-
-        <!-- 2. About Me -->
-        <section id="about">
-            <h2 class="section-title" data-en="About Me" data-ta="என்னைப் பற்றி"><i class="fas fa-user-circle"></i> About Me</h2>
-            <div class="glass-panel about-panel" data-aos="fade-up">
-                <p data-en="👋 Hi, I'm Anbarasan. I am a student passionate about Web Development and AI. I love building responsive websites and creating modern user interfaces with clean glassmorphic aesthetics and smooth experiences."
-                   data-ta="👋 வணக்கம்! நான் அன்பரசன். நான் Web Development மற்றும் AI மீது ஆர்வம் கொண்ட மாணவன். நவீன மற்றும் வெளிப்படையான (Glassy) வலைத்தளங்களை உருவாக்குவதில் அதிக ஆர்வம் உள்ளது.">
-                    👋 Hi, I'm Anbarasan. I am a student passionate about Web Development and AI. I love building responsive websites and creating modern user interfaces with clean glassmorphic aesthetics and smooth experiences.
-                </p>
-            </div>
-        </section>
-
-        <!-- 3. Technical Skills -->
-        <section id="skills">
-            <h2 class="section-title" data-en="Technical Skills" data-ta="தொழில்நுட்ப திறன்கள்"><i class="fas fa-code"></i> Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="glass-panel skill-card"><i class="fab fa-html5" style="color: #E34F26;"></i><span>HTML / CSS</span></div>
-                <div class="glass-panel skill-card"><i class="fab fa-js" style="color: #F7DF1E;"></i><span>JavaScript</span></div>
-                <div class="glass-panel skill-card"><i class="fab fa-python" style="color: #3776AB;"></i><span>Python</span></div>
-                <div class="glass-panel skill-card"><i class="fab fa-java" style="color: #f89820;"></i><span>Java & C++</span></div>
-                <div class="glass-panel skill-card"><i class="fab fa-git-alt" style="color: #F05032;"></i><span>Git & GitHub</span></div>
-                <div class="glass-panel skill-card"><i class="fas fa-robot" style="color: #00f0ff;"></i><span>AI Tools</span></div>
-            </div>
-        </section>
-
-        <!-- 4. Services -->
-        <section id="services">
-            <h2 class="section-title" data-en="Services" data-ta="சேவைகள்"><i class="fas fa-concierge-bell"></i> Services</h2>
-            <div class="grid-3">
-                <div class="glass-panel card-item">
-                    <h3>Portfolio Website</h3>
-                    <p data-en="Custom glassmorphic and professional personal portfolios." data-ta="பிரத்யேகமான மற்றும் நவீன தனிநபர் வலைத்தளங்கள்.">Custom glassmorphic and professional personal portfolios.</p>
-                </div>
-                <div class="glass-panel card-item">
-                    <h3>Landing Page</h3>
-                    <p data-en="High-converting clean landing pages for your concepts." data-ta="வணிகங்கள் மற்றும் புதிய திட்டங்களுக்கான பிரத்யேக பக்கங்கள்.">High-converting clean landing pages for your concepts.</p>
-                </div>
-                <div class="glass-panel card-item">
-                    <h3>UI/UX Layouts</h3>
-                    <p data-en="Modern, transparent, and user-friendly interface designs." data-ta="நவீன மற்றும் நேர்த்தியான பயனர் இடைமுக வடிவமைப்புகள்.">Modern, transparent, and user-friendly interface designs.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. Projects -->
-        <section id="projects">
-            <h2 class="section-title" data-en="Featured Projects" data-ta="படைப்புகள்"><i class="fas fa-laptop-code"></i> Featured Projects</h2>
-            <div class="grid-3">
                 
-                <div class="glass-panel card-item">
-                    <h3>Water Glassy Portfolio</h3>
-                    <p data-en="Transparent glassmorphic professional website built with HTML, CSS & JS." data-ta="HTML, CSS மற்றும் JS கொண்டு உருவாக்கப்பட்ட நவீன கிளாஸ்மார்பிசம் தளம்.">Transparent glassmorphic professional website built with HTML, CSS & JS.<
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="#projects" class="water-btn" style="padding: 12px 25px; border-radius: 12px;"><span data-en="View Projects" data-ta="படைப்புகளைப் பார்">View Projects</span> <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
+                    <a href="Anbarasan_Resume.pdf" download class="water-btn" style="padding: 12px 25px; border-radius: 12px;"><span data-en="Download Resume" data-ta="ரெஸ்யூம் பதிவிறக்கு">Download Resume</span> <i class="fas fa-download" style="margin-left:8px;"></i></a>
+                </div>
+            </div>
+            
+            <div class="hero-image-box">
+                <!-- User's Actual Profile Picture -->
+                <img src="45151.jpg" alt="Anbarasan P">
+            </div>
+        </section>
+
+        <!-- 2. About Section -->
+        <section id="about" data-aos="fade-up">
+            <h2 class="section-title"><span data-en="About" data-ta="என்னைப்">About</span> <span style="color:var(--text-main)" data-en="Me" data-ta="பற்றி">Me</span></h2>
+            <div class="glass-card about-text">
+                <p data-en="I am an ambitious tech enthusiast focused on mastering modern programming languages and frameworks. I specialize in crafting 100% transparent glassmorphism UIs, robust backend scripts in Python, and optimized algorithms in C++/Java. My goal is to build software that solves real-world problems flawlessly."
+                   data-ta="நான் ஒரு கணினி அறிவியல் மாணவர். C++, Java, Python மற்றும் நவீன வலைத்தளங்களை வடிவமைப்பதில் நிபுணத்துவம் பெற்றுள்ளேன். எந்தவொரு பிழையுமின்றி, முற்றிலும் துல்லியமான மற்றும் உலகத்தரம் வாய்ந்த மென்பொருட்களை உருவாக்குவதே எனது லட்சியம்.">
+                    I am an ambitious tech enthusiast focused on mastering modern programming languages and frameworks. I specialize in crafting 100% transparent glassmorphism UIs, robust backend scripts in Python, and optimized algorithms in C++/Java. My goal is to build software that solves real-world problems flawlessly.
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. Skills Section -->
+        <section id="skills" data-aos="fade-up">
+            <h2 class="section-title"><span data-en="Technical" data-ta="தொழில்நுட்ப">Technical</span> <span style="color:var(--text-main)" data-en="Skills" data-ta="திறன்கள்">Skills</span></h2>
+            <div class="skills-grid">
+                <div class="glass-card skill-box"><i class="fas fa-file-code"></i><span>C++ & C</span></div>
+                <div class="glass-card skill-box"><i class="fab fa-java"></i><span>Java Core</span></div>
+                <div class="glass-card skill-box"><i class="fab fa-python"></i><span>Python</span></div>
+                <div class="glass-card skill-box"><i class="fab fa-html5"></i><span>HTML / CSS</span></div>
+                <div class="glass-card skill-box"><i class="fab fa-js"></i><span>JavaScript</span></div>
+                <div class="glass-card skill-box"><i class="fab fa-git-alt"></i><span>Git & GitHub</span></div>
+            </div>
+        </section>
+
+        <!-- 4. Projects Section -->
+        <section id="projects" data-aos="fade-up">
+            <h2 class="section-title"><span data-en="Featured" data-ta="சிறந்த">Featured</span> <span style="color:var(--text-main)" data-en="Projects" data-ta="படைப்புகள்">Projects</span></h2>
+            <div class="projects-grid">
+                
+                <div class="glass-card project-card">
+                    <div class="project-img"><i class="fas fa-globe"></i></div>
+                    <h3 data-en="Flawless Glassmorphism UI" data-ta="நவீன போர்ட்ஃபோலியோ தளம்">Flawless Glassmorphism UI</h3>
+                    <p data-en="A world-class, 100% transparent portfolio website with water bubble animations and live themes." data-ta="எந்த குறையுமற்ற, 100% வெளிப்படையான, வாட்டர் பப்பில் அனிமேஷன் கொண்ட உலகத்தரம் வாய்ந்த தளம்.">A world-class, 100% transparent portfolio website with water bubble animations and live themes.</p>
+                    <div class="tech-stack"><span>HTML</span><span>CSS</span><span>JS</span></div>
+                    <div class="project-links">
+                        <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="water-btn"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">Code</span></a>
+                        <a href="https://anbarasanp142007-coder.github.io/My-website/" target="_blank" class="water-btn"><i class="fas fa-external-link-alt"></i> <span data-en="Live" data-ta="லைவ்">Live</span></a>
+                    </div>
+                </div>
+
+                <div class="glass-card project-card">
+                    <div class="project-img"><i class="fas fa-robot"></i></div>
+                    <h3 data-en="Python Automation Suite" data-ta="பைதான் ஆட்டோமேஷன்">Python Automation Suite</h3>
+                    <p data-en="Automated scripts for data extraction, file handling, and repetitive task management." data-ta="தரவு செயலாக்கம் மற்றும் கோப்பு கையாளுதலுக்கான ஆட்டோமேஷன் ஸ்கிரிப்ட்கள்.">Automated scripts for data extraction, file handling, and repetitive task management.</p>
+                    <div class="tech-stack"><span>Python</span><span>Automation</span></div>
+                    <div class="project-links">
+                        <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="water-btn" style="width: 100%;"><i class="fab fa-github"></i> <span data-en="View Source Code" data-ta="சோர்ஸ் கோடு">View Source Code</span></a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 5. Contact Section -->
+        <section id="contact" data-aos="fade-up">
+            <h2 class="section-title"><span data-en="Get In" data-ta="தொடர்பு">Get In</span> <span style="color:var(--text-main)" data-en="Touch" data-ta="கொள்க">Touch</span></h2>
+            <div class="glass-card contact-grid">
+                
+                <div class="contact-info">
+                    <p data-en="Feel free to reach out for collaborations, project inquiries, or just to say hi! Connect with my official profiles below." data-ta="புதிய திட்டங்கள் அல்லது வேலைவாய்ப்புகளுக்கு என்னை தாராளமாக தொடர்பு கொள்ளலாம். கீழே உள்ள எனது சமூக வலைத்தளங்களைப் பார்க்கவும்.">
+                        Feel free to reach out for collaborations, project inquiries, or just to say hi! Connect with my official profiles below.
+                    </p>
+                    <div class="social-list">
+                        <!-- Corrected Profiles Linked -->
+                        <a href="https://github.com/anbarasanp142007-coder" target="_blank"><i class="fab fa-github"></i> github.com/anbarasanp142007-coder</a>
+                        <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank"><i class="fab fa-linkedin-in"></i> linkedin.com/in/anbarasanp14978</a>
+                        <a href="mailto:anbarasanp142007@gmail.com"><i class="fas fa-envelope"></i> anbarasanp142007@gmail.com</a>
+                    </div>
+                
