@@ -1,193 +1,206 @@
 <!DOCTYPE html>
-<html lang="ta" data-theme="light">
+<html lang="ta" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anbarasan P | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Anbarasan P | CS Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ================= 90% TRANSPARENT COLORFUL THEME ================= */
+        /* ================= THEME VARIABLES (95% Transparent) ================= */
         :root {
-            --bg-color: #f4f9fc;
-            --dot-color: rgba(0, 0, 0, 0.1);
-            /* 90% Transparent Cards (0.1 Opacity) */
-            --card-bg: rgba(255, 255, 255, 0.1); 
-            --card-border: rgba(255, 255, 255, 0.4);
-            --text-main: #111827;
-            --text-muted: #4b5563;
-            --accent-blue: #0ea5e9;
-            --bottom-bar-bg: rgba(255, 255, 255, 0.4);
-            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --skill-bg: rgba(255, 255, 255, 0.2);
+            --bg-overlay: rgba(5, 8, 15, 0.85); /* Dark overlay for readability */
+            --card-bg: rgba(255, 255, 255, 0.05); /* 95% Transparent */
+            --card-border: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
             
-            /* Colorful Background Orbs */
-            --orb-1: #ff9a9e;
-            --orb-2: #fecfef;
-            --orb-3: #a1c4fd;
+            /* Section Specific Colors */
+            --c-blue: #0ea5e9;
+            --c-purple: #a855f7;
+            --c-orange: #f97316;
+            --c-green: #10b981;
+            --c-red: #ef4444;
         }
 
-        [data-theme="dark"] {
-            --bg-color: #0f172a;
-            --dot-color: rgba(255, 255, 255, 0.1);
-            /* 90% Transparent Cards (0.1 Opacity) */
-            --card-bg: rgba(15, 23, 42, 0.1);
-            --card-border: rgba(255, 255, 255, 0.15);
-            --text-main: #f8fafc;
-            --text-muted: #cbd5e1;
-            --accent-blue: #38bdf8;
-            --bottom-bar-bg: rgba(15, 23, 42, 0.4);
-            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
-            --skill-bg: rgba(0, 0, 0, 0.2);
-            
-            /* Colorful Background Orbs */
-            --orb-1: #4a00e0;
-            --orb-2: #8e2de2;
-            --orb-3: #00c6ff;
+        [data-theme="light"] {
+            --bg-overlay: rgba(240, 244, 248, 0.85);
+            --card-bg: rgba(0, 0, 0, 0.03); /* 95% Transparent */
+            --card-border: rgba(0, 0, 0, 0.1);
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
 
+        /* Computer Science Roadmap Background */
         body {
-            background-color: var(--bg-color);
+            background-color: #0f172a;
             color: var(--text-main);
             overflow-x: hidden;
-            transition: background 0.3s, color 0.3s;
+            transition: color 0.3s;
             padding: 20px;
             padding-bottom: 120px;
         }
 
-        /* Colorful Animated Background */
-        .color-bg {
+        .cs-background {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
-            background: radial-gradient(circle at 10% 20%, var(--orb-1) 0%, transparent 40%),
-                        radial-gradient(circle at 90% 80%, var(--orb-2) 0%, transparent 40%),
-                        radial-gradient(circle at 50% 50%, var(--orb-3) 0%, transparent 50%);
-            filter: blur(60px); opacity: 0.6;
-            animation: colorshift 10s infinite alternate ease-in-out;
+            background-image: url('[attachment_0](attachment)');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
-        @keyframes colorshift { 100% { transform: scale(1.2) rotate(10deg); } }
-
-        /* Dotted Pattern Overlay */
-        .dots-overlay {
+        
+        /* Dark/Light Overlay for readability */
+        .bg-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
-            background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
-            background-size: 25px 25px;
+            background: var(--bg-overlay);
+            transition: background 0.3s;
         }
 
-        .container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        .container { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
 
-        /* ================= 90% TRANSPARENT CARD ================= */
+        /* ================= 95% TRANSPARENT GLASS CARD ================= */
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(15px); /* Keeps text readable while background is highly transparent */
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 24px;
+            border-radius: 20px;
+            padding: 30px;
             box-shadow: var(--shadow-lg);
-            transition: 0.3s;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
-        .card-header { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 700; margin-bottom: 24px; }
-        .card-header i { color: var(--accent-blue); background: var(--skill-bg); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 1px solid var(--card-border); }
+        .card-header { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+        .card-header i { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; border: 1px solid var(--card-border); background: var(--card-bg); }
 
-        /* ================= PROFILE & "A" AVATAR ================= */
+        /* ================= SECTION SPECIFIC COLORS ================= */
+        /* 1. Home/Profile (Blue) */
+        .sec-home:hover { border-color: var(--c-blue); }
+        .sec-home .card-header i { color: var(--c-blue); border-color: var(--c-blue); }
+        .sec-home .accent-text { color: var(--c-blue); }
+        .sec-home .pill-btn:hover { background: var(--c-blue); color: #fff; border-color: var(--c-blue); }
+
+        /* 2. About (Purple) */
+        .sec-about:hover { border-color: var(--c-purple); }
+        .sec-about .card-header i { color: var(--c-purple); border-color: var(--c-purple); }
+        .sec-about .accent-text { color: var(--c-purple); }
+
+        /* 3. Skills (Orange) */
+        .sec-skills:hover { border-color: var(--c-orange); }
+        .sec-skills .card-header i { color: var(--c-orange); border-color: var(--c-orange); }
+        .sec-skills .skill-item:hover { border-color: var(--c-orange); transform: translateY(-5px); }
+        
+        /* 4. Projects (Green) */
+        .sec-projects:hover { border-color: var(--c-green); }
+        .sec-projects .card-header i { color: var(--c-green); border-color: var(--c-green); }
+        .sec-projects .project-item:hover { border-color: var(--c-green); transform: scale(1.02); }
+        .sec-projects .proj-link { color: var(--c-green); }
+
+        /* 5. Contact (Red) */
+        .sec-contact:hover { border-color: var(--c-red); }
+        .sec-contact .card-header i { color: var(--c-red); border-color: var(--c-red); }
+        .sec-contact .submit-btn { background: var(--card-bg); border: 1px solid var(--c-red); color: var(--text-main); }
+        .sec-contact .submit-btn:hover { background: var(--c-red); color: #fff; }
+        .sec-contact .form-input:focus { border-color: var(--c-red); }
+
+        /* ================= PROFILE & AVATAR ================= */
         .profile-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
-        
         .avatar-a {
-            width: 120px; height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            width: 130px; height: 130px; border-radius: 50%;
+            background: rgba(14, 165, 233, 0.2);
+            border: 3px solid var(--c-blue);
             display: flex; align-items: center; justify-content: center;
-            font-size: 60px; font-weight: 800; color: #ffffff;
-            margin-bottom: 16px;
-            box-shadow: 0 10px 20px rgba(0, 198, 255, 0.4);
-            border: 3px solid var(--card-border);
-            text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+            font-size: 65px; font-weight: 800; color: var(--text-main);
+            margin-bottom: 20px; box-shadow: 0 0 25px rgba(14, 165, 233, 0.4);
+            text-shadow: 0 0 10px var(--c-blue);
         }
-
-        .profile-name { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
-        .profile-title { font-size: 14px; font-weight: 600; color: var(--accent-blue); margin-bottom: 12px; }
-        .profile-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; max-width: 450px; }
+        .profile-name { font-size: 26px; font-weight: 700; margin-bottom: 5px; }
+        .profile-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 25px; max-width: 500px; line-height: 1.8; }
         
-        .pill-btn-group { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+        .pill-btn-group { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
         .pill-btn {
-            background: var(--skill-bg); border: 1px solid var(--card-border); color: var(--text-main);
-            padding: 10px 20px; border-radius: 25px; font-size: 13px; font-weight: 600; text-decoration: none;
-            display: flex; align-items: center; gap: 8px; transition: 0.2s; cursor: pointer;
+            background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);
+            padding: 10px 22px; border-radius: 30px; font-size: 13px; font-weight: 600; text-decoration: none;
+            display: flex; align-items: center; gap: 8px; transition: 0.3s; cursor: pointer;
         }
-        .pill-btn:hover { background: var(--accent-blue); color: #fff; transform: translateY(-2px); }
 
-        /* ================= COLORFUL SKILLS ================= */
+        /* ================= SKILLS GRID ================= */
         .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
         .skill-item {
-            background: var(--skill-bg); border: 1px solid var(--card-border); border-radius: 16px;
-            padding: 20px 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;
-            transition: 0.2s;
+            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px;
+            padding: 20px 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: 0.3s;
         }
-        .skill-item:hover { transform: translateY(-5px); background: var(--card-bg); }
-        .skill-item i { font-size: 32px; }
+        .skill-item i { font-size: 35px; }
         .skill-item span { font-size: 13px; font-weight: 600; }
+        @media (max-width: 500px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
 
-        @media (max-width: 400px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
+        /* ================= PROJECTS GRID ================= */
+        .project-list { display: flex; flex-direction: column; gap: 20px; }
+        .project-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; transition: 0.3s; }
+        .project-title { font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .project-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px; }
+        .project-links { display: flex; gap: 20px; }
+        .project-links a { font-size: 13px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
+        .project-links a:hover { opacity: 0.7; }
 
-        /* ================= PROJECTS ================= */
-        .project-list { display: flex; flex-direction: column; gap: 16px; }
-        .project-item { background: var(--skill-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 8px; transition: 0.2s; }
-        .project-item:hover { transform: scale(1.02); }
-        .project-title { font-size: 16px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
-        .project-desc { font-size: 13px; color: var(--text-muted); }
-        .project-links { display: flex; gap: 15px; margin-top: 10px; }
-        .project-links a { font-size: 13px; color: var(--accent-blue); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 5px; }
-
-        /* ================= CONTACT ================= */
+        /* ================= CONTACT FORM ================= */
         .contact-form { display: flex; flex-direction: column; gap: 15px; }
         .form-input {
-            width: 100%; background: var(--skill-bg); border: 1px solid var(--card-border);
-            padding: 15px; border-radius: 12px; color: var(--text-main); font-size: 14px; outline: none; transition: 0.2s;
+            width: 100%; background: var(--card-bg); border: 1px solid var(--card-border);
+            padding: 16px; border-radius: 12px; color: var(--text-main); font-size: 14px; outline: none; transition: 0.3s;
         }
-        .form-input:focus { border-color: var(--accent-blue); background: var(--card-bg); }
-        textarea.form-input { height: 110px; resize: none; }
-        .submit-btn { background: var(--accent-blue); color: #fff; border: none; padding: 15px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        textarea.form-input { height: 120px; resize: none; }
+        .submit-btn { padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; }
 
-        /* ================= BOTTOM BAR & AI CHATBOT ================= */
+        /* ================= BOTTOM BAR ================= */
         .bottom-bar {
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            background: var(--bottom-bar-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            background: var(--card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--card-border); border-radius: 40px;
-            display: flex; align-items: center; gap: 15px; padding: 12px 25px; box-shadow: var(--shadow-lg); z-index: 1000;
+            display: flex; align-items: center; gap: 20px; padding: 10px 25px; box-shadow: var(--shadow-lg); z-index: 1000;
         }
-
         .bar-icon {
-            width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; color: var(--text-main); font-size: 18px; text-decoration: none; border: none; background: transparent; cursor: pointer; transition: 0.3s; font-weight: 700;
+            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; color: var(--text-main); font-size: 20px; text-decoration: none; border: none; background: transparent; cursor: pointer; transition: 0.3s; font-weight: 700;
         }
-        .bar-icon:hover, .bar-icon.active { background: var(--accent-blue); color: #ffffff; }
+        .bar-icon:hover { background: var(--c-blue); color: #fff; }
 
-        /* AI Chatbot Button (Right Side) */
+        /* ================= WORKING AI CHATBOT ================= */
         .ai-chatbot-btn {
-            position: fixed; bottom: 25px; right: 25px;
-            width: 60px; height: 60px; border-radius: 50%;
-            background: linear-gradient(135deg, #ff007a, #7000ff);
-            color: white; font-size: 28px; border: none;
+            position: fixed; bottom: 25px; right: 25px; /* ALIGNED WITH BOTTOM BAR */
+            width: 65px; height: 65px; border-radius: 50%;
+            background: var(--card-bg); border: 2px solid var(--c-purple);
+            color: var(--c-purple); font-size: 30px;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 25px rgba(112, 0, 255, 0.4);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); backdrop-filter: blur(10px);
             cursor: pointer; z-index: 1000; transition: 0.3s;
         }
-        .ai-chatbot-btn:hover { transform: scale(1.1) rotate(5deg); }
+        .ai-chatbot-btn:hover { background: var(--c-purple); color: #fff; transform: scale(1.1); }
 
-        /* ================= MODALS (Resume & AI) ================= */
-        .modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(10px); }
-        .modal-content { width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; text-align: left; position: relative; padding: 40px 30px; }
-        .close-modal { position: absolute; top: 15px; right: 20px; background: transparent; border: none; color: var(--text-main); font-size: 24px; cursor: pointer; }
-        
-        /* Resume Design Inside Modal */
-        .resume-header { text-align: center; border-bottom: 2px solid var(--card-border); padding-bottom: 20px; margin-bottom: 20px; }
-        .resume-header h1 { font-size: 28px; color: var(--accent-blue); }
+        /* Modals */
+        .modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(5px); }
+        .modal-content { width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; text-align: left; position: relative; padding: 30px; }
+        .close-modal { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--text-main); font-size: 24px; cursor: pointer; }
+
+        /* Chat UI */
+        .chat-container { display: flex; flex-direction: column; height: 400px; }
+        .chat-log { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-bottom: 20px; }
+        .chat-msg { max-width: 80%; padding: 12px 16px; border-radius: 15px; font-size: 14px; line-height: 1.5; }
+        .bot-msg { background: rgba(168, 85, 247, 0.2); border: 1px solid var(--c-purple); align-self: flex-start; border-bottom-left-radius: 0; }
+        .user-msg { background: rgba(14, 165, 233, 0.2); border: 1px solid var(--c-blue); align-self: flex-end; border-bottom-right-radius: 0; }
+        .chat-input-area { display: flex; gap: 10px; border-top: 1px solid var(--card-border); padding-top: 15px; }
+        .chat-input { flex: 1; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 12px; border-radius: 10px; outline: none; }
+        .chat-send { background: var(--c-purple); color: #fff; border: none; padding: 0 20px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+
+        /* Resume Content */
         .resume-section { margin-bottom: 20px; }
-        .resume-section h3 { font-size: 18px; margin-bottom: 10px; border-left: 4px solid var(--accent-blue); padding-left: 10px; }
+        .resume-section h3 { font-size: 18px; margin-bottom: 10px; border-left: 4px solid var(--c-blue); padding-left: 10px; color: var(--c-blue); }
         .resume-section ul { padding-left: 20px; font-size: 14px; color: var(--text-muted); line-height: 1.8; }
         
         @media (max-width: 768px) {
@@ -197,86 +210,96 @@
 </head>
 <body>
 
-    <!-- Colorful Backgrounds -->
-    <div class="color-bg"></div>
-    <div class="dots-overlay"></div>
+    <!-- Dynamic CS Roadmap Background -->
+    <div class="cs-background"></div>
+    <div class="bg-overlay"></div>
 
     <div class="container" id="home">
         
-        <!-- 1. PROFILE SECTION with "A" Avatar -->
-        <div class="glass-card">
+        <!-- 1. PROFILE SECTION (BLUE) -->
+        <div class="glass-card sec-home">
             <div class="card-header">
-                <i class="fas fa-user"></i> <span data-en="Profile" data-ta="சுயவிவரம்">சுயவிவரம்</span>
+                <i class="fas fa-user-astronaut"></i> <span data-en="Profile" data-ta="சுயவிவரம்">சுயவிவரம்</span>
             </div>
             <div class="profile-content">
                 <div class="avatar-a">A</div>
                 <h1 class="profile-name" data-en="Anbarasan P" data-ta="அன்பரசன் P">அன்பரசன் P</h1>
-                <p class="profile-title" data-en="Computer Science Student | Software Engineer" data-ta="கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்">கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்</p>
-                <p class="profile-desc" data-en="Passionate developer building next-gen web experiences and exploring AI technologies." data-ta="நவீன வலைத்தளங்களை உருவாக்குவதிலும், AI தொழில்நுட்பங்களைக் கற்பதிலும் ஆர்வமுள்ள டெவலப்பர்.">
+                <p class="profile-desc accent-text" style="font-weight:600; font-size:16px;" data-en="Computer Science Student | Software Engineer" data-ta="கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்">கணினி அறிவியல் மாணவர் | மென்பொருள் பொறியாளர்</p>
+                <p class="profile-desc" data-en="Passionate developer building next-gen web experiences, algorithms, and exploring AI technologies seamlessly." data-ta="நவீன வலைத்தளங்களை உருவாக்குவதிலும், AI தொழில்நுட்பங்களைக் கற்பதிலும் ஆர்வமுள்ள டெவலப்பர்.">
                     நவீன வலைத்தளங்களை உருவாக்குவதிலும், AI தொழில்நுட்பங்களைக் கற்பதிலும் ஆர்வமுள்ள டெவலப்பர்.
                 </p>
                 
                 <div class="pill-btn-group">
                     <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="pill-btn"><i class="fab fa-github"></i> GitHub</a>
                     <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="pill-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-                    <!-- Opens Resume Modal -->
-                    <button class="pill-btn" id="open-resume"><i class="fas fa-file-alt"></i> <span data-en="View Resume" data-ta="ரெஸ்யூம்">ரெஸ்யூம்</span></button>
+                    <!-- FIXED: Added correct ID for Modal Event -->
+                    <button class="pill-btn" id="open-resume-btn"><i class="fas fa-file-pdf"></i> <span data-en="Resume" data-ta="ரெஸ்யூம்">ரெஸ்யூம்</span></button>
                 </div>
             </div>
         </div>
 
-        <!-- 2. COLORFUL SKILLS SECTION -->
-        <div class="glass-card" id="skills">
+        <!-- 2. ABOUT ME (PURPLE) -->
+        <div class="glass-card sec-about" id="about">
+            <div class="card-header">
+                <i class="fas fa-address-card"></i> <span data-en="About Me" data-ta="என்னைப்பற்றி">என்னைப்பற்றி</span>
+            </div>
+            <p style="font-size: 14px; line-height: 1.8; color: var(--text-muted); text-align: center;" data-en="I am a Computer Science student passionate about Web Development, AI, and building modern, responsive websites. I enjoy learning new technologies and creating user-friendly web applications."
+               data-ta="நான் வலைத்தள மேம்பாடு, AI மற்றும் நவீன வலைத்தளங்களை உருவாக்குவதில் ஆர்வமுள்ள ஒரு கணினி அறிவியல் மாணவன். புதிய தொழில்நுட்பங்களைக் கற்றுக்கொள்வதிலும், சிறந்த வலைத்தளங்களை வடிவமைப்பதிலும் எனக்கு அதிக ஆர்வம் உள்ளது.">
+                நான் வலைத்தள மேம்பாடு, AI மற்றும் நவீன வலைத்தளங்களை உருவாக்குவதில் ஆர்வமுள்ள ஒரு கணினி அறிவியல் மாணவன். புதிய தொழில்நுட்பங்களைக் கற்றுக்கொள்வதிலும், சிறந்த வலைத்தளங்களை வடிவமைப்பதிலும் எனக்கு அதிக ஆர்வம் உள்ளது.
+            </p>
+        </div>
+
+        <!-- 3. SKILLS SECTION (ORANGE) -->
+        <div class="glass-card sec-skills" id="skills">
             <div class="card-header">
                 <i class="fas fa-code"></i> <span data-en="Technical Skills" data-ta="தொழில்நுட்ப திறன்கள்">தொழில்நுட்ப திறன்கள்</span>
             </div>
             <div class="skills-grid">
-                <!-- Original Logo Colors Applied -->
-                <div class="skill-item"><i class="fas fa-file-code" style="color: #00599C;"></i><span>C++</span></div>
-                <div class="skill-item"><i class="fas fa-copyright" style="color: #27338e;"></i><span>C</span></div>
+                <div class="skill-item"><i class="fas fa-file-code" style="color: #00599C;"></i><span>C++ & C</span></div>
                 <div class="skill-item"><i class="fab fa-java" style="color: #f89820;"></i><span>Java</span></div>
                 <div class="skill-item"><i class="fab fa-python" style="color: #3776AB;"></i><span>Python</span></div>
                 <div class="skill-item"><i class="fab fa-html5" style="color: #E34F26;"></i><span>HTML/CSS</span></div>
+                <div class="skill-item"><i class="fab fa-js" style="color: #F7DF1E;"></i><span>JavaScript</span></div>
                 <div class="skill-item"><i class="fab fa-git-alt" style="color: #F05032;"></i><span>Git</span></div>
             </div>
         </div>
 
-        <!-- 3. PROJECTS SECTION -->
-        <div class="glass-card" id="projects">
+        <!-- 4. PROJECTS SECTION (GREEN) -->
+        <div class="glass-card sec-projects" id="projects">
             <div class="card-header">
                 <i class="fas fa-layer-group"></i> <span data-en="Projects" data-ta="படைப்புகள்">படைப்புகள்</span>
             </div>
             <div class="project-list">
                 
                 <div class="project-item">
-                    <div class="project-title"><span data-en="Liquid Glass Portfolio" data-ta="நவீன போர்ட்ஃபோலியோ">நவீன போர்ட்ஃபோலியோ</span> <i class="fab fa-html5" style="color:#E34F26"></i></div>
-                    <div class="project-desc" data-en="90% transparent colorful UI design for personal portfolio." data-ta="90% வெளிப்படையான வண்ணமயமான போர்ட்ஃபோலியோ தளம்.">90% வெளிப்படையான வண்ணமயமான போர்ட்ஃபோலியோ தளம்.</div>
-                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> Code</a> <a href="#" target="_blank"><i class="fas fa-play"></i> Live</a></div>
+                    <div class="project-title"><span data-en="CS Transparent Portfolio" data-ta="நவீன போர்ட்ஃபோலியோ">நவீன போர்ட்ஃபோலியோ</span> <i class="fab fa-html5" style="color:#E34F26"></i></div>
+                    <div class="project-desc" data-en="95% transparent colorful UI design matching CS roadmap aesthetics." data-ta="95% வெளிப்படையான வண்ணமயமான போர்ட்ஃபோலியோ தளம்.">95% வெளிப்படையான வண்ணமயமான போர்ட்ஃபோலியோ தளம்.</div>
+                    <div class="project-links"><a href="#" target="_blank" class="proj-link"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
                 </div>
 
                 <div class="project-item">
                     <div class="project-title"><span data-en="Python Automation" data-ta="பைதான் ஆட்டோமேஷன்">பைதான் ஆட்டோமேஷன்</span> <i class="fab fa-python" style="color:#3776AB"></i></div>
                     <div class="project-desc" data-en="Data processing and system management applications." data-ta="தரவு பகுப்பாய்வு மற்றும் கணினி மேலாண்மை.">தரவு பகுப்பாய்வு மற்றும் கணினி மேலாண்மை.</div>
-                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> Code</a></div>
+                    <div class="project-links"><a href="#" target="_blank" class="proj-link"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
                 </div>
 
                 <div class="project-item">
                     <div class="project-title"><span data-en="Weather Dashboard" data-ta="வானிலை செயலி">வானிலை செயலி</span> <i class="fas fa-cloud-sun" style="color:#f89820"></i></div>
                     <div class="project-desc" data-en="Real-time weather app fetching data via API." data-ta="API மூலம் தகவல்களைப் பெறும் நிகழ்நேர வானிலை செயலி.">API மூலம் தகவல்களைப் பெறும் நிகழ்நேர வானிலை செயலி.</div>
-                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> Code</a></div>
+                    <div class="project-links"><a href="#" target="_blank" class="proj-link"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
                 </div>
                 
                 <div class="project-item">
                     <div class="project-title"><span data-en="AI Chat Interface" data-ta="AI சாட் செயலி">AI சாட் செயலி</span> <i class="fas fa-robot" style="color:#8e2de2"></i></div>
                     <div class="project-desc" data-en="Conversational UI simulating AI responses." data-ta="AI மூலம் இயங்கும் உரையாடல் இடைமுகம்.">AI மூலம் இயங்கும் உரையாடல் இடைமுகம்.</div>
-                    <div class="project-links"><a href="#" target="_blank"><i class="fab fa-github"></i> Code</a></div>
+                    <div class="project-links"><a href="#" target="_blank" class="proj-link"><i class="fab fa-github"></i> <span data-en="Code" data-ta="கோடு">கோடு</span></a></div>
                 </div>
 
             </div>
         </div>
 
-        <!-- 4. CONTACT SECTION -->
-        <div class="glass-card" id="contact">
+        <!-- 5. CONTACT SECTION (RED) -->
+        <div class="glass-card sec-contact" id="contact">
             <div class="card-header">
                 <i class="fas fa-paper-plane"></i> <span data-en="Get in Touch" data-ta="தொடர்பு கொள்க">தொடர்பு கொள்க</span>
             </div>
@@ -285,53 +308,4 @@
                 <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
                 <input type="text" name="name" data-en-placeholder="Your Name" data-ta-placeholder="உங்கள் பெயர்" placeholder="உங்கள் பெயர்" required class="form-input">
                 <input type="email" name="email" data-en-placeholder="Your Email" data-ta-placeholder="உங்கள் மின்னஞ்சல்" placeholder="உங்கள் மின்னஞ்சல்" required class="form-input">
-                <textarea name="message" data-en-placeholder="Your Message..." data-ta-placeholder="உங்கள் செய்தி..." placeholder="உங்கள் செய்தி..." required class="form-input"></textarea>
-                <button type="submit" class="submit-btn"><span data-en="Send Message" data-ta="செய்தி அனுப்பு">செய்தி அனுப்பு</span></button>
-            </form>
-        </div>
-
-    </div>
-
-    <!-- ================= BOTTOM BAR ================= -->
-    <nav class="bottom-bar">
-        <a href="#home" class="bar-icon active" title="Home"><i class="fas fa-home"></i></a>
-        <a href="https://github.com/anbarasanp142007-coder" target="_blank" class="bar-icon" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/anbarasanp14978" target="_blank" class="bar-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <button id="theme-btn" class="bar-icon" title="Toggle Theme"><i class="fas fa-moon"></i></button>
-        <button id="lang-btn" class="bar-icon" title="Switch Language" style="font-size: 14px;">EN</button>
-    </nav>
-
-    <!-- ================= AI CHATBOT BUTTON (Right Side) ================= -->
-    <button class="ai-chatbot-btn" id="open-ai" title="AI Assistant">
-        <i class="fas fa-comment-dots"></i>
-    </button>
-
-    <!-- ================= RESUME MODAL ================= -->
-    <div id="resume-modal" class="modal">
-        <div class="glass-card modal-content">
-            <button class="close-modal" id="close-resume"><i class="fas fa-times"></i></button>
-            
-            <div class="resume-header">
-                <h1>Anbarasan P</h1>
-                <p>Computer Science Student | Front-End Developer</p>
-                <p style="font-size: 12px; margin-top: 5px;"><i class="fas fa-envelope"></i> anbarasanp142007@gmail.com | <i class="fab fa-github"></i> github.com/anbarasanp142007-coder</p>
-            </div>
-            
-            <div class="resume-section">
-                <h3><i class="fas fa-graduation-cap"></i> Education</h3>
-                <ul>
-                    <li><b>Bachelor of Computer Science</b> <br> Currently pursuing, focusing on software engineering and web technologies.</li>
-                </ul>
-            </div>
-
-            <div class="resume-section">
-                <h3><i class="fas fa-laptop-code"></i> Technical Skills</h3>
-                <ul>
-                    <li><b>Languages:</b> C, C++, Java, Python</li>
-                    <li><b>Web Technologies:</b> HTML, CSS, JavaScript</li>
-                    <li><b>Tools & Version Control:</b> Git, GitHub, VS Code</li>
-                </ul>
-            </div>
-
-            <div class="resume-section">
-       
+                <te
